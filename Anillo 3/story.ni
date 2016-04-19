@@ -1,4 +1,4 @@
-"Anillo III - Original" by Johan Paz
+"Anillo III - Original" by Johan Paz (in spanish)
 
 [==============================
 
@@ -44,9 +44,7 @@
 
 ==============================]
 
-Include Spanish by Sebastian Arg.
 Include Decorations by Johan Paz.
-Include Basic Screen Effects SP by Emily Short.
 Include Patrollers Sp by Michael Callaghan.
 Include Glulx Entry Points by Emily Short.
 Include Simple Graphical Window by Emily Short.
@@ -54,14 +52,13 @@ Include Glulx Boxed Quotation by Eliuk Blau.
 Include Multiple Sounds by Massimo Stella.
 Include Aki Basic by Johan Paz.
 
-
 Use full-length room descriptions.
 Use no scoring.
 Use boxed quotation without frame.
 Use fast route-finding.
 Use MAX_STATIC_DATA of 700000.
 Use undo prevention.
-Release along with cover art, a website, the source text.
+Release along with cover art, a website, the source text,[ a file of "introduccion" called "intro.pdf" and ]an interpreter.
 
 [==============================
 
@@ -70,8 +67,8 @@ Release along with cover art, a website, the source text.
 ==============================]
 The story headline is "El final de la saga del Anillo".
 The story genre is "Tragicomedia/Fantasía".
-The release number is 2.
-The story description is "Tras mucho vagar por el mundo sin poder caminar, finalmente Uudrum alcanza su destino, las cercanías de la fortaleza del nigromante Sady Omú. Sus penurias pueden estar cercanas a terminar, pero los peligros del pantano de [o]Hapawa[x] se interponen entre él y un final... féliz.
+The release number is 3.
+The story description is "Tras mucho vagar por el mundo sin poder caminar, finalmente Uudrum alcanza su destino, las cercanías de la fortaleza del nigromante Sady Omú. Sus penurias pueden estar cercanas a terminar, pero los peligros del pantano de Hapawa se interponen entre él y un final... féliz.
 
 Un dragón puede soportar la reducción de la inmovilidad algún tiempo, especialmente si se trata de un anciano y sabio dragón, pero Uudrum es un joven vigoroso y... algo impaciente. Ya basta, ya está más que harto de toda esta situación y desde luego no va a desaprovechar ninguna oportunidad para librarse de la maldición.
 
@@ -170,6 +167,13 @@ Sound of aleteo is the file "aleteo.ogg".
 Sound of machete is the file "machete.ogg".
 Sound of aullido is the file "aullido.ogg".
 Sound of grulobo is the file "grulobo.ogg".
+Sound of fail is the file "fracaso.ogg".
+
+[ Valor nulo]
+Figure of Nada is the file "pantini.png".
+
+[ Oscuridad    ]
+Figure of Darkness is the file "darkness.png".
 
 [ Pantano inicial ]
 Figure of Pantano Inicial is the file "pantini.png".
@@ -181,32 +185,97 @@ Figure of Pantano3 is the file "pant3.png".
 Figure of Pantano4 is the file "pant4.png".
 Figure of Pantano5 is the file "pant5.png".
 Figure of Pantano6 is the file "pant6.png".
+Figure of Pantano7 is the file "pant7.png".
+Figure of Torreon is the file "torreon.png".
+Figure of Lenadores is the file "lenadores.png".
+Figure of Spider is the file "spider.png".
+Figure of Huerta is the file "huerta.png".
+Figure of Frozen is the file "frozen.png".
+
+[ Castillo ]
+Figure of Castillo is the file "castillo.png".
+
+[ Cuevas aleatorios  ]
+Figure of Cuevas1 is the file "cueva1.png".
+Figure of Cuevas2 is the file "cueva2.png".
+Figure of Cuevas3 is the file "cueva3.png".
+Figure of Cuevas4 is the file "cueva4.png".
+
+[ Campamento orco ]
+Figure of Orc Camp is the file "orc-camp.png".
+Figure of Tree Cage is the file "tree-cage.png".
+Figure of TopTree is the file "toptree.png".
+
+[ Túmulo ]
+Figure of Tumulo is the file "tumulo1.png".
+Figure of In Tumulo is the file "int-tumulo.png".
+
+[ Entrada a las cuevas ]
+Figure of Entrada a Cuevas is the file "ent-cuevas.png".
+Figure of Inicio Cuevas is the file "cave-entrance.png".
+
+[ Lava ]
+Figure of Next Lava is the file "next-lava.png".
+Figure of Lava Caliente is the file "lava-caliente.png".
+Figure of Lava Fria is the file "lava-fria.png".
+
+[ Tesoro ]
+Figure of Tesoro Sin is the file "tesoro-sin.png".
+Figure of Tesoro Con is the file "tesoro-con.png".
+
+[ Final ]
+Figure of Final is the file "final.png".
+
+[ Trono ]
+Figure of Trono is the file "bone-throne.png".
+
+[ Éxito ]
+Figure of Success is the file "success.png".
 
 Section 1 - Tabla de mapeo de figuras
 
 Table of Figures on the Swamp
-figure
 Figure of Pantano1
 Figure of Pantano2
 Figure of Pantano3
 Figure of Pantano4
 Figure of Pantano5
+Figure of Pantano6
+Figure of Pantano7
 
 Section 2 - Figuras en el movimiento
 
-First after going to somewhere in Pantano:
-	if location is not Pantano14:
+To image (fig - a figure name):
+	now currently shown picture is fig;
+	follow the current graphics drawing rule.	
+	
+To current image:
+	if in darkness:
+		image Figure of Darkness;	
+	otherwise if the default picture of the location is not Figure of Nada:
+		image default picture of the location;		
+	otherwise if location is in Pantano:
 		choose row with num of selected description of location in the Table of descripciones de pantano;
-		change currently shown picture to imagen entry;
-		follow the current graphics drawing rule;
-	otherwise:
-		change currently shown picture to Figure of Pantano Inicial;
-		follow the current graphics drawing rule;
+		image imagen entry;
+	otherwise if location is Lava:
+		if Lava is congelada:
+			image Figure of Lava Fria;
+		otherwise:
+			image Figure of Lava Caliente;	
+	otherwise if location is Lugar_Oo_Drack:
+		image Figure of Tesoro Sin.
+
+First after going to somewhere:
+	current image;
+	continue the action.
+	
+Last after looking:
+	current image;
 	continue the action.
 
 Section 3 - Inicio
 
-The graphics background color is g-white.
+The graphics background color is "$FFFFFF".
 [The graphics window pixel count is 525.]
 The graphics window proportion is  40.
 
@@ -216,18 +285,12 @@ Graphics window position is g-right.
 
 Before looking when the location is Pantano14 for the first time:
 	now the current graphics drawing rule is the up right scaled drawing rule;
-	change currently shown picture to Figure of Pantano Inicial;
+	now currently shown picture is Figure of Pantano Inicial;
 	build graphics window;
 	follow the current graphics drawing rule.
 	
-[ TODO: debe depender de la posición de la cabeza ]
 Before looking more than once:
 	follow the current graphics drawing rule.
-
-[The very rule is listed before the image-setting rule  in the carry out looking rules. ]
-
-[This is the very rule:
- 	if the location is not illustrated:]
 		
 
 Chapter 2 - Cambios
@@ -247,7 +310,7 @@ A glulx sound notification rule (this is the Start-Game-Music rule):
 	[asumimos que has asignado el canal con anterioridad]
 	reponer banda sonora.
 
-A glulx object-updating rule (this is the Restore-Intro-Music rule):
+Last glulx object-updating rule (this is the Restore-Intro-Music rule):
 	if Musica-Intro-Sonando is true:
 		start musical introduction.
 
@@ -260,7 +323,7 @@ To activar sonidos ambientales:
 To desactivar sonidos ambientales:
 	temporizar cada 0 ms. [es decir, desactiva el timer]
 
-A glulx object-updating rule (this is the Restore-Sonidos-Ambientales rule):
+Last glulx object-updating rule (this is the Restore-Sonidos-Ambientales rule):
 	if Primera-Ejecucion is true: [esto solo se ejecuta 1 vez, antes de iniciar nada del juego]
 		now Primera-Ejecucion is false; [corrige la pifia de Windows Glulxe que te explique arriba!!]
 		stop; [importante: no se debe seguir ejecutando el resto de la regla!!]
@@ -269,12 +332,9 @@ A glulx object-updating rule (this is the Restore-Sonidos-Ambientales rule):
 	otherwise:
 		desactivar sonidos ambientales.
 
-[The Restore-Sonidos-Ambientales rule is listed after update sound-objects of Damusix rule in the glulx object-updating rules.
-
-The Restore-Intro-Music rule is listed after update sound-objects of Damusix rule in the glulx object-updating rules.]
-
 [ Poner lo adecuado cuando termine el inicial ]
 To reponer banda sonora:
+	now Musica-Intro-Sonando is false;
 	now Musica-Sonando is true;
 	if location is in Pantano:
 		play sound of pantano in foreground with loop;
@@ -285,12 +345,6 @@ To reponer banda sonora:
 
 Musica-Sonando is a truth state that varies. Musica-Sonando is false.
 Efectos-Sonando is a truth state that varies. Efectos-Sonando is false.
-
-To subir musica:	
-	set the foreground volume to 3.
-
-To bajar musica:
-	set the foreground volume to 2.
 	
 To cambiar estado efectos:
 	if Efectos-Sonando is true:
@@ -298,15 +352,11 @@ To cambiar estado efectos:
 		now Efectos-Sonando is false;
 		if location is in Pantano:
 			stop the background sound;
-		desactivar sonidos ambientales;
-		subir musica;
 	otherwise:
 		say "Activando efectos sonoros.";
 		now Efectos-Sonando is true;
 		if location is in Pantano and location is not Pantano23 and location is not Pantano24:
-			play sound of efectos in background with loop;
-		bajar musica;
-		activar sonidos ambientales.
+			play sound of efectos in background with loop.
 
 To cambiar estado musica:
 	if Musica-Sonando is true:
@@ -329,17 +379,18 @@ A glulx timed activity (this is the Gran Ambientador de Sonidos rule):
 			reponer banda sonora;
 		else:
 			increase tiempo musica inicial by 1;
-	if the location of lobo is adjacent to location and a random chance of 10 in 100 succeeds:
-		play the Sound of aullido in midground;
-	if lobo is visible and a random chance of 15 in 100 succeeds:
-		play the Sound of grulobo in midground;
-	if the location of deavork is adjacent to location and a random chance of 15 in 100 succeeds: 
-		play the Sound of grunido in midground;
-	if the deavork is visible and a random chance of 10 in 100 succeeds:
-		play the sound of aleteo in midground; 
-	if the location is in Cuevas:
-		if a random chance of 10 in 100 succeeds:
-			play sound of gota in midground.
+	if Efectos-Sonando is true:
+		if the location of lobo is adjacent to location and a random chance of 10 in 100 succeeds:
+			play the Sound of aullido in midground;
+		if lobo is visible and a random chance of 15 in 100 succeeds:
+			play the Sound of grulobo in midground;
+		if the location of deavork is adjacent to location and a random chance of 15 in 100 succeeds: 
+			play the Sound of grunido in midground;
+		if the deavork is visible and a random chance of 10 in 100 succeeds:
+			play the sound of aleteo in midground; 
+		if the location is in Cuevas:
+			if a random chance of 10 in 100 succeeds:
+				play sound of gota in midground.
 	
 
 [==============================
@@ -350,12 +401,98 @@ A glulx timed activity (this is the Gran Ambientador de Sonidos rule):
 
 Part 1 - Reglas generales modificadas
 
-Chapter 0 - Quitar textos tradicionales
+Chapter  0 - Nuevas clases de objeto
+
+Section 1 - Decorados y partes
+
+[--------------------------------------------------
+
+  Partes que son decoraciones
+
+--------------------------------------------------]
+
+Un partdecoration is a kind of thing.
+
+Instead of doing something except examining or metacommanding with a partdecoration when the noun is part of anything (called padre) (this is the actpart rule):
+	say "No tiene sentido intentar separar [the noun] [del padre], ¿a fin de cuentas para qué  quieres [the noun]?.". 
+
+
+Section 2 - NSE container
+
+[--------------------------------------------------
+
+   Contenedores que no muestran 
+   'vacio' cuando están vacíos.
+
+   Especialmente útil para que un
+   objeto que contiene cosas 
+   'ocultas' a descubrir por 'registro'.
+
+--------------------------------------------------]
+
+A NSE container is a kind of container.
+
+Before printing the name of a NSE container (called contenedor):
+	if there is nothing in the contenedor:
+		omit contents in listing.
+
+Definition: a NSE container is muyVacio if the number of things in it is 0 and it is not a bag of tricks.
+
+Instead of searching a muyVacio NSE container:
+	say "No encuentras nada en [el noun].".
+
+Section 3 - Bag of tricks
+
+[--------------------------------------------------
+
+   Contenedores en los que se 
+   puede rebuscar y encontrar cosas
+   más o menos aleatorias.
+
+--------------------------------------------------]
+
+A bag of tricks is a kind of NSE container. A bag of tricks has a list of objects called hidden objects. The hidden objects of a bag of tricks is usually {}.
+A bag of tricks has a text called nothing inside phrase. The nothing inside phrase of a bag of tricks is usually "Buscas un rato en [the noun] sin encontrar nada.".
+A bag of tricks has a text called found phrase. The found phrase of a bag of tricks is usually "Buscas un rato en [the noun] encontrando por sorpresa [a second noun].".
+A bag of tricks has a number called avisos. The avisos of a bag of tricks is usually 0.
+
+Instead of searching a bag of tricks:
+	let HO be the hidden objects of the noun;
+	let NHO be the number of entries in HO;
+	if NHO is 0:
+		say the nothing inside phrase of the noun;
+		say line break;
+	otherwise:
+		let longitud be the number of entries of HO;
+		let num be a random number from 1 to NHO;
+		let kosa be the entry num of HO;
+		now the second noun is kosa;
+		say the found phrase of the noun;
+		say line break;
+		if the noun is scenery or the noun is a backdrop:
+			move entry num of HO to the location;
+		otherwise:
+			move entry num of HO to the noun;
+		remove entry num from the hidden objects of the noun.
+
+[Pista sobre la existencia de la bolsa de trucos]
+Every turn when there is a bag of tricks (called bolsa) in the location and not in darkness:
+	let N be the number of entries in hidden objects of bolsa;
+	if N is not 0:
+		let MAX be 10;
+		increase MAX by avisos of bolsa;
+		if a random chance of N in MAX succeeds:
+			say "[one of]Por un momento te ha parecido ver algo en [the bolsa][or]Uhm... tu intuición te dice que tal vez haya algo en [the bolsa][or]Te ha parecido ver con el rabillo del ojo algo extraño en [the bolsa][or]La verdad es que [the bolsa] tiene[n the bolsa] algo extraño, tal vez habría que registrar[lo the bolsa] a fondo[at random].";
+			increase avisos of bolsa by 5.
+
+Chapter 1 - Quitar textos tradicionales
 
 Section 1 - Modificaciones para las localizaciones
 
 The room description heading rule is not listed in any rulebook.
 The AKI room description heading rule is not listed in any rulebook.
+
+A room has a figure name called default picture. The default picture of a room is usually Figure of Nada.
 
 Section 2 - Cambiar el banner inicial
 
@@ -363,31 +500,55 @@ Rule for printing the banner text: do nothing
 
 Section 3 - Textos no deseados de AKI
 
-
-[
 Table of Keyword Interface messages (amended)
 KI message				KI output 
 not-a-verb-I-recognise	"Piensas en cosas que no tienen sentido en estos momentos. Te enfadas contigo mismo. ¡Céntrate en tu misión!" 
-]
 
-Section 4 - Imprimiendo en AKI
 
-Rule for printing the name of a matched scenery:
-	say "[o][matched internal of matched scenery][x]".
+Section 4 - metacommanding de una localidad
 
-Chapter 1 - Utilidades o librerías integradas
+Instead of metacommanding an adjacent room (called deseo):
+	let way be the best route from the location to deseo;
+	say "Uhm... ese lugar... eso está justo hacia [the way].";
+	try going the way.
+	
+Instead of metacommanding an room:
+	say "Piensas cosas extrañas.".
+	
+Section 5 - Casos excepcionales
+
+Commanding manantial when manantial is examined:
+	if give-explanation is true:
+		say "(beber [del noun])";
+	try drinking fuente.
+	
+Commanding a wearable not worn examined thing (called llevado) carried by player:
+	if give-explanation is true:
+		say "(ponerse [the noun])";
+	try wearing noun.
+	
+Commanding a wearable examined thing (called llevado) worn by player:
+	if give-explanation is true:
+		say "(quitarse [the noun])";
+	try taking off noun.
+
+Chapter 2 - Utilidades o librerías integradas
 
 Section 0 - Cosas comunes a usar
 
+[Duracion]
+A thing has a number called duracion. The duracion of a thing is usually 0.
+
 [Substancias, al menos para considerar lo metálico ]
 
-Substancia is a kind of value. The substancias are metal, flint, green, meat, paper and irrelevante.
-A thing has a substancia called naturaleza. The naturaleza of a thing is usually irrelevante.
+Substance is a kind of value. 
+Substances are metal, flint, vegetable, meat, paper and irrelevant.
+A thing has a substance called naturaleza. The naturaleza of a thing is usually irrelevant.
 
 Definition: a thing is metalica if the naturaleza of it is metal.
 Definition: a thing is chisposa if the naturaleza of it is flint.
 Definition: a thing is carne if the naturaleza of it is meat.
-Definition: a thing is vegetal if the naturaleza of it is green.
+Definition: a thing is vegetal if the naturaleza of it is vegetable.
 Definition: a thing is papel if the naturaleza of it is paper.
 
 [Volumen]
@@ -432,7 +593,7 @@ Before taking a thing:
 	increase carga final by espacio de the noun;
 	let maxCarga be 235;
 	if the player is icalante or the player is yerk:
-		change maxCarga to 435;
+		now maxCarga is 435;
 	if carga final is greater than maxCarga:
 		if the player is carrying anything:
 			say "Tu portador ya lleva demasiadas cosas, tendrás que dejar algo antes de cargar con [the noun].";
@@ -462,6 +623,9 @@ To bnw: [break and wait]
 	[say paragraph break;]
 	wait for any key.
 
+To (pnj - a patroller) hace (text - a text):
+	if pnj is visible:
+		say text.
 
 Section 1 - Facilidad para mostrar partes no interactivas
 
@@ -478,16 +642,16 @@ To relatar fragmento en (tabla - a table-name), limpiando pantalla or limpiando 
 	if limpiando pantalla 
 	begin;
 		relatar fragmento en tabla;
-		esperar pulsacion de tecla;
+		wait for any key;
 		[simple fade out the sound of inicio to 40% over 1000 ms;]
-		limpiar pantalla;
+		clear the screen;
 	otherwise if limpiando pantalla tras cada frase;
 		let N be the number of rows in tabla;
 		repeat through tabla begin;
 			decrease N by 1;
 			say "[frase entry]";
-			esperar pulsacion de tecla;
-			limpiar pantalla;
+			wait for any key;
+			clear the screen;
 		end repeat;
 	otherwise;
 		let N be the number of rows in tabla;
@@ -495,7 +659,7 @@ To relatar fragmento en (tabla - a table-name), limpiando pantalla or limpiando 
 			decrease N by 1;
 			say "[frase entry]";
 			say paragraph break;
-			if N is not 0, esperar pulsacion de tecla;
+			if N is not 0, wait for any key;
 		end repeat;
 	end if.
 
@@ -517,9 +681,8 @@ Section 4 - 'Libreria' de conversaciones
 ConvTabla is a table-name that varies. ConvTabla is Table of NoConv.
 
 Table of NoConv
-numero		seleccion		respuesta			activado		activa		extra
-a number	a text			a text				a number	a list of numbers	a rule
-0		--			"ERROR Conversación"		--		--		--
+numero	seleccion		respuesta		activado	activa	extra				
+0	a text		"ERROR Conversación"		a number	a list of numbers	a rule
 
 To decide whether conversacion iniciada:
 	if ConvTabla is Table of NoConv:
@@ -564,7 +727,7 @@ Carry out selecting option:
 		quitar activados ConvTabla;
 		nuevas opciones para numero entry en ConvTabla;
 	otherwise:
-		change ConvTabla to Table of NoConv; [FIN]
+		now ConvTabla is Table of NoConv; [FIN]
 	follow extra entry.
 	
 
@@ -573,12 +736,12 @@ This is the fake rule:
 
 To quitar activados ( tabla - a table-name ):
 	repeat through tabla:
-		change activado entry to 0.
+		now activado entry is 0.
 
 To decir opciones activas en ( tabla - a table-name ):
 	repeat through tabla:
 		if activado entry is not 0:
-			say "[activado entry]) [seleccion entry][line break]".
+			say "[j][activado entry][x]) [seleccion entry][line break]".
 
 To nuevas opciones para ( num - a number) en ( tabla - a table-name):
 	choose row with numero of num in tabla;
@@ -589,12 +752,12 @@ To nuevas opciones para ( num - a number) en ( tabla - a table-name):
 	repeat with IND running through L:
 		increase C by 1;
 		choose row with numero of IND in tabla;
-		change activado entry to C;
-		say "[C]) [seleccion entry][line break]".
+		now activado entry is C;
+		say "[j][C][x]) [seleccion entry][line break]".
 
 To iniciar conversacion ( tabla - a table-name):
 	[ Marcamos que se inicia ]
-	change ConvTabla to tabla;
+	now ConvTabla is tabla;
 	quitar activados tabla;
 	[ Escogemos el nodo raíz ]
 	choose row with numero of 0 in tabla;
@@ -606,50 +769,77 @@ To iniciar conversacion ( tabla - a table-name):
 
 [Tabla ejemplo]
 Table of Conversacion Ejemplo
-numero		seleccion		respuesta			activado		activa		extra
-a number	a text			a text				a number	a list of numbers	a rule
-0 [inicial]	--			"'No molestes', dice."		1		{1, 2, 3}	the fake rule
-1		"Tengo que molestar."	"'Pesado', contesta."		0		{3}		the fake rule
-2		"Lo siento."		"'Ya, claro', dice."			0		{3, 4}		the fake rule
-3		"Imbecil."		"'Te vas a cagar', dice."		0		{9999}		the fake rule
-4		"En serio que lo siento."	"'No me lo creo', dice."		0		{3, 5}		the fake rule
-5		"Juro que lo siento."	"'Y yo soy Napoleón', dice."	0		{3, 6}		the fake rule
-6		"Por mi madre, lo siento."	"'Vale, te creo', contesta al fin."	0		{9991}		the fake rule
-9991		"Gracias"		"'No hay de qué', dice."		0		--		the fake rule
-9999		"Vete a la mierda"		"'Estás muerto', contesta."		0		--		the fake rule
+numero	seleccion	respuesta	activado	activa	extra
+0 [inicial]	--	"'No molestes', dice."	1	{1, 2, 3}	the fake rule
+1	"Tengo que molestar."	"'Pesado', contesta."	0	{3}	the fake rule
+2	"Lo siento."	"'Ya, claro', dice."	0	{3, 4}	the fake rule
+3	"Imbecil."	"'Te vas a cagar', dice."	0	{9999}	the fake rule
+4	"En serio que lo siento."	"'No me lo creo', dice."	0	{3, 5}	the fake rule
+5	"Juro que lo siento."	"'Y yo soy Napoleón', dice."	0	{3, 6}	the fake rule
+6	"Por mi madre, lo siento."	"'Vale, te creo', contesta al fin."	0	{9991}	the fake rule
+9991	"Gracias"	"'No hay de qué', dice."	0	--	the fake rule
+9999	"Vete a la mierda"	"'Estás muerto', contesta."	0	--	the fake rule
 
-Section 5 - Cosas no incluídas en 'todo'
+Section 5 - quitar 'un poco de'
 
-Rule for deciding whether all includes scenery: it does not. 
+Original player's command is a text that varies.
 
-Rule for deciding whether all includes backdrops: it does not. 
+First after reading a command: 
+	let N be "[the player's command]"; 
+	let pop be a indexed text;
+	let pop be "[the player's command]";
+	let pop2 be "[pop]";
+	now original player's command is pop2;
+	replace the regular expression "un poco de" in N with ""; 
+	change the text of the player's command to N.
 
-Rule for deciding whether all includes fixed in place: it does not. 
+Section 7 - Finalizando el juego, modificaciones
 
-Rule for deciding whether all includes partdecoration: it does not.
+The print obituary headline rule is not listed in any rulebook. 
 
-Rule for deciding whether all includes patroller: it does not. 
+When play begins: 
+	choose row with a final response rule of immediately undo rule in the Table of Final Question Options; 
+	blank out the final question wording entry. 
 
-Rule for deciding whether all includes grilletes: it does not. 
-
-Section 6 - Preferencias generales
-
-Does the player mean doing something with a cadaver: it is likely.
-
-Does the player mean doing something with a fixed in place thing: it is unlikely.
-
-Does the player mean doing something with a scenery thing: it is very unlikely.
-
-Does the player mean doing something with a backdrop: it is very unlikely.
-
-Does the player mean doing something with anillo: it is very unlikely.
-
-Section 7 - Intento de corregir un bug
-
-To finalizar juego:
-	end the game saying "FIN".
+To finalizar juego, con victoria:
+	stop the background sound;
+	if not con victoria:
+		now Efectos-Sonando is false;
+		if Musica-Sonando is true:
+			play the sound of fail in foreground;
+		image Figure of Final;
+	end the story saying "FIN".
 	
-Section 8 - Hiperenlaces es el estilo por defecto
+Section 8 - Hiperenlaces es el estilo por defecto y para quitar el retorno de carro en los enlaces
+
+The link clicked is a truth state that varies.
+
+When play begins:
+	sets echo line events off.
+	
+Every turn:
+	now link clicked is false.
+	
+First hyperlink processing rule:
+	now link clicked is true.
+	
+To sets echo line events off:
+	(- glk_set_echo_line_event(gg_mainwin,0); -)
+	
+To sets echo line events on:
+	(- glk_set_echo_line_event(gg_mainwin,1); -)
+	
+After reading a command:
+	if link clicked is false:
+		[if the player's command includes "matched scenery":
+			let str be a indexed text;
+			let str be player's command;
+			replace the text "matched scenery" in str with "[matched scenery]";
+			say str;
+		otherwise:
+			say player's command;]
+		say "[original player's command]";
+		say command clarification break.
 
 First when play begins:
 	now the style of room-word is keyword-link;
@@ -657,23 +847,21 @@ First when play begins:
 	now the style of direction-word is keyword-link;
 	now the style of topic-word is keyword-link;
 	now the style of parser-word is keyword-link;
-	change give-explanation to true.
+	now  give-explanation is true.
 	
 Section 9 - Siempre se activa con nombres lo del hiperenlace
 
 Rule for printing the name of a thing (called item):
-	if object keyword highlighting is false or item is keywordless:
-		say the printed name of item;
-		continue the action;
 	let output be indexed text;
 	now output is the printed name of item;
 	let kw be indexed text;
 	now kw is the keyword of item;
-	if kw is "", change kw to word number 1 in output;
+	if kw is "":
+		now kw is word number 1 in output;
 	repeat with wordcounter running from 1 to the number of words in output:
 		say "[if wordcounter > 1] [end if]";
 		if word number wordcounter in output matches the regular expression "\b(?i)[kw]":
-			say "[o][word number wordcounter in output][x]";
+			say "[j][word number wordcounter in output][x]";
 		else:
 			say "[word number wordcounter in output]".
 	
@@ -685,7 +873,7 @@ Rule for printing the name of a direction (called dir):
 		continue the action;
 	say "[d][the printed name of dir][x]".
 
-Chapter 2 - Acciones modificadas
+Chapter 3 - Acciones modificadas
 
 [Section 0 - Examina implícito
 
@@ -697,7 +885,7 @@ Section 1 - Comer
 The hambre_del_jugador is a number that varies. 
 Hambre_del_jugador is 0.
 
-Every turn when location is in Pantano or the location is in Cuevas:
+Every turn when location is in pantano or the location is in Cuevas:
 	increment hambre_del_jugador;
 	if hambre_del_jugador is greater than 130:
 		if hambre_del_jugador is greater than 220:
@@ -724,7 +912,7 @@ Every turn when location is in Pantano or the location is in Cuevas:
 [ La sed ]
 The sed_del_jugador is a number that varies.
 The sed_del_jugador is 0.
-Every turn when the location is in Pantano or the location is in Cuevas:
+Every turn when the location is in pantano or the location is in Cuevas:
 	increment sed_del_jugador;
 	if sed_del_jugador is greater than 160:
 		if sed_del_jugador is greater than 220:
@@ -763,7 +951,7 @@ PrimeraComida is a truth state that varies.
 PrimeraComida is false.
 
 After eating a edible thing:
-	if the player is icalante and the naturaleza of the noun is not green:
+	if the player is icalante and the naturaleza of the noun is not vegetable:
 		say "Tu portador rehúsa a comerse [the noun]. Tal vez sea exclusivamente vegetariano.";
 		stop the action;
 	otherwise if the player is an orco and the naturaleza of the noun is not meat:
@@ -778,7 +966,7 @@ After eating a edible thing:
 			say "¡Ojalá este infierno acabe pronto! Anhelas tanto devorar alguna suculenta doncella.";
 			now PrimeraComida is true;
 		decrease hambre_del_jugador by 60;
-		if the naturaleza of the noun is green:
+		if the naturaleza of the noun is vegetable:
 			decrease sed_del_jugador by 10.
 
 Instead of eating a cadaver:
@@ -867,7 +1055,7 @@ Instead of pushing a patroller:
 			repeat with item running through things which are carried by noun:
 				remove item from play;
 			matar al pnj noun;
-			remove el cadaver of noun from play;
+			remove cuerpo of noun from play;
 			say "[The noun] intenta desesperadamente salir de ellas, pero es engullido, lentamente engullido por las arenas hasta desaparecer sin dejar rastro.[line break]Todo ello acompañado por quejidos, lamentos y súplicas en lengua orca.[line break]Un espectáculo lamentable, la verdad.";
 	otherwise:
 		try attacking noun.
@@ -899,12 +1087,12 @@ Instead of attacking a patroller:
 	if the player is noun:
 		say "Golpear a tu propio portador... una estupenda idea, es evidente que el cautiverio te está afectando demasiado.";
 		stop the action;
-	if the noun is icalante and icalante is siguiendote:
+	if the noun is icalante and icalante is i_siguiendote:
 		say "Golpear a tan poderoso aliado sería absurdo por completo.";
 		stop the action;
-	change CArma to mejor arma;
-	change CAtacante to the player;
-	change CAtacado to the noun;
+	now CArma is mejor arma;
+	now CAtacante is the player;
+	now CAtacado is the noun;
 	let CDicho be 0;
 	repeat through the Table of Combate:
 		if atacante entry is cualquiera or atacante entry is CAtacante:
@@ -914,20 +1102,23 @@ Instead of attacking a patroller:
 					ataque ataque entry;
 					now CDicho is 1;
 					if resultado entry is not 0: [ no es solo ataque hay respuesta ]
-						if the player is Nuhur and icalante is in the location and icalante is siguiendote:
+						if icalante is visible and icalante is i_siguiendote:
 							[El icalante salva a Nuhur siempre]
-							say "El icalante se interpone entre Nuhur y [the CAtacado] para que éste no tome represalias.";
+							say "El [j]icalante[x] se interpone entre Nuhur y [the CAtacado] para que éste no tome represalias.";
 							if CAtacado is an orco:
 								[Si es un orco además lo mata]
 								bnw;
 								say "Bueno, en realidad 'interponerse' es una palabra un poco suave para describir el acto de retorcer la cabeza [del CAtacado] hasta que éste deje de moverse.";
 								matar al pnj CAtacado;
 							break;
+						otherwise if lobo is visible and lobo is contentado:
+							say "El [j]lobo[x] gruñe deteniendo temporalmente las posibles represalias de [el CAtacado].";
+							break;
 						otherwise:
 							respuesta ataque resultado entry;
 							break;
-					otherwise if the player is Nuhur and icalante is in the location and icalante is siguiendote and CAtacado is an orco and CAtacado is not muerto:
-						say "El icalante también ataca [al CAtacado] y su ataque acaba con su vida.";
+					otherwise if icalante is visible and icalante is i_siguiendote and CAtacado is an orco and CAtacado is not muerto:
+						say "El [j]icalante[x] también ataca [al CAtacado] y su ataque acaba con su vida.";
 						matar al pnj CAtacado;
 						break;
 					break;
@@ -936,24 +1127,23 @@ Instead of attacking a patroller:
 
 [ Tabla de combate ]
 Table of Combate
-atacante		atacado		arma			ataque		resultado
-a thing		a thing		an object		a number	a number
-cualquiera	deavork		machete			2		0
-cualquiera	lobo		hueso			4		0
-cualquiera	berg		machete			6		0
+atacante	atacado		arma		ataque		resultado
+cualquiera	deavork		machete		2		0
+cualquiera	lobo		hueso		4		0
+cualquiera	berg		machete		6		0
 cualquiera	icalante		cualquiera		1		3
-nuhur		deavork		cualquiera		3		2
-nuhur		zhur		machete			5		0
-nuhur		zhur		cualquiera		1		4		
-nuhur		yerk		machete			5		0
-nuhur		yerk		cualquiera		1		4
-nuhur		berg		cualquiera		1		4
-icalante		deavork		cualquiera		2		0
-icalante		zhur		cualquiera		7		0
-icalante		yerk		cualquiera		7		0
-icalante		berg		cualquiera		7		0
-zhur		deavork		leno seco		2		0
-zhur		deavork		piedra			2		0
+nuhur	deavork		cualquiera		3		2
+nuhur	zhur		machete		5		0
+nuhur	zhur		cualquiera		1		4		
+nuhur	yerk		machete		5		0
+nuhur	yerk		cualquiera		1		4
+nuhur	berg		cualquiera		1		4
+icalante	deavork		cualquiera		2		0
+icalante	zhur		cualquiera		7		0
+icalante	yerk		cualquiera		7		0
+icalante	berg		cualquiera		7		0
+zhur	deavork		leno seco		2		0
+zhur	deavork		piedra		2		0
 zhur		deavork		cualquiera		3		2
 zhur		yerk		machete			5		0
 zhur		yerk		cualquiera		1		5
@@ -1000,7 +1190,7 @@ To ataque (num - a number ):
 			say "De hecho el maldito perrucho, parece incluso contento.";
 			now lobo is contentado;
 			now hueso is part of esqueleto;
-			change hambre of lobo to 0;
+			now hambre of lobo is 0;
 		-- 5: [ Matar a un orco con el machete ]
 			say "Tu portador ataca con el machete [al CAtacado].";
 			bnw;
@@ -1016,7 +1206,7 @@ To ataque (num - a number ):
 			now berg is persiguiendo;
 			now berg is following;
 		-- 7: [ Matar orcos con el icalante ]
-			say "El icalante ataca [al CAtacado][if CArma is not nothing] con [the CArma][end if].";
+			say "El [j]icalante[x] ataca [al CAtacado][if CArma is not nothing] con [the CArma][end if].";
 			bnw;
 			say "Se nota, no sólo que este simio gigantesco sabe combatir, sino que además le gusta acabar con los orcos.";
 			bnw;
@@ -1039,7 +1229,7 @@ To respuesta ataque (num - a number ):
 			say "Primero muerde el tobillo de tu portador, lo que hace que por un momento pierdas el control del mismo. Ése es todo el tiempo que necesita.";
 			bnw;
 			say "Cuando te das cuenta la garganta de tu portador está desgarrada y su vida se escapa en forma de una turbia corriente roja.";
-			change hambre of lobo to 0;
+			now hambre of lobo is 0;
 			morir en cualquier parte;
 		-- 2: [ Deavork se revuelve te devora ]
 			say "El deavork se vuelve muy enfadado y no te da ninguna oportunidad.";
@@ -1047,7 +1237,7 @@ To respuesta ataque (num - a number ):
 			say "Sus grandes pinzas golpean con fiereza el pecho de tu portador, quitándole la vida.";
 			let aj be the player;
 			morir en cualquier parte;
-			move el cadaver of aj to estomago del deavork;
+			move cuerpo of aj to estomago del deavork;
 		-- 3: [ El icalante no tiene compasión ]
 			say "El icalante reacciona de manera violenta y...";
 			bnw;
@@ -1070,7 +1260,7 @@ To respuesta ataque (num - a number ):
 Instead of attacking pedernal:
 	let item be pedernal;
 	while item is pedernal:
-		change item to a random thing carried by player;
+		now item is a random thing carried by player;
 	try hiting pedernal with item.
 
 [ Color para otros ataques ]
@@ -1192,7 +1382,7 @@ Instead of throwing piedra at:
 Section 8 - Inventario
 
 Instead of taking inventory:
-	say "Llevas (bueno en realidad lleva [el portador]): [line break]";
+	say "Llevas (bueno, en realidad lleva [j][el portador][x]): [line break]";
 	list the contents of the player, with newlines, indented, giving inventory information, including contents, with extra indentation.
 
 Section 9 - Agitar
@@ -1210,9 +1400,9 @@ Instead of removing a thing from a patroller:
 	try taking noun.
 
 Instead of taking a thing which is in a container which is carried by a posible jugador (called portador):
-	if portador is icalante and icalante is siguiendote:
+	if portador is icalante and icalante is i_siguiendote:
 		move noun to location;
-		say "El icalante te deja coger [the noun].";
+		say "El [j]icalante[x] te deja coger [the noun].";
 		try silently taking noun;
 	otherwise if portador is not the player:
 		say "No va a dejar que cojas [the noun]. Tal vez haya que matarlo primero.";
@@ -1220,9 +1410,9 @@ Instead of taking a thing which is in a container which is carried by a posible 
 		continue the action.
 
 Instead of taking a thing which is carried by a posible jugador (called portador):
-	if portador is icalante and icalante is siguiendote:
+	if portador is icalante and icalante is i_siguiendote:
 		move noun to location;
-		say "El icalante te deja coger [the noun].";
+		say "El [j]icalante[x] te deja coger [the noun].";
 		try silently taking noun;
 	otherwise if portador is not the player:
 		say "No va a dejar que cojas [the noun]. Tal vez haya que matarlo primero.";
@@ -1230,8 +1420,8 @@ Instead of taking a thing which is carried by a posible jugador (called portador
 		say "Ya tienes [the noun].".
 
 Instead of taking a thing which is worn by a posible jugador (called portador):
-	if portador is icalante and icalante is siguiendote:
-		say "El icalante te deja bastante claro por gestos que no piensa devolverte [the noun]. ¡Parece que le ha gustado!";
+	if portador is icalante and icalante is i_siguiendote:
+		say "El [j]icalante[x] te deja bastante claro por gestos que no piensa devolverte [the noun]. ¡Parece que le ha gustado!";
 	otherwise if portador is not the player:
 		say "No va a dejar que cojas [the noun]. Tal vez haya que matarlo primero.";
 	otherwise:
@@ -1239,12 +1429,12 @@ Instead of taking a thing which is worn by a posible jugador (called portador):
 
 Section 11 - Dar cosas al icalante
 
-Instead of giving a thing to icalante when icalante is in location and icalante is siguiendote:
+Instead of giving a thing to icalante when icalante is in location and icalante is i_siguiendote:
 	if the noun is edible and noun is vegetal:
-		say "El icalante olisquea [the noun] y... ¡se lo come de un bocado!";
+		say "El [j]icalante[x] olisquea [the noun] y... ¡se lo come de un bocado!";
 		remove noun from play;
 	otherwise if the noun is wearable and there is nothing worn by icalante:
-		say "El icalante coge [the noun], le da un par de vueltas y... se lo pone.";
+		say "El [j]icalante[x] coge [the noun], le da un par de vueltas y... se lo pone.";
 		if noun is sombrero:
 			say "Está la mar de ridículo.";
 		if noun is craneo_orco:
@@ -1252,7 +1442,7 @@ Instead of giving a thing to icalante when icalante is in location and icalante 
 		if noun is medallon:
 			say "Casi no se ve con toda esa pelambrera que tiene.";
 	otherwise:
-		say "El icalante coge [the noun] y carga con ell[o noun].";
+		say "El [j]icalante[x] coge [the noun] y carga con ell[o noun].";
 		move noun to icalante.
 
 Section 12 - Atares diversos
@@ -1304,7 +1494,7 @@ Instead of tying resina to base antorcha thing:
 	otherwise if there is a papel thing (called pap) which is part of second noun:
 		say "Untas la resina sobre [the pap] que envuelve [the second noun]. Ahora ya es una especie de antorcha cutre. Sólo queda encenderla.";
 		now resina is part of second noun;
-		change duracion of second noun to 20;
+		now duracion of second noun is 20;
 	otherwise:
 		say "Untar la resina sobre [the second noun] sería 'gracioso', ¡un mazo resbaladizo para pegar a los orcos!, pero siendo serios para hacer una buena antorcha es necesario poner algo de tela o algo así sobre [the second noun] para que haga de 'mecha' del fuego.".
 
@@ -1331,11 +1521,14 @@ Instead of putting anything on a base antorcha thing:
 	say "Poner algo 'sobre' o intentar insertar algo 'en' [the second noun] no serviría de nada. Tal vez pueda serte útil enrollar algo sobre [the second noun] o untarlo, según como sea."
 
 [Si no es 'papel' no de puede enrollar]
+Instead of tying liana to machete:
+	try tying machete to liana.
+
 Instead of tying a thing to a base antorcha thing:
 	say "No ves una forma de enrollar [the noun] sobre [the second noun].".
 
 Instead of tying a base antorcha thing to a thing:
-	say "No ves una forma de enrollar [the noun] sobre [the second noun].".
+	say "No ves una forma de enrollar [the second noun] sobre [the noun].".
 
 [LIANA]
 Instead of tying liana to a thing:
@@ -1479,13 +1672,19 @@ First commanding matched scenery:
 	
 Section 18 - Acciones concreta con algunos escenarios
 
+To say beber el pantano:
+	say "El agua del [j]pantano[x] es una fuente de enfermedad, beber de ella significaría la muerte de tu portador, cargar con ella sería inútil.".
+
 Instead of taking matched scenery when matched by is "agua" and location is not Pantano1:
-	say "El agua del pantano es una fuente de enfermedad, beber de ella significaría la muerte de tu portador, cargar con ella sería inútil.".
+	say beber el pantano.
 	
 Instead of taking matched scenery when matched by is "agua" and location is Pantano1:
 	say "No tienes dónde meter una cantidad significativa de agua.".
+	
+Instead of drinking matched scenery when matched by is "agua" and location is not Pantano1:
+	say beber el pantano.
 
-Chapter 3 - Sinónimos generales
+Chapter 4 - Sinónimos generales
 
 [--------------------------------------------------
 
@@ -1508,8 +1707,8 @@ Understand "busca entre [a thing]" or "busca [a thing]" or "busca [cuidado] [a t
 Understand "en [a thing]" as searching.
 
 [QQQ: Habría que repensar esto un poco mejor]
-Understand "en [text]" or "registra [text]" or "examina [dentrode] de/del [text]" or "revisa [text]" or "busca entre [text]" or "examina [cuidado] [text]" as a mistake ("Buscas entre los 'tesoros' del nigromante una forma de salir de este lugar, pero no hay suerte... de momento.") when the location is Lugar Oo Drack.
-Understand "en [text]" or "registra [text]" or "examina [dentrode] de/del [text]" or "revisa [text]" or "busca entre [text]" or "examina [cuidado] [text]"as a mistake ("No encuentras nada ahí.") when the location is not Lugar Oo Drack.
+Understand "en [text]" or "registra [text]" or "examina [dentrode] de/del [text]" or "revisa [text]" or "busca entre [text]" or "examina [cuidado] [text]" as a mistake ("Buscas entre los 'tesoros' del nigromante una forma de salir de este lugar, pero no hay suerte... de momento.") when the location is Lugar_Oo_Drack.
+Understand "en [text]" or "registra [text]" or "examina [dentrode] de/del [text]" or "revisa [text]" or "busca entre [text]" or "examina [cuidado] [text]"as a mistake ("No encuentras nada ahí.") when the location is not Lugar_Oo_Drack.
 
 [TOCAR]
 
@@ -1553,27 +1752,31 @@ Section 1 - Comando salidas
 
 [Un poco fake]
 
+Understand the commands "salidas" as something new.
+
 Viewing exits is an action applying to nothing.
 
-Understand "salidas" or "x" as viewing exits.
+Understand "salidas" or "x" or "salida" as viewing exits.
 
 Carry out viewing exits:
 	if location is Pantano14:
-		say "Desde aquí crees que la entrada a los sótanos de la fortaleza de Sady Omú se encuentra hacia el [bold type][south][roman type]. Aunque es difícil de saber si esa es la mejor dirección. La vegetación cortará muchos caminos y el pantano es igual de frondoso por todas partes.";
+		say "Desde aquí crees que la entrada a los sótanos de la fortaleza de Sady Omú se encuentra hacia el [south]. Aunque es difícil de saber si esa es la mejor dirección. La vegetación cortará muchos caminos y el [j]pantano[x] es igual de frondoso por todas partes.";
+	otherwise if location is Pantano20:
+		say "Casi seguro que la fortaleza de Sady Omú se encuentra hacia el oeste.";
 	otherwise if location is Pantano24:
-		say "Para encontrar la entrada a los sótanos de la fortaleza ante todo hay que salir del túmulo, ya sabes, hacia [bold type]arriba[roman type].";
+		say "Para encontrar la entrada a los sótanos de la fortaleza ante todo hay que salir del túmulo, ya sabes, hacia arriba.";
 	otherwise if location is Copa:
-		say "Para ir hacia la entrada de los sótanos de la fortaleza de Sady Omú primero tienes que [bold type]bajar[roman type] de este árbol.";
+		say "Para ir hacia la entrada de los sótanos de la fortaleza de Sady Omú primero tienes que bajar de este árbol.";
 	otherwise if location is Pantano28:
-		say "Desde este infecto rincón se puede regresar al pantano, hacia el [south], pero la ruta hacia Sady Omú pasa [bold type]entrar[roman type] en las cavernas.";
+		say "Desde este infecto rincón se puede regresar al pantano, hacia el [south], pero la ruta hacia Sady Omú pasa entrar en las cavernas.";
 	otherwise if location is Cueva1:
 		say "Desde este nido de deavorks, el camino parece oscuro e incierto en cualquier dirección excepto hacia el [south], por donde se puede regresar al pantano.";
 	otherwise if location is Lava:
-		say "No te cabe duda de que tu destino está al [bold type]oeste[roman type], en la fortaleza de Sady Omú.";
-	otherwise if location is Lugar Oo Drack:
+		say "No te cabe duda de que tu destino está al oeste, en la fortaleza de Sady Omú.";
+	otherwise if location is Lugar_Oo_Drack:
 		say "En alguna parte entre todos estos 'despojos' de batallas debe haber una salida de esta cámara del tesoro, un camino hacia el nigromante.";
 	otherwise if location is parte del pantano:
-		say "[one of]En este lugar lleno de barro y [o]plantas[x] cualquier dirección parece igualmente válida... sin embargo... algo, tal vez tu intuición de dragón, te dice que la manera más rápida de llegar hasta Sady Omú sería... uhm... sí, decididamente hacia [bold type][the dircuevas of the location][roman type].[or]En todas direcciones parece haber [o]plantas[x] y barro pero tu intuición de dragón, te hace pensar que la entrada a las cavernas bajo la fortaleza de Sady Omú se encuentra hacia [bold type][the dircuevas of the location][roman type].[or]Algo en tu atrapada mente de dragón te hace pensar en [bold type][the dircuevas of the location][roman type] como la mejor opción, pero parece que se podría caminar hacia cualquier dirección.[or]Uhm... para Sady Omú: [bold type][the dircuevas of the location][roman type], sin duda.[or]Intuyes que Sady Omú está hacia [bold type][the dircuevas of the location][roman type].[at random]";
+		say "[one of]En este lugar lleno de barro y [j]plantas[x] cualquier dirección parece igualmente válida... sin embargo... algo, tal vez tu intuición de dragón, te dice que la manera más rápida de llegar hasta Sady Omú sería... uhm... sí, decididamente hacia [the dircuevas of the location].[or]En todas direcciones parece haber [j]plantas[x] y barro pero tu intuición de dragón, te hace pensar que la entrada a las cavernas bajo la fortaleza de Sady Omú se encuentra hacia [the dircuevas of the location].[or]Algo en tu atrapada mente de dragón te hace pensar en [the dircuevas of the location] como la mejor opción, pero parece que se podría caminar hacia cualquier dirección.[or]Uhm... para Sady Omú: [the dircuevas of the location], sin duda.[or]Intuyes que Sady Omú está hacia [the dircuevas of the location].[at random]";
 	otherwise if in darkness:
 		say "Incluso con tu visión de dragón esta oscuridad es impenetrable. No hay forma de saber en qué dirección se puede ir desde aquí.";
 	otherwise if location is cueva oscura:
@@ -1599,6 +1802,7 @@ Carry out casting blue:
 			say "...un frío intenso surge del pergamino y se dirije directamente al río de Lava, transformando su gloriosa superficie ígnea en mera piedra negra.";
 			now Lava is congelada;
 			now Lava is dark;
+			current image;
 		otherwise:
 			say "...vaya es más que un escalofrío, es... un frío muy intenso...";
 			bnw;
@@ -1606,7 +1810,8 @@ Carry out casting blue:
 			bnw;
 			say "...¡todo queda completamente congelado!... y, por su puesto, tu portador muere.";
 			congelar the location;
-			morir en cualquier parte.
+			morir en cualquier parte;
+			current image.
 
 [Pergamino amarillo]
 Casting yellow is an action applying to nothing.
@@ -1630,7 +1835,7 @@ Carry out casting yellow:
 			now cuenta is lit;
 		otherwise:
 			say ".";
-		say  "La luz parece haber asustado también a todas las [o]criaturas[x].";
+		say  "La luz parece haber asustado también a todas las [j]criaturas[x].";
 		repeat with mov running through patroller:
 			if mov is in the location and mov is not the player:
 				try silently mov going a random direction;
@@ -1753,7 +1958,7 @@ Carry out of hiting:
 	say "Golpeas [the noun] con [the second noun]";
 	if (noun is metalica and second noun is chisposa) or (noun is chisposa and second noun is metalica):
 		say " consiguiendo una breve chispa";
-		change HacerFuego to 1;
+		now HacerFuego is 1;
 	otherwise if noun is metalica and second noun is metalica:
 		say " provocando un ruido metálico";
 	otherwise if noun is chisposa and second noun is chisposa:
@@ -1800,8 +2005,8 @@ Pointing is an action applying to one thing.
 Understand "senala [a thing]" or "senalar [a thing]" or "apunta [a thing]" or "apuntar [a thing]" or "apunta con el dedo [a thing]" or "apuntar con el dedo [a thing]" as pointing.
 
 Carry out pointing:
-	if icalante is in the location and icalante is siguiendote:
-		say "Señalas [the noun] y el icalante l[o noun] mira con interés.";
+	if icalante is in the location and icalante is i_siguiendote:
+		say "Señalas [el noun] y el icalante l[o noun] mira con interés.";
 		if noun is liana and liana is unida:
 			now liana is cortada;
 			now liana is not fixed in place;
@@ -1814,23 +2019,22 @@ Carry out pointing:
 	otherwise:
 		say "Señalas [the noun] aunque eso no produce ninguna reacción.".
 
-Section 11 - Ir a la lava con todo lo necesario DEBUG - Not for release
+Section 11 - Ir a la lava con todo lo necesario DEBUG 
 
-[Laving is an action applying to nothing.
+Laving is an action applying to nothing.
 
-Understand "charleta" as laving.
+Understand "lava" as laving.
 
 Carry out laving:
-	now the player is the icalante;
+	now mosaico is leido;
+	now icalante is i_siguiendote;
 	move player to Lava;
 	move pergamino azulado to player;
+	now lava is congelada;
 	deactivate icalante;
-	now the icalante is siguiendote;
 	move cuenta to player;
 	move dedal to player;
-	now cuenta is lit;
-	if icalante is siguiendote:
-		move icalante to Lava.]
+	now cuenta is lit.
 
 Section 12 - Control de la musica
 
@@ -1853,7 +2057,7 @@ Helping is an action out of world applying to nothing.
 Understand "ayuda" as helping.
 
 Carry out helping:
-	say "[bold type]Este relato no contiene 'ayudas'. Tal vez te resulten de ayuda acciones tales como: escuchar, mirar hacia alguna dirección o 'salidas'[roman type].".
+	say "Este relato no contiene 'ayudas'. Tal vez te resulten de ayuda acciones tales como: escuchar, mirar hacia alguna dirección o 'salidas'.".
 
 Section 14 - Lanzar completamente nuevo
 
@@ -1893,7 +2097,6 @@ Carry out backing:
 
 Table of Destinos
 topic				objeto
-text				an object
 "manzano"			manzano
 "patio"				Pantano15
 "manantial"			manantial
@@ -1927,14 +2130,14 @@ text				an object
 To back to (obj - an object):
 	if obj is conocido room:
 		if the location is the obj:
-			say "Piensas en regresar a [topic understood] pero ya estás en ese lugar. Todo este confuso pantano ya te está mareando.";
+			say "Piensas en regresar a [topic understood] pero ya estás en ese lugar. Todo este confuso [j]pantano[x] ya te está mareando.";
 		otherwise:
 			let way be the best route from the location to obj;
 			say "Uhm... ese lugar... tu intuición te dice que está hacia [the way].";
 			try going the way;
 	otherwise if obj is conocido thing:
 		if the obj is visible:
-			say "Piensas en regresar a donde [the obj] pero ya estás en ese lugar. Todo este confuso pantano ya te está mareando.";
+			say "Piensas en regresar a donde [the obj] pero ya estás en ese lugar. Todo este confuso [j]pantano[x] ya te está mareando.";
 		otherwise if obj is in NoLugar or obj is off-stage:
 			say "Uhm... ¿dónde había de eso? No recuerdas ahora.";
 		otherwise:
@@ -1948,26 +2151,7 @@ Instead of topiccommanding a topic listed in the Table of Destinos:
 	back to the objeto entry.
 
 Instead of backing a topic listed in the Table of Destinos:
-	if objeto entry is conocido room:
-		if the location is the objeto entry:
-			say "Piensas en regresar a [topic understood] pero ya estás en ese lugar. Todo este confuso pantano ya te está mareando.";
-		otherwise:
-			let way be the best route from the location to objeto entry;
-			say "Uhm... ese lugar... tu intuición te dice que está hacia [the way].";
-			try going the way;
-	otherwise if objeto entry is conocido thing:
-		if the objeto entry is visible:
-			say "Piensas en regresar a donde [the objeto entry] pero ya estás en ese lugar. Todo este confuso pantano ya te está mareando.";
-		otherwise if objeto entry is in NoLugar or objeto entry is off-stage:
-			say "Uhm... ¿dónde había de eso? No recuerdas ahora.";
-		otherwise:
-			let way be the best route from the location to the location of objeto entry;
-			say "Uhm... [the objeto entry]... tu intuición te dice que está hacia [the way].";
-			try going the way;
-	otherwise:
-		say "¿Realmente hemos visto eso? No lo recuerdas.".
-
-
+	back to the objeto entry.
 
 Part 2 - El Mapeado
 
@@ -1984,7 +2168,7 @@ A parte del pantano has a direction called DirCuevas. The DirCuevas of a parte d
 A parte del pantano has a number called selected description. The selected description of a parte del pantano is usually 0.
 
 [Para complicar aún más el 'bonito' laberinto, los nombres y descripciones de muchas habitaciones son al 'azar']
-The printed name of a parte del pantano is usually "[one of]Un lugar como otro cualquiera del pantano[or]Entre árboles del pantano[or]En el apestoso pantano [o]Hapawa[x][or]En el barro del pantano[at random]".
+The printed name of a parte del pantano is usually "[one of]Un lugar como otro cualquiera del pantano[or]Entre árboles del pantano[or]En el apestoso [j]pantano[x] [j]Hapawa[x][or]En el barro del pantano[at random]".
 The description of a parte del pantano is usually "[descripción de pantano de número selected description].".
 
 To say descripción de pantano de número (sd - a number):
@@ -1995,53 +2179,64 @@ Table of descripciones de pantano
 num	description	imagen
 0		""			Figure of Pantano1
 9	"Agua sucia y oler pestilente. Árboles amenazadores y juncos putrefactos. Eso es todo lo que se puede encontrar al [south] del castillo del nigromante"	Figure of Pantano1
-1	"Humedad, [o]plantas[x] sucias, probablemente, pestilencia, árboles amenazadores y juncos putrefactos. En definitiva el brumoso pantano de [o]Hapawa[x]. Ojalá salgamos pronto de aquí"	Figure of Pantano1
-2	"La [o]luz[x] se oculta tras las copas de los árboles y se difumina aún más con la sutil [o]bruma[x] que recorre el pantano. Uno no puede dejar de pensar que simplemente prefiere no entrar en este lugar abandonado"	Figure of Pantano5
-3	"Veamos... hay árboles retorcidos de formas imposibles. Y agua, mucho agua sucia, agua que tan pronto te llega al tobillo como a la cintura y sonidos extraños. En definitiva seguimos en el pantano y en su [o]bruma[x]"	Figure of Pantano3
-4	"Más y más [o]plantas[x] del pantano.  Nenúfares sucios y juncos putrefactos. Suelo del pantano. Sonidos del pantano. Bruma de los pantanos. Probablemente olores del pantano. En definitiva, queda claro que no hemos salido de [o]Hapawa[x]"	Figure of Pantano4
-5	"La oscuridad sólo disimula en parte la fealdad de este lugar. Sólo dragones menores vivirían en este lugar. Ni siquiera, sólo lo harían si además carecieran de autoestima"	Figure of Pantano2
-6	"Es una suerte que haya [o]bruma[x] por todas partes, eso disimula un poco el que este lugar sea pura putrefacción. Aunque tanta [o]humedad[x] es probablemente lo que ha transformado este bosque con sus imponentes árboles en el adefesio que es en la actualidad"	Figure of Pantano6
-7	"Dicen que [o]Hapawa[x] fue en el pasado uno de los feudos dragones. No puedo imaginar quién querría habitar en este lugar. Tal vez incinerándolo todo hasta transformarlo en cenizas... pero ni siquiera, probablemente de esta forma simplemente sería un lodazal negro y gris"	Figure of Pantano1
-8	"Inmundicias flotantes sobre aguas malolientes. No hay nada más en este pantano. Lo mejor sería salir lo antes posible de aquí. Tu destino te espera si convences al nigromante de que deshaga el maleficio que han lanzado sobre tí"	Figure of Pantano3
+1	"Humedad, [j]plantas[x] sucias, probablemente, pestilencia, árboles amenazadores y juncos putrefactos. En definitiva el brumoso [j]pantano[x] de [j]Hapawa[x]. Ojalá salgamos pronto de aquí"	Figure of Pantano1
+2	"La [j]luz[x] se oculta tras las copas de los árboles y se difumina aún más con la sutil [j]bruma[x] que recorre el [j]pantano[x]. Uno no puede dejar de pensar que simplemente prefiere no entrar en este lugar abandonado"	Figure of Pantano5
+3	"Veamos... hay [j]árboles[x] retorcidos de formas imposibles. Y [j]agua[x], mucho agua sucia, agua que tan pronto te llega al tobillo como a la cintura y [j]sonidos[x] extraños. En definitiva seguimos en el [j]pantano[x] y en su [j]bruma[x]"	Figure of Pantano3
+4	"Más y más [j]plantas[x] del pantano.  Nenúfares sucios y juncos putrefactos. Suelo del pantano. Sonidos del pantano. Bruma de los pantanos. Probablemente olores del pantano. En definitiva, queda claro que no hemos salido de [j]Hapawa[x]"	Figure of Pantano4
+5	"La oscuridad sólo disimula en parte la fealdad de este [j]lugar[x]. Sólo dragones menores vivirían en este lugar. Ni siquiera, sólo lo harían si además carecieran de autoestima"	Figure of Pantano2
+6	"Es una suerte que haya [j]bruma[x] por todas partes, eso disimula un poco el que este lugar sea pura [j]putrefacción[x]. Aunque tanta [j]humedad[x] es probablemente lo que ha transformado este bosque con sus imponentes árboles en el adefesio que es en la actualidad"	Figure of Pantano6
+7	"Dicen que [j]Hapawa[x] fue en el pasado uno de los feudos dragones. No puedo imaginar quién querría habitar en este lugar. Tal vez incinerándolo todo hasta transformarlo en cenizas... pero ni siquiera, probablemente de esta forma simplemente sería un lodazal negro y gris"	Figure of Pantano1
+8	"[j]Inmundicias[x] flotantes sobre aguas malolientes. No hay nada más en este pantano. Lo mejor sería salir lo antes posible de aquí. Tu destino te espera si convences al nigromante de que deshaga el maleficio que han lanzado sobre tí"	Figure of Pantano3
+10	"La vegetación es tán apretada en [j]Hapawa[x] que la [j]luz[x] se transforma, el día es noche, como si en lugar de un [j]pantano[x] fuese una caverna. Una caverna tenebrosa y azulada"	Figure of Pantano7
+11	"El agua discurre por esta parte del [j]pantano[x] casi como si fuesen auténticos riachuelos, pero si se mira de cerca tan sólo son zanjas llenas de purulentos fluídos estancados, a penas ocultos por la [j]bruma[x]"	Figure of Pantano7
 
 [ Fijar las descripciones de forma aleatoria, pero fija ]
 When play begins:
 	repeat with pant running through parte del pantano:
 		while pant no tiene descripción correcta:
-			change selected description of pant to a random number from 1 to 9.
+			now selected description of pant is a random number from 1 to 11.
 			
 To decide if (loc - a parte del pantano) no tiene descripción correcta:
 	if selected description of loc is 0:
 		decide yes;
+	let current figure be Figure of Pantano1;
+	choose row with num of selected description of loc in the Table of descripciones de pantano;
+	now current figure is imagen entry;
+	let adjacent figure be Figure of Pantano1;
 	repeat with adja running through parte del pantano which are adjacent to loc:
 		if adja is loc:
 			next;
 		[say "[loc] [selected description of loc] vs [adja] [selected description of adja].";]
 		if selected description of loc is selected description of adja:
 			decide yes;
+		[not same image adjacent]
+		choose row with num of selected description of adja in the Table of descripciones de pantano;
+		now adjacent figure is imagen entry;
+		if adjacent figure is current figure:
+			decide yes;
 	decide no.
 	
 
 [Todos las habitaciones del pantano tienen una serie de decorados iguales]
-The decoration of Pantano is Table of DecoPantano.
+The decoration of pantano is Table of DecoPantano.
 
 Table of DecoPantano
 topic	description	genre 
-"inmundicia" or "porqueria" or "musgo" or "musgos" or "suciedad"		"Cosas putrefactas que no apetece comerse, es decir, [o]plantas[x] muertas y putrefactas, por lo general, que no tienen ese magnífico olor a carne muerta. Claro que en tu estado poco puedes oler, es una de las cosas que peor sobrellevas."	F
-"pantano" or "cienagas" or "manglar" or "hapawa" or "cienaga"	"Aunque algunos de tus congéneres menores, sobre todo esos minúsculos dragones verdes de aliento pestilente, viven en los pantanos, por lo general cualquier dragón que se precie evitará vivir en estos lugares repletos agua y suciedad. Los seres que los habitan son lo más rastrero de entre los animales y las [o]plantas[x]."	M
+"inmundicia" or "porqueria" or "musgo" or "musgos" or "suciedad"		"Cosas putrefactas que no apetece comerse, es decir, [j]plantas[x] muertas y putrefactas, por lo general, que no tienen ese magnífico olor a carne muerta. Claro que en tu estado poco puedes [j]oler[x], es una de las cosas que peor sobrellevas."	F
+"pantano" or "manglar" or "hapawa" or "cienaga" or "cienagas" or "lugar"	"Aunque algunos de tus congéneres menores, sobre todo esos minúsculos dragones verdes de aliento pestilente, viven en los pantanos, por lo general cualquier dragón que se precie evitará vivir en estos lugares repletos [j]agua[x] y [j]suciedad[x]. Los seres que los habitan son lo más rastrero de entre los animales y las [j]plantas[x]."	M
 "bosque"	"Más que un bosque se trata de un manglar repleto de aguas estancadas."	M
-"aguas" or "agua" or "charco" or "charcos" or "humedad"		"Las [o]aguas[x] de este [o]pantano[x], como el de todos, son sucias y pestilentes. Cuando un humano las cruza no puede verse sus propios pies. Sin embargo algunos de los habitantes de las aguas las encuentran lo bastante claras como para arrancarle los dedos al humano."	F
-"putrefaccion" or "pestilencia" or "olores"	"Por suerte en tu estado no puedes oler nada, pero seguro que está por todas partes."	F
+"aguas" or "agua" or "charco" or "charcos" or "humedad"or "fluidos" or "estancados"		"Las [j]aguas[x] de este [j]pantano[x], como el de todos, son sucias y pestilentes. Cuando un humano las cruza no puede verse sus propios pies. Sin embargo algunos de los habitantes de las aguas las encuentran lo bastante claras como para arrancarle los dedos."	F
+"putrefaccion" or "pestilencia" or "olores"	"Por suerte en tu estado no puedes [j]oler[x] nada, pero seguro que está por todas partes."	F
 "criaturas" or "criatura" or "bestias" or "seres"		"Se escuchan en todas direcciones pero no las ves. Son bestias avergonzadas de su aspecto deplorable, así que huyen en cuanto cualquiera se les acerca."	FP
-"luz"	"Llamar [o]luz[x]a la penumbra que resulta tras atravesar las copas del manglar, es como una suerte de chiste cruel."	F
-"bruma" or "niebla" or "neblina"	"Elevándose desde las cenagosas aguas una sempiterna nieblina lo desdibuja todo en este pantano."	F
-"fortaleza" or "castillo"	"Realmente no se puede ver la fortaleza desde aquí. La [o]bruma[x] y los árboles la ocultan."	F
-"nenufares" or "nenufar"	"En jardines estas plantas crees que pueden resultar hermosas, al menos para los humanos, aquí en el [o]pantano[x], solo es una pieza más del verdor sucio."	MP
+"luz"	"Llamar [j]luz[x]a la penumbra que resulta tras atravesar las copas del manglar, es como una suerte de chiste cruel."	F
+"bruma" or "niebla" or "neblina"	"Elevándose desde las cenagosas [j]aguas[x] una sempiterna nieblina lo desdibuja todo en este [j]pantano[x]."	F
+"fortaleza" or "castillo"	"Realmente no se puede ver la fortaleza desde aquí. La [j]bruma[x] y los árboles la ocultan."	F
+"nenufares" or "nenufar"	"En jardines estas plantas crees que pueden resultar hermosas, al menos para los humanos, aquí en el [j]pantano[x], solo es una pieza más del verdor sucio."	MP
 "juncos" or "junco"	"Tubos podridos rellenos de moho."	MP
-"cuevas" or "cueva"	"En el final del [o]pantano[x] está tu via de entrada al [o]castillo[x]. Un agujero negro de salvación."	FP
+"cuevas" or "cueva"	"En el final del [j]pantano[x] está tu via de entrada al [j]castillo[x]. Un agujero negro de salvación."	FP
 "sonidos" or "sonido"	"KK"	MP
-"rama"	"Hay tantas ramas en el pantano y todas retorcidas."	M
-"arbol" or "arboles" or "frondosidad" or "copas" or "plantas" or "vegetación"	"Son árboles del pantano, no importa si están vivos o muertos, siempre están recubiertos de enormes cantidades de musgo u otras cosas peores, todas ellas clasificables dentro de la categoría de porquería. Bueno, algunas tal vez mereciesen la categoría de inmundicia."	MP
+"rama" or "ramas"	"Hay tantas ramas en el [j]pantano[x] y todas retorcidas."	M
+"arbol" or "arboles" or "frondosidad" or "copas" or "plantas" or "vegetacion" or "maleza"	"Son [j]árboles[x] del pantano, no importa si están vivos o muertos, siempre están recubiertos de enormes cantidades de [j]musgo[x] u otras cosas peores, todas ellas clasificables dentro de la categoría de porquería. Bueno, algunas tal vez mereciesen la categoría de inmundicia."	MP
 
 Before taking matched scenery when the matched by is "rama" and rama is not visible:
 	move rama to location;
@@ -2081,11 +2276,11 @@ Instead of doing anything except metacommanding with matched scenery when the ma
 	try listening.
 
 [Entretenerse a oler el pantano tiene que resultar desagradable]
-Instead of smelling while in Pantano:
-	say "No puedes oler nada en este estado, pero tu portador sí... Veamos: [one of]olor a putrefacción.[or]olores extraños, probablemente de montones de esporas de todos esos musgos. ¿Serán tóxicos? Sí, casi seguro.[or]puff, una mezcla de olores completamente insoportable. Suerte que no lo estás oliendo con tu propia nariz de dragón.[or]asqueroso, asqueroso... y... un poco más de asqueroso...[at random]No esperabas menos de este pantano.".
+Instead of smelling while the location is in Pantano:
+	say "No puedes oler nada en este estado, pero tu portador sí... Veamos: [one of]olor a [j]putrefacción[x].[or]olores extraños, probablemente de montones de esporas de todos esos [j]musgos[x]. ¿Serán tóxicos? Sí, casi seguro.[or]puff, una mezcla de olores completamente insoportable. Suerte que no lo estás oliendo con tu propia nariz de dragón.[or]asqueroso, asqueroso... y... un poco más de asqueroso...[at random][line break]No esperabas menos de este pantano.".
 
 [Examina del suelo y del techo]
-Instead of examining down while in Pantano:
+Instead of examining down while the location is in Pantano:
 	if the location is Pantano17:
 		say "Todo lo que queda del viejo torreón. Un robusto y resistente suelo. No parece ser más que eso, un recuerdo del pasado.";
 	otherwise if the location is Pantano10:
@@ -2096,12 +2291,12 @@ Instead of examining down while in Pantano:
 			bnw;
 			say "¡Mira! ¡Una calabaza aún ha crecido por aquí! Igual resulta de utilidad.";
 			move calabaza to Pantano26;
-			change resuelto of Pantano26 to 1;
+			now resuelto of Pantano26 is 1;
 	otherwise:
-		say "[one of]Aquí y allá hay algo de suelo seco cubierto de [o]plantas[x], pero por lo general todos son charcos pestilentes.[or]Más que nada agua sucia.[or]Aguas oscuras en las que se ocultan [o]criaturas[x] menores.[at random]".
+		say "[one of]Aquí y allá hay algo de suelo seco cubierto de [j]plantas[x], pero por lo general todos son charcos pestilentes.[or]Más que nada agua sucia.[or]Aguas oscuras en las que se ocultan [j]criaturas[x] menores.[at random]".
 
-Instead of examining up while in Pantano:
-	say "[one of]No se puede ver más que fugazmente el anhelado cielo. Lo demás lo cubren las ramas de estos odiosos árboles.[or]Los árboles lo cubren casi todo transformando la [o]luz[x]en una sucia penumbra.[or]Buscas el cielo al que anhelas volver mirando hacia arriba, pero tan sólo puedes ver ramas de árboles.[at random]".
+Instead of examining up while the location is in Pantano:
+	say "[one of]No se puede ver más que fugazmente el anhelado cielo. Lo demás lo cubren las ramas de estos odiosos árboles.[or]Los árboles lo cubren casi todo transformando la [j]luz[x]en una sucia penumbra.[or]Buscas el cielo al que anhelas volver mirando hacia arriba, pero tan sólo puedes ver ramas de árboles.[at random]".
 
 To examina direccion fortaleza:
 	say "No es que se vea realmente, pero estás casi seguro que en aquella dirección está la fortaleza de Sady Omú.".
@@ -2110,7 +2305,7 @@ To examina direccion sur:
 	say "No se ve nada desde aquí, pero estás casi seguro de que la entrada a las cavernas está en esa dirección.".
 
 [Examinar una dirección]
-Instead of examining a direction while in Pantano:
+Instead of examining a direction while the location is in Pantano:
 	if location is Pantano14:
 		if noun is: 
 			-- north:
@@ -2138,15 +2333,15 @@ Instead of examining a direction while in Pantano:
 	otherwise if location is Copa:
 		if noun is:
 			-- north:
-				say "Lejos, sobresaliendo sobre el pantano se divisa lo que podría ser la fortaleza de Sady Omú.";
+				say "Lejos, sobresaliendo sobre el [j]pantano[x] se divisa lo que podría ser la fortaleza de Sady Omú.";
 			-- south: 
 				say "Hay un pequeño claro en esa dirección.";
 			-- otherwise:
-				say "El pantano de [o]Hapawa[x] continúa interminable en esa dirección.";
+				say "El [j]pantano[x] de [j]Hapawa[x] continúa interminable en esa dirección.";
 	otherwise if location is Pantano28:
 		if noun is:
 			-- north:
-				say "Hay un tunel horadado en la pared, en esa dirección.";
+				say "Hay un túnel horadado en la pared, en esa dirección.";
 			-- south: 
 				say "Ahí te espera el pantano.";
 			-- otherwise:
@@ -2157,7 +2352,7 @@ Instead of examining a direction while in Pantano:
 		if the destino is Pantano1:
 			say "Se escucha un refrescante sonido de agua corriente en esa dirección.";
 		otherwise if the destino is Pantano10:
-			say "[if Pantano10 is quemado]Por allí el pantano parece quemado.[otherwise]No estás seguro, pero algo blanco parece cubrir el pantano en aquella dirección.[end if]";
+			say "[if Pantano10 is quemado]Por allí el [j]pantano[x] parece quemado.[otherwise]No estás seguro, pero algo blanco parece cubrir el [j]pantano[x] en aquella dirección.[end if]";
 		otherwise if the destino is Pantano19:
 			say "Un hedor insoportable viene de esa dirección.";
 		otherwise if the destino is Pantano23:
@@ -2165,24 +2360,24 @@ Instead of examining a direction while in Pantano:
 		otherwise if the destino is Pantano25:
 			say "Por un momento te ha parecido que los árboles mismos se movían en esa dirección, pero debe haber sido una ilusión óptica.";
 		otherwise if the destino is Pantano28:
-			say "Esa parte del pantano parece pegada a alguna clase de pared. Tal vez sea la base del castillo de Sady Omú, o sea tu destino.";
+			say "Esa parte del [j]pantano[x] parece pegada a alguna clase de pared. Tal vez sea la base del castillo de Sady Omú, o sea tu destino.";
 		otherwise if deavork is in destino:
-			say "Las [o]plantas[x] en esa dirección se mueve, tiemblan, como si algo las estuviese zarandeando.";
+			say "Las [j]plantas[x] en esa dirección se mueve, tiemblan, como si algo las estuviese zarandeando.";
 		otherwise if lobo is in destino and hambre of lobo is greater than 15:
-			say "De entre las [o]plantas[x] en esa dirección se escuchan quejidos lastimosos."; 
+			say "De entre las [j]plantas[x] en esa dirección se escuchan quejidos lastimosos."; 
 		otherwise if there is a orco in the destino:
-			say "En esa dirección no parece haber más que [o]plantas[x] como en todas direcciones, aunque es cierto que cierto tufo especialmente apestoso viene desde allí.";
-		otherwise if icalante is in destino and icalante is enfadado:
+			say "En esa dirección no parece haber más que [j]plantas[x] como en todas direcciones, aunque es cierto que cierto tufo especialmente apestoso viene desde allí.";
+		otherwise if icalante is in destino and icalante is i_enfadado:
 			say "Desde esa dirección parecen venir extraños gruñidos y quejidos inhumanas.";
 		otherwise:
-			say "Plantas, [o]plantas[x] y más plantas del pantano, eso es todo lo que se ve.".
+			say "Plantas, [j]plantas[x] y más plantas del pantano, eso es todo lo que se ve.".
 
 Section 1 - Fuente
 
 Pantano1 is a parte del pantano in Pantano. 
 
 The printed name of Pantano1 is "Un rincón salubre".
-The description of Pantano1 is "Este lugar no parece tan desagradable como el resto. La presencia de un manantial de agua limpia debe tener que ver en el hecho de que las [o]plantas[x] parecen... sanas.".
+The description of Pantano1 is "Este lugar no parece tan desagradable como el resto. La presencia de un manantial de [j]agua[x] limpia debe tener que ver en el hecho de que las [j]plantas[x] parecen... sanas.".
 
 The decoration of Pantano1 is Table of DecoFuente.
 The DirCuevas of Pantano1 is south.
@@ -2190,8 +2385,8 @@ The DirCuevas of Pantano1 is south.
 Table of DecoFuente
 topic			description							genre
 "arbol" or "arboles" or "frondosidad" or "copas" or "plantas" or "vegetación"	"Aunque cubiertos de musgo, estos árboles parece árboles algo más normales, sanos, que en el resto del pantano."	M
-"inmundicia" or "porqueria" or "musgo" or "suciedad"		"Cosas putrefactas que no apetece comerse, es decir, [o]plantas[x] muertas y putrefactas, por lo general, que no tienen ese magnífico olor a carne muerta. Pero aquí, junto a la fuente parecen algo más hermosas."	F
-"aguas" or "agua" or "charco" or "charcos"		"Las [o]aguas[x] de este [o]pantano[x], como el de todos, son sucias y pestilentes. Sin embargo en este punto, debido al manantial parecen incluso potables."	M
+"inmundicia" or "porqueria" or "musgo" or "suciedad"		"Cosas putrefactas que no apetece comerse, es decir, [j]plantas[x] muertas y putrefactas, por lo general, que no tienen ese magnífico olor a carne muerta. Pero aquí, junto a la fuente parecen algo más hermosas."	F
+"aguas" or "agua" or "charco" or "charcos"		"Las [j]aguas[x] de este [j]pantano[x], como el de todos, son sucias y pestilentes. Sin embargo en este punto, debido al manantial parecen incluso potables."	M
 "luz"	"Incluso la luz parece más vibrante en este punto."	F
 
 [Salidas]
@@ -2240,9 +2435,10 @@ Pantano2 is west of Pantano4.
 
 Section 4bis - Puerta del castillo de SadyOmu (lugar mortal de necesidad)
 
-PuertaCastillo is a parte del pantano in Pantano.
+PuertaCastillo is a parte del pantano in Pantano. It is female.
+The default picture of PuertaCastillo is Figure of Castillo.
 The printed name of PuertaCastillo is "El camino hacia la fortaleza".
-The description of PuertaCastillo is "Estás en una estrecha senda entre matorrales espinosos junto a la ladera de la montaña sobre la que se alza la fortaleza de Sady Omú. Al [north] se divisan las formidables puertas de hierro de la misma. Seguir hacia allí sería suicida. Mejor retroceder hacia el pantano al [south].".
+The description of PuertaCastillo is "Estás en una estrecha senda entre matorrales espinosos junto a la ladera de la montaña sobre la que se alza la fortaleza de Sady Omú. Al [north] se divisan las formidables puertas de hierro de la misma y el foso de brea ardiente. Seguir hacia allí sería suicida. Mejor retroceder hacia el [j]pantano[x] al [south].".
 The DirCuevas of PuertaCastillo is south.
 
 The decoration of PuertaCastillo is Table of DecoPuertaCastillo.
@@ -2326,7 +2522,7 @@ After going to Pantano7:
 		decrease t by uvturn of Pantano7;
 		if PasosEnCentral is greater than t:
 			say "[one of]Uhm... ¿estás andando en círculos?[or]¡Otra vez este arbolillo? Realmente estás perdido en este pantano.[or]¿Es posible que estés dando vueltas y regresando una y otra vez al arbolillo?[at random]";
-	change uvturn of Pantano7 to turn count;
+	now uvturn of Pantano7 is turn count;
 	continue the action.
 
 The DirCuevas of Pantano7 is south.
@@ -2371,9 +2567,9 @@ The DirCuevas of Pantano10 is west.
 Pantano10 can be quemado. Pantano10 is not quemado.
 
 To quemar arana:
-	change description of Pantano10 to "La telaraña ha quedado reducida a cenizas. Restos de hilachos es todo lo que queda de la misma, y los árboles muestran claras marcas del intenso fuego que ha habido aquí.";
-	change printed name of Pantano10 to "Un lugar reducido a cenizas";
-	change decoration of Pantano10 to Table of DecoAranaQuemado;
+	now description of Pantano10 is "La telaraña ha quedado reducida a cenizas. Restos de hilachos es todo lo que queda de la misma, y los árboles muestran claras marcas del intenso fuego que ha habido aquí.";
+	now printed name of Pantano10 is "Un lugar reducido a cenizas";
+	now decoration of Pantano10 is Table of DecoAranaQuemado;
 	remove telarana from play;
 	remove bulto pegajoso from play;
 	now Pantano10 is quemado;
@@ -2383,26 +2579,27 @@ To quemar arana:
 		move item to Pantano10.
 
 The printed name of Pantano10 is "Un lugar lleno de telarañas".
-The description of Pantano10 is "Este rincón del pantano parece muy diferente a todos los demás. Todo, hasta la copa de los árboles más altos, está recubierto de amenazadoras telarañas de hilos pegajosos y enormemente grandes. Los pies de tu portador se pegan en el suelo a cada paso.[if muerto extra of Pantano10 is not nothing] En lo más alto de la telaraña, en un lugar inalcanzable, cuelga el cuerpo envuelto en telarañas que antes era [the muerto extra of Pantano10].[end if]".
+The default picture of Pantano10 is Figure of Spider.
+The description of Pantano10 is "Este rincón del [j]pantano[x] parece muy diferente a todos los demás. Todo, hasta la copa de los árboles más altos, está recubierto de amenazadoras telarañas de hilos pegajosos y enormemente grandes. Los pies de tu portador se pegan en el suelo a cada paso.[if muerto extra of Pantano10 is not nothing] En lo más alto de la telaraña, en un lugar inalcanzable, cuelga el cuerpo envuelto en telarañas que antes era [the muerto extra of Pantano10].[end if]".
 
 The decoration of Pantano10 is Table of DecoArana.
 
 Table of DecoArana
 topic			description							genre
-"arbol" or "arboles" or "frondosidad" or "copas" or "plantas"	"Los árboles del pantano casi no se ven en este lugar. Todo es más bien como un tapiz de telaraña."	M
-"pantano" or "cienagas" or "manglar" or "aguas" or "agua" or "charco" or "charcos" or "cienaga"	"Incluso las aguas del pantano están recubiertas del laborioso trabajo de lo que empiezas a sospechar que debe ser una monstruosa araña gigante."	M
-"criaturas" or "criatura" or "bestias" or "seres"	"En este lugar las [o]criaturas[x] del pantano, callan. Tal vez por miedo."	FP
+"arbol" or "arboles" or "frondosidad" or "copas" or "plantas"	"Los árboles del [j]pantano[x]casi no se ven en este lugar. Todo es más bien como un tapiz de telaraña."	M
+"pantano" or "cienagas" or "manglar" or "aguas" or "agua" or "charco" or "charcos" or "cienaga"	"Incluso las aguas del [j]pantano[x] están recubiertas del laborioso trabajo de lo que empiezas a sospechar que debe ser una monstruosa araña gigante."	M
+"criaturas" or "criatura" or "bestias" or "seres"	"En este lugar las [j]criaturas[x] del pantano, callan. Tal vez por miedo."	FP
 "cuerpo" or "orco" or "icalante" or "yerk" or "berg" or "zhur" or "nuhur" or "muerto"	"[if muerto extra of Pantano10 is nothing]No veo eso por aquí.[otherwise]El cuerpo está demasiado alto para ver nada, o para alcanzarlo.[end if]"	M
 
 Table of DecoAranaQuemado
 topic			description							genre
 "arbol" or "arboles" or "frondosidad" or "copas" or "plantas"	"Los árboles están cubiertos de restos de la telaraña y de cenizas."	MP
-"pantano" or "cienagas" or "manglar" or "aguas" or "agua" or "charco" or "charcos" or "cienaga"	"Incluso las aguas del pantano están cubiertas de cenizas."	M
-"criaturas" or "criatura" or "bestias" or "seres"	"En este lugar las [o]criaturas[x] del pantano, callan. Tal vez por miedo al fuego."	FP
+"pantano" or "cienagas" or "manglar" or "aguas" or "agua" or "charco" or "charcos" or "cienaga"	"Incluso las aguas del [j]pantano[x] están cubiertas de cenizas."	M
+"criaturas" or "criatura" or "bestias" or "seres"	"En este lugar las [j]criaturas[x] del pantano, callan. Tal vez por miedo al fuego."	FP
 "ceniza" or "cenizas"	"Restos carbonizados de la telaraña, recuerdos del fuego que acabó con uno de tus portadores."	FP
 "hilachos" or "hilacho"	"Lo poco que queda de la telaraña."	MP
 
-A telarana is a scenery. It is in Pantano10. The description of telarana is  "Blancas, pegajosas, amenazadoras.".
+Una telarana is a scenery. It is in Pantano10. The description of telarana is  "Blancas, pegajosas, amenazadoras.".
 
 Understand "telaranas" as telarana when telarana is visible.
 
@@ -2423,8 +2620,8 @@ To pnj (victima - a patroller) muerto por arana:
 	say "El veneno hace un efecto inmediato pero tanto daría, la araña no le da oportunidad de reaccionar.";
 	bnw; 
 	say "Se eleva entre los árboles llevándose [al victima] mientras lo rodea de seda y ambos desaparecen con rapidez.";
-	remove el cadaver of victima  from play;
-	change asesino of Pantano10 to 1.
+	remove cuerpo of victima  from play;
+	now asesino of Pantano10 is 1.
 
 [Caen cosas a veces]
 Every turn when there is anything in ArribaArana:
@@ -2437,13 +2634,13 @@ Every turn when there is anything in ArribaArana:
 [Código duplicado...]
 Before of pushing telarana:
 	if there is some orco (called victima) in the location:
-		change muerto extra of Pantano10 to victima;
+		now muerto extra of Pantano10 is victima;
 		if the player is not victima:
 			pnj victima muerto por arana;
 		otherwise:
 			muerte por arana;
 	otherwise:
-		change muerto extra of Pantano10 to player;
+		now muerto extra of Pantano10 is player;
 		muerte por arana.;
 	stop the action.
 
@@ -2475,17 +2672,17 @@ To muerte por arana:
 			recordar a Nuhur;
 		say "Esperar entre estas telarañas te resulta casi insoportable.";
 		bnw;
-		say "Muy pocas [o]criaturas[x] son los bastante estúpidas como para arriesgarse a entrar en este lugar y las pocas que lo hacen no sobreviven mucho tiempo.";
+		say "Muy pocas [j]criaturas[x] son los bastante estúpidas como para arriesgarse a entrar en este lugar y las pocas que lo hacen no sobreviven mucho tiempo.";
 		bnw;
 		say "Estás a punto de perder la esperanza cuando ves asomarse entre la maraña de sedas pegajosas [al nj].";
 		bnw;
 		say "Sus ojos están llenos de curiosidad, tal vez de codicia, y te coge sin sospechar que te resultará facilísimo tomar posesión de él. Cosa que haces.";
 		move nj to location;
-		change the player to nj;
+		now the player is nj;
 		move aj to NoLugar;
 		reinicia a los orcos;
 		now lobo is not contentado;
-	change asesino of Pantano10 to 1. [Solo te mata una vez]
+	now asesino of Pantano10 is 1. [Solo te mata una vez]
 
 [Salidas]
 Pantano1 is north of Pantano10.
@@ -2497,15 +2694,15 @@ Pantano11 is east of Pantano10.
 Every turn when the location is Pantano10 and asesino of Pantano10 is 0:
 	if there is some orco (called victima) in the location and a random chance of 1 in 3 succeeds:
 		if the player is not victima:
-			change muerto extra of Pantano10 to victima;
+			now muerto extra of Pantano10 is victima;
 			matar al pnj victima;
 			say "Una enorme araña, negra, peluda y muy rápida, cae sobre la espalda [del victima] y le hunde sus pedúnculos.";
 			bnw;
 			say "El veneno hace un efecto inmediato pero tanto daría, la araña no le da oportunidad de reaccionar.";
 			bnw; 
 			say "Se eleva entre los árboles llevándose [al victima] mientras lo rodea de seda y ambos desaparecen con rapidez.";
-			remove el cadaver of victima  from play;
-			change asesino of Pantano10 to 1.
+			remove cuerpo of victima  from play;
+			now asesino of Pantano10 is 1.
 
 After doing anything except going or examining or listening or smelling or viewing exits or taking inventory or searching when the location is Pantano10 and asesino of Pantano10 is 0:
 	if  a random chance of 1 in 16 succeeds:
@@ -2536,18 +2733,18 @@ After doing anything except going or examining or listening or smelling or viewi
 				recordar a Nuhur;
 			say "Esperar entre estas telarañas te resulta casi insoportable.";
 			bnw;
-			say "Muy pocas [o]criaturas[x] son los bastante estúpidas como para arriesgarse a entrar en este lugar y las pocas que lo hacen no sobreviven mucho tiempo.";
+			say "Muy pocas [j]criaturas[x] son los bastante estúpidas como para arriesgarse a entrar en este lugar y las pocas que lo hacen no sobreviven mucho tiempo.";
 			bnw;
 			say "Estás a punto de perder la esperanza cuando ves asomarse entre la maraña de sedas pegajosas [al nj].";
 			bnw;
 			say "Sus ojos están llenos de curiosidad, tal vez de codicia, y te coge sin sospechar que te resultará facilísimo tomar posesión de él. Cosa que haces.";
 			move nj to location;
-			change the player to nj;
+			now the player is nj;
 			move aj to NoLugar;
 			reinicia a los orcos;
-			change muerto extra of Pantano10 to aj;
+			now muerto extra of Pantano10 is aj;
 			now lobo is not contentado;
-		change asesino of Pantano10 to 1. [Solo te mata una vez]
+		now asesino of Pantano10 is 1. [Solo te mata una vez]
 
 Section 11 - Goolos
 
@@ -2574,7 +2771,7 @@ The decoration of Pantano12 is Table of DecoArenas.
 Table of DecoArenas
 topic			description							genre
 "pantano" or "cienagas" or "manglar" or "aguas" or "agua" or "charco" or "charcos" or "arenas" or "arena" or "cienaga"	"No te gusta nada la pinta de este lugar, el suelo parece muy inestable, cuanto antes salgas de aquí mejor."	FP
-"arbol" or "arboles" or "frondosidad" or "copas" or "plantas"	"En este punto muchos árboles del pantano han sido cortados y sólo quedan sus musgosos toncones."	M
+"arbol" or "arboles" or "frondosidad" or "copas" or "plantas"	"En este punto muchos árboles del [j]pantano[x] han sido cortados y sólo quedan sus musgosos toncones."	M
 "toncón" or "toncones"	"Los restos de un árbol del pantano. Por las marcas está claro que fue cortado con instrumentos humanos." 	M
 
 
@@ -2619,7 +2816,7 @@ To enterrado en la arenas:
 		remove item from play;	
 	let aj be the player;
 	morir en el pantano;
-	remove el cadaver of aj from play.
+	remove cuerpo of aj from play.
 
 Section 13 - Liana
 
@@ -2636,9 +2833,9 @@ Pantano14 is east of Pantano13.
 Section 14 - Lugar de inicio
 
 Pantano14 is a parte del pantano in Pantano. It is conocido.
-[The room_illustration is Figure of Puente.]
-The description of Pantano14 is "[one of]La noche te ha alcanzado mientras intentabas alcanzar el [o]castillo[x] del nigromante. La fortaleza está, casi con total seguridad, al [north] o al [northeast], pero crees que las [o]cuevas[x]  tienen su salida mucho más lejos, hacia el [south], tal vez.[or]Árboles del [o]pantano[x] de [o]Hapawa[x] te rodean. La [o]frondosidad[x] es tal que apenas deja pasar la luz. Por doquier se escuchan sonidos de [o]criaturas[x] menores entre las copas. La [o]humedad[x] probablemente llena el aire de olores a cosas muertas en putrefacción.[stopping]".
-The printed name of Pantano14 is "Un lugar algo más seco en el [o]pantano[x] de [o]Hapawa[x]".
+The default picture of Pantano14 is Figure of pantano Inicial.
+The description of Pantano14 is "[one of]El atardecer te ha alcanzado mientras intentabas alcanzar el [j]castillo[x] del nigromante, aunque casi parece noche en este pantano. La fortaleza está, casi con total seguridad, al [north] o al [northeast], pero crees que las [j]cuevas[x]  tienen su salida mucho más lejos, hacia el [south] de esta posición tal vez.[or]Árboles del [j]pantano[x] de [j]Hapawa[x] te rodean. La [j]frondosidad[x] es tal que apenas deja pasar la luz. Por doquier se escuchan sonidos de [j]criaturas[x] menores entre las copas. La [j]humedad[x] probablemente llena el aire de olores a cosas muertas en [j]putrefacción[x].[stopping]".
+The printed name of Pantano14 is "Un lugar algo más seco en el [j]pantano[x] de [j]Hapawa[x]".
 
 [Salidas]
 Pantano6 is north of Pantano14.
@@ -2655,7 +2852,7 @@ topic		description							genre
 Section 15 - Manzana
 
 Pantano15 is a parte del pantano in Pantano.
-The description of Pantano15 is "El [o]pantano[x] no es tan denso aquí. Es casi como si esto hubiese estado civilizado alguna vez, hace mucho."
+The description of Pantano15 is "El [j]pantano[x] no es tan denso aquí. Es casi como si esto hubiese estado civilizado alguna vez, hace mucho."
 The printed name of Pantano15 is "¿Los restos de un viejo patio o una huerta?".
 The DirCuevas of Pantano15 is south.
 The  selected description of Pantano15 is 5.
@@ -2670,7 +2867,7 @@ The decoration of Pantano15 is Table of DecoManzano.
 
 Table of DecoManzano
 topic			description							genre
-"patio" or "huerta" or "construccion"	"Algo en la forma de esta parte del [o]pantano[x] hace pensar en un patio de una casa lujosa o tal vez en una huerta interior, pero en realidad no queda ni una piedra de los muros ni ninguna otra cosa que confirme la primera impresión."	M
+"patio" or "huerta" or "construccion"	"Algo en la forma de esta parte del [j]pantano[x] hace pensar en un patio de una casa lujosa o tal vez en una huerta interior, pero en realidad no queda ni una piedra de los muros ni ninguna otra cosa que confirme la primera impresión."	M
 "muros" or "piedra"	"No, no queda realmente ningún rastro de la construcción antigua si es que realmente hubo algo aquí."	MP
 
 
@@ -2681,8 +2878,8 @@ Pantano16 is a parte del pantano in Pantano.
 The DirCuevas of Pantano16 is east.
 
 The printed name of Pantano16 is "Un viejo refugio de leñadores".
-The description of Pantano16 is "Aquí vivía gente, probablemente antes de la noche del Levantamiento, cuando Sady Omú lideró el ataque a las órdenes mágicas. Ya casi no queda nada, pero está claro que los leñadores trabajaban en esta parte del manglar. Incluso quedan los restos de un refugio".
-
+The description of Pantano16 is "Aquí vivía gente, probablemente antes de la noche del Levantamiento, cuando Sady Omú lideró el ataque a las órdenes mágicas. Ya casi no queda nada, pero está claro que los leñadores trabajaban en esta parte del [j]manglar[x]. Incluso quedan los restos de un [j]refugio[x]".
+The default picture of Pantano16 is Figure of Lenadores.
 The selected description of Pantano16 is 2.
 
 The decoration of Pantano16 is Table of DecoLennadores.
@@ -2691,14 +2888,14 @@ Table of DecoLennadores
 topic			description							genre
 "refugio"	"Ya no es más que un montón desordenado de piedras."	M
 
-A monton piedras is fixed in place. It is in Pantano16. The description of monton piedras is  "No es más que un montón de piedras de lo que antiguamente debió ser un refugio de leñadores.". 
+Un monton piedras is fixed in place with keyword "piedras". It is in Pantano16. The description of monton piedras is  "No es más que un montón de piedras de lo que antiguamente debió ser un [j]refugio[x] de leñadores.". 
 The printed name of monton piedras is "montón de piedras".
 
 Understand "desordenado" as monton piedras when monton piedras is visible.
 Understand "monton de piedras" as monton piedras when piedra is not visible and monton piedras is visible.
 
 After examining monton piedras for the first time:
-	say "Entre las piedras encuentras el último resto de la actividad de los leñadores aquí, un leño alargado y seco.";
+	say "Entre las piedras encuentras el último resto de la actividad de los leñadores aquí, un [j]leño[x] alargado y seco.";
 	move leno seco to Pantano16.
 
 Instead of taking monton piedras:
@@ -2722,9 +2919,9 @@ Section 17 - Icalante
 Pantano17 is a parte del pantano in Pantano.
 
 The DirCuevas of Pantano17 is south.
-
+The default picture of Pantano17 is Figure of Torreon.
 The printed name of Pantano17 is "Las ruinas de un torreón".
-The description of Pantano17 is "Este lugar debió ser un torreón en el pasado, o alguna clase de torre de vigilancia. ¿De quién? ¿De cuándo? En cualquier caso no queda casi nada excepto algunas piedras y el resistente suelo.[if icalante is enfadado] Sin embargo, este poco que queda ha debido parecerle a alguien de las tropas de Sady Omú el lugar ideal para 'atar' una bestia lo más lejos posible de él mismo.[end if]".
+The description of Pantano17 is "Este lugar debió ser un [j]torreón[x] en el pasado, o alguna clase de torre de vigilancia. ¿De quién? ¿De cuándo? En cualquier caso no queda casi nada excepto algunas piedras y el resistente suelo.[if icalante is i_enfadado] Sin embargo, este poco que queda ha debido parecerle a alguien de las tropas de Sady Omú el lugar ideal para 'atar' una bestia lo más lejos posible de él mismo.[end if]".
 
 The selected description of Pantano17 is 4.
 
@@ -2732,9 +2929,9 @@ The decoration of Pantano17 is Table of DecoTorreon
 
 Table of DecoTorreon
 topic			description							genre
-"torreon" or "torre" or "vigilancia"	"Tal vez sea una de esas construcciones de vigilancia que crean los humanos, aunque, al encontrarse en mitad del [o]pantano[x] no puedes imaginar qué estaba 'vigilando'. Parece antigua, aunque todo lo que han construído los humanos es ridículamente moderno en comparación con vuestras venerables construcciones dragón. En cualquier caso esto ha sido destruído y por el color de las piedras por un dragón y su aliento. Esa idea te reconforta, aunque desearías haberlo hecho tú mismo... Tal vez pronto..."	M
+"torreon" or "torre" or "vigilancia"	"Tal vez sea una de esas construcciones de vigilancia que crean los humanos, aunque, al encontrarse en mitad del [j]pantano[x] no puedes imaginar qué estaba 'vigilando'. Parece antigua, aunque todo lo que han construído los humanos es ridículamente moderno en comparación con vuestras venerables construcciones dragón. En cualquier caso esto ha sido destruído y por el color de las [j]piedras[x] por un dragón y su aliento. Esa idea te reconforta, aunque desearías haberlo hecho tú mismo... Tal vez pronto..."	M
 "color" or "hollin"	"Todo está ennegrecido, como si el viejo hollín del fuego que destruyó este torreón se hubiese transformado en una segunda piel de sus restos."	M
-"piedras"	"No son más que restos de lo que fue el torreón. Inservibles, excepto para subir tu orgullo de raza. Uno de los tuyos destruyó este lugar. Lo demuestra el color de la piedra y ese particular aspecto de roca calentada hasta casi fundirse."	FP
+"piedras" or "piedra"	"No son más que restos de lo que fue el torreón. Inservibles, excepto para subir tu orgullo de raza. Uno de los tuyos destruyó este lugar. Lo demuestra el color de la piedra y ese particular aspecto de roca calentada hasta casi fundirse."	FP
 
 Understand "bestia" as icalante.
 
@@ -2750,7 +2947,7 @@ Pantano18 is a parte del pantano in Pantano.
 The DirCuevas of Pantano18 is south.
 
 The printed name of Pantano18 is "Un lugar repleto de restos óseos".
-The description of Pantano18 is "Mires donde mires ves restos de huesos. Te recuerda a un cementerio de dragones, de los que se pueden encontrar en valles perdidos entre montañas, pero sin su majestuosidad.".
+The description of Pantano18 is "Mires donde mires ves restos de [j]huesos[x]. Te recuerda a un [j]cementerio[x] de dragones, de los que se pueden encontrar en valles perdidos entre montañas, pero sin su majestuosidad.".
 
 Pantano18 has a number called serpAcecha. The serpAcecha of Pantano18 is 0. 
 
@@ -2769,7 +2966,7 @@ Pantano19 is east of Pantano18.
 [Peligrosas serpientes se ocultan en este lugar]
 Every turn while the location is Pantano18:
 	if a random chance of 1 in 8 succeeds: [Primero, a veces se ver moverse a las serpientes]
-		say "[one of]¿Qué ha sido eso? Por un momento te ha parecido ver moverse a algo entre los huesos.[or]¡Ey! ¡Por ahí hay un... No, ya no se ve, pero estabas casi seguro que justo por detrás de ti se había movido... pero no hay nada por ahí.[or]Por un momento te parece ver moverse algo entre las [o]plantas[x], pero debe ser sólo la impresión de este triste lugar.[at random]";
+		say "[one of]¿Qué ha sido eso? Por un momento te ha parecido ver moverse a algo entre los huesos.[or]¡Ey! ¡Por ahí hay un... No, ya no se ve, pero estabas casi seguro que justo por detrás de ti se había movido... pero no hay nada por ahí.[or]Por un momento te parece ver moverse algo entre las [j]plantas[x], pero debe ser sólo la impresión de este triste lugar.[at random]";
 		increase serpAcecha of Pantano18 by 1;
 	otherwise:
 		if a random chance of serpAcecha of Pantano18 in 80 succeeds: [A veces te matan, pero muy raramente]
@@ -2781,7 +2978,7 @@ Every turn while the location is Pantano18:
 				say "Oh, ¡mierda!. Tu portador ha caído de bruces así sin más. Parece que el veneno era mortal.";
 				let aj be the player;
 				morir en el pantano;
-				now el cadaver of aj is mordidoserpiente;
+				now cuerpo of aj is mordidoserpiente;
 			otherwise:
 				say "Uff...";
 				bnw;
@@ -2791,13 +2988,13 @@ Every turn while the location is Pantano18:
 				move cadaver_serpiente to Pantano18.
 
 After going from Pantano18:
-	change serpAcecha of Pantano18 to 0;
+	now serpAcecha of Pantano18 is 0;
 	continue the action.
 
 Every turn while there is a orco (called victima) in Pantano18:
 	if victima is not the player and a random chance of 1 in 30 succeeds:
 		matar al pnj victima;
-		now el cadaver of victima is mordidoserpiente;
+		now cuerpo of victima is mordidoserpiente;
 		if location is Pantano18:
 			say "¡Vaya! Una serpiente de colores chillones ha surgido de la maleza y ha picado [al victima] en su tobillo. Y [the victima] ha caído muerto al instante soltando espumarajos por la boca.".
 
@@ -2807,6 +3004,7 @@ Section 19 - Campamento Orco
 
 Pantano19 is a parte del pantano in Pantano.
 The DirCuevas of Pantano19 is south.
+The default picture of Pantano19 is Figure of Orc Camp.
 
 The printed name of Pantano19 is "Un campamento de orcos".
 The description of Pantano19 is "El olor es más que suficiente para reconocer un campamento de orcos. Pero si eso no fuese suficiente, los restos de comida putrefacta, los excrementos, y el desorden lo confirmaría.".
@@ -2828,22 +3026,29 @@ Pantano20 is east of Pantano19.
 
 Section 20 - Carcel
 
-Pantano20 is a parte del pantano in Pantano.
-The DirCuevas of Pantano20 is west.
-
+Pantano20 is a room.
+The default picture of Pantano20 is Figure of Tree Cage.
 The printed name of Pantano20 is "Una suerte de cárcel orca".
-The description of Pantano20 is "En este lugar crece un viejo y recio árbol del que los orcos parecen colgar jaulas. Una cárcel. Aunque teniendo en cuenta lo que hacen muchas veces los orcos con los prisioneros tal vez la palabra más adecuada sería 'almacén', o tal vez 'alacena'. Desde este punto la vegetación impide ir a cualquier parte que no sea el campamento orco.[line break][line break]Una jaula cuelga en entre las ramas del árbol.[if liana is part of recio arbol][line break][line break]No muy lejos de la jaula y sobre la misma rama cuelga la liana haciendo de improvisada ayuda para poder trepar hasta arriba.".
+The description of Pantano20 is "En este lugar crece un viejo y recio árbol del que los orcos parecen colgar jaulas. Una cárcel. Aunque teniendo en cuenta lo que hacen muchas veces los orcos con los prisioneros tal vez la palabra más adecuada sería 'almacén', o tal vez 'alacena'. Desde este punto la vegetación impide ir a cualquier parte que no sea el campamento orco.[line break][line break]Una [j]jaula[x] cuelga en entre las ramas del árbol.[if liana is part of recio arbol][line break][line break]No muy lejos de la jaula y sobre la misma rama cuelga la liana haciendo de improvisada ayuda para poder trepar hasta arriba.".
 
 [Salidas]
 Pantano19 is west of Pantano20.
 [Copa is above Pantano20.]
 
+The decoration of Pantano20 is Table of DecoJaula.
+
+Table of DecoJaula
+topic	description	genre 
+"inmundicia" or "porqueria" or "musgo" or "musgos" or "suciedad"		"Cosas putrefactas que no apetece comerse, es decir, [j]plantas[x] muertas y putrefactas, por lo general, que no tienen ese magnífico olor a carne muerta. Claro que en tu estado poco puedes [j]oler[x], es una de las cosas que peor sobrellevas."	F
+"luz"	"Llamar [j]luz[x]a la penumbra que resulta tras atravesar las copas del manglar, es como una suerte de chiste cruel."	F
+"bruma" or "niebla" or "neblina"	"Elevándose desde las cenagosas [j]aguas[x] una sempiterna nieblina lo desdibuja todo en este [j]pantano[x]."	F
+"frondosidad" or "copas" or "plantas" or "vegetación"	"Son árboles del pantano, no importa si están vivos o muertos, siempre están recubiertos de enormes cantidades de [j]musgo[x] u otras cosas peores, todas ellas clasificables dentro de la categoría de porquería. Bueno, algunas tal vez mereciesen la categoría de inmundicia."	MP
 
 
 Section 20bis - Parte superior del árbol
 
-Copa is a room.
-
+Copa is a room above Pantano20. Pantano20 is below Copa.
+The default picture of Copa is Figure of TopTree.
 The printed name of Copa is "Entre las ramas de un vestusto árbol".
 The description of Copa is "Las ramas son anchas y estables. No es un sitio muy desagradable.".
 
@@ -2858,13 +3063,13 @@ topic			description							genre
 "corteza"		"De un color pálido, y de tacto resbaladizo, casi cerúleo."		F
 "hojas" or "hoja"		"Realmente minúsculas."						FP
 
-A Fortaleza is scenery in Copa. It is a female. The description of fortaleza is "A lo lejos se levanta la fortaleza de Sady Omú. Viejos recuerdos de poder injustificado, violencia gratuita y banquetes inacabables llenan tu mente de felicidad.".
-A Claro is scenery in Copa. The description of claro is "Parece haber un pequeño claro en esa dirección, pero no se divisa nada más.".
+Una Fortaleza is scenery in Copa. It is a female. The description of fortaleza is "A lo lejos se levanta la fortaleza de Sady Omú. Viejos recuerdos de poder injustificado, violencia gratuita y banquetes inacabables llenan tu mente de felicidad.".
+Un Claro is scenery in Copa. The description of claro is "Parece haber un pequeño claro en esa dirección, pero no se divisa nada más.".
 
-Instead of doing anything except examining or metacommanding fortaleza:
+Instead of doing anything except examining or metacommanding fortaleza while the location is in Copa:
 	say "Tendrás que ir hasta la fortaleza para intentar cualquier cosa en ella o con ella a parte de mirarla.".
 
-Instead of doing anything except examining or metacommanding claro:
+Instead of doing anything except examining or metacommanding claro while the location is in Copa:
 	say "El claro simplemente está demasiado lejos.".
 
 Section 21 - Localidad vacia 5
@@ -2892,17 +3097,18 @@ Pantano23 is east of Pantano22.
 Section 23 - Túmulo
 
 Pantano23 is a parte del pantano in Pantano.
+The default picture of Pantano23 is Figure of Tumulo.
 The DirCuevas of Pantano23 is east.
 The printed name of Pantano23 is "[if monticulo is inicial]Unas ruinas sospechosamente familiares[otherwise]Un antiguo túmulo draconil[end if]".
-The description of Pantano23 is "[if monticulo is inicial]Arbustos espinosos cubren un gran montículo de piedra. No conocías este lugar, pero de alguna forma te resulta extrañamente familiar.[otherwise]Es muy reconfortante encontrar en este sucio [o]pantano[x] un destello de la vieja y gloriosa historia dragón. Aquí se alza un túmulo de un viejo señor de los dragones.[end if]".
+The description of Pantano23 is "[if monticulo is inicial]Arbustos espinosos cubren un gran [j]montículo[x] de piedra. No conocías este lugar, pero de alguna forma te resulta extrañamente familiar.[otherwise]Es muy reconfortante encontrar en este sucio [j]pantano[x] un destello de la vieja y gloriosa historia dragón. Aquí se alza un [j]túmulo[x] de un viejo señor de los dragones.[end if]".
 
 The decoration of Pantano23 is Table of DecoTumulo.
 
 Table of DecoTumulo
 topic			description							genre
-"arbol" or "arboles" or "frondosidad" or "copas" or "plantas" or "vegetación"	"En este lugar hay algo menos de [o]humedad[x]. La vegetación más que putrefacta en este lugar parece espinosa, especialmente la enredadera que cubre gran parte del montículo de piedra."	F
-"inmundicia" or "porqueria" or "musgo" or "suciedad"		"En esta parte del [o]pantano[x] hay mucha menos porquería que en el resto."	F
-"aguas" or "agua" or "charco" or "charcos"		"En esta parte del [o]pantano[x] el agua es casi inexistente."	F
+"arbol" or "arboles" or "frondosidad" or "copas" or "plantas" or "vegetación"	"En este lugar hay algo menos de [j]humedad[x]. La vegetación más que putrefacta en este lugar parece espinosa, especialmente la enredadera que cubre gran parte del montículo de piedra."	F
+"inmundicia" or "porqueria" or "musgo" or "suciedad"		"En esta parte del [j]pantano[x] hay mucha menos porquería que en el resto."	F
+"aguas" or "agua" or "charco" or "charcos"		"En esta parte del [j]pantano[x] el agua es casi inexistente."	F
 
 [Salidas]
 Pantano4 is north of Pantano23.
@@ -2940,14 +3146,15 @@ Section 24 - Interior túmulo
 
 Pantano24 is a room. Pantano24 is dark.
 The printed name of Pantano24 is "El interior de un túmulo dragón".
-The description of Pantano24 is "Las enormes piedras rituales te rodean por todas partes. Al fondo los sagrados huesos y escamas de uno de los antepasados de los Drack, un hermano de tu filia dorada. Bajo tus pies los innumerables restos de sus servidores sacrificados y probablemente de sus enemigos derrotados.".
+The default picture of Pantano24 is Figure of In Tumulo.
+The description of Pantano24 is "Las enormes piedras rituales te rodean por todas partes. Al fondo los sagrados [j]huesos[x] y [j]escamas[x] de uno de los antepasados de los Drack, un hermano de tu filia dorada. Bajo tus pies los innumerables restos de sus [j]servidores[x] sacrificados y probablemente de sus enemigos derrotados.".
 
 The decoration of Pantano24 is Table of DecoIntTumulo.
 
 Table of DecoIntTumulo
 topic			description							genre
-"inmundicia" or "porqueria" or "musgo" or "suciedad"		"En esta parte del [o]pantano[x] hay mucha menos porquería que en el resto."	F
-"aguas" or "agua" or "charco" or "charcos"		"En esta parte del [o]pantano[x] el agua es casi inexistente."	F
+"inmundicia" or "porqueria" or "musgo" or "suciedad"		"En esta parte del [j]pantano[x] hay mucha menos porquería que en el resto."	F
+"aguas" or "agua" or "charco" or "charcos"		"En esta parte del [j]pantano[x] el agua es casi inexistente."	F
 "piedra" or "piedras" or "tumulo"	"Estas enormes y arcaicas piedras es de lo poco queda de la gloriosa Edad Ígnea en el mundo. ¡Malditos humanos!"	M
 
 
@@ -2968,11 +3175,11 @@ topic				description		genre
 
 [ TODO ]
 
-A vegetacion is a scenery in Pantano25. It is female. The description of vegetacion is "Algo en este lugar te asusta, algo en esta vegetación no es como debería ser. No es el olor, que es igual de malo que en todas partes... es no sabes, algo que simplemente es incorrecto.".
+La vegetacion is a scenery in Pantano25. It is female. The description of vegetacion is "Algo en este lugar te asusta, algo en esta vegetación no es como debería ser. No es el olor, que es igual de malo que en todas partes... es no sabes, algo que simplemente es incorrecto.".
 
 Understand "frondosidad" or "plantas" or "copas" as vegetacion when the location is Pantano25.
 
-Some arboles rojizos are a scenery in Pantano25. The description of arboles rojizos is "Largos y delgados, de un siniestro rojo, dan la extraña sensación de que están observando.".
+Some arboles rojizos (m) are a scenery in Pantano25. The description of arboles rojizos is "Largos y delgados, de un siniestro rojo, dan la extraña sensación de que están observando.".
 
 The printed name of arboles rojizos is "árboles rojizos".
 
@@ -2996,7 +3203,7 @@ After doing anything except going or examining or listening or smelling or viewi
 To morir ahogado vegetal:
 	say "Uno de los árboles te atrapa... bueno a tu portador. Puedes sentir como su tráqueta se hunde bajo la presión de la madera.";
 	morir en el pantano;
-	change asesino of Pantano25 to 1. [Solo te mata una vez]
+	now asesino of Pantano25 is 1. [Solo te mata una vez]
 
  Instead of searching or touching or pushing or attacking arboles rojizos:
 	if there is some orco (called victima) in the location and a random chance of 1 in 3 succeeds:
@@ -3030,7 +3237,8 @@ Section 26 - Calabaza
 Pantano26 is a parte del pantano in Pantano.
 The DirCuevas of Pantano26 is east.
 The printed name of Pantano26 is "Los restos de una huerta humana".
-The description of Pantano26 is "Parece que humanos habitaron este lugar. La tierra aún tiene las heridas de sus vanos intentos de trabajarla. Tal vez se trató de una lamentable 'huerta'. Es evidente que los orcos se han cebado con este lugar.".
+The description of Pantano26 is "Parece que humanos habitaron este lugar. La tierra aún tiene las heridas de sus vanos intentos de trabajarla. Tal vez se trató de una lamentable '[j]huerta[x]'. Es evidente que los orcos se han cebado con este lugar.".
+The default picture of Pantano26 is Figure of Huerta.
 
 Pantano26 has a number called resuelto. The resuelto of Pantano26 is 0.
 
@@ -3043,18 +3251,18 @@ Pantano27 is east of Pantano26.
 Section 27 - No muy lejos
 
 Pantano27 is a parte del pantano in Pantano.
-The printed name of Pantano27 is "No muy lejos de las [o]cuevas[x] ".
-The description of Pantano27 is "Desde este lugar, semioculta por los árboles y las demás [o]plantas[x] se divisa una hondonada hacia el [north] que estás casi seguro que debe ser el punto en el que se puede entrar a las [o]cuevas[x]  bajo la fortaleza de Sady Omú.".
+The printed name of Pantano27 is "No muy lejos de las [j]cuevas[x] ".
+The description of Pantano27 is "Desde este lugar, semioculta por los árboles y las demás [j]plantas[x] se divisa una hondonada hacia el [north] que estás casi seguro que debe ser el punto en el que se puede entrar a las [j]cuevas[x]  bajo la fortaleza de Sady Omú.".
 The DirCuevas of Pantano27 is north.
 
 A cueva_fake is a scenery in Pantano27. It is female. The description of cueva_fake is "Aún no son visibles, pero seguro que están ahí mismo, al [north], en la hondonada.".
 The printed name of cueva_fake is "cueva".
 Understand "cuevas" or "cueva" as cueva_fake when the location is Pantano27.
 
-A hondonada is a scenery in Pantano27. It is female. The description of hondonada is "Destaca sobre el resto del pantano. ¡Seguro que es la entrada a las [o]cuevas[x] !".
+A hondonada is a scenery in Pantano27. It is female. The description of hondonada is "Destaca sobre el resto del pantano. ¡Seguro que es la entrada a las [j]cuevas[x] !".
 
 Instead of doing anything except examining or metacommanding with cueva_fake:
-	say "Las [o]cuevas[x]  deben estar al [north] en la hondonada.".
+	say "Las [j]cuevas[x]  deben estar al [north] en la hondonada.".
 
 Instead of doing anything except examining or metacommanding with hondonada:
 	say "¡Simplemente hay que ir al [north]!".
@@ -3069,9 +3277,9 @@ Pantano5 is east of Pantano27.
 Section 28 - Entrada a las cuevas
 
 Pantano28 is a parte del pantano in Pantano.
-
+The default picture of Pantano28 is Figure of Entrada a Cuevas.
 The printed name of Pantano28 is "Entrada a las cuevas".
-The description of Pantano28 is "El [o]pantano[x] acaba aquí, aunque lamentablemente se encuentra no muy lejos hacia el [south]. Este lugar no es más que un sucio agujero en el suelo en cuya pared [north] está horadado un túnel. [if resuelto of Pantano28 is 0]Es estrecho, oscuro, sucio... y por desgracia debe ser la ruta bajo tierra al castillo de Sady Omú que estabas buscando.[otherwise if resuelto of Pantano28 is 1]Dentro de él viven deavorks.[otherwise]La entrada al laberinto de tuneles que lleva hasta el castillo de Sady Omú.[end if]".
+The description of Pantano28 is "El [j]pantano[x] acaba aquí, aunque lamentablemente se encuentra no muy lejos hacia el [south]. Este lugar no es más que un sucio agujero en el suelo en cuya pared [north] está horadado un [j]túnel[x]. [if resuelto of Pantano28 is 0]Es estrecho, oscuro, sucio... y por desgracia debe ser la ruta bajo tierra al castillo de Sady Omú que estabas buscando.[otherwise if resuelto of Pantano28 is 1]Dentro de él viven deavorks.[otherwise]La entrada al laberinto de túneles que lleva hasta el castillo de Sady Omú.[end if]".
 
 Pantano28 has a number called resuelto. The resuelto of Pantano28 is 0.
 
@@ -3079,23 +3287,30 @@ The decoration of Pantano28 is Table of DecoEntrada.
 
 Table of DecoEntrada
 topic			description							genre
-"agujero" or "letrina"	"Todo este lugar no tiene otra descripción posible que la de 'agujero infecto'. Bueno, también podrías llamarlo 'letrina infernal', pero eso ya sería exagerar. Tal vez el [o]pantano[x] en su conjunto sí que merezca la segunda descripción."	M
+"agujero" or "letrina"	"Todo este lugar no tiene otra descripción posible que la de 'agujero infecto'. Bueno, también podrías llamarlo 'letrina infernal', pero eso ya sería exagerar. Tal vez el [j]pantano[x] en su conjunto sí que merezca la segunda descripción."	M
 
-A tunel is a scenery in Pantano28.
+Un tunel is a scenery in Pantano28.
 The description of tunel is "[if resuelto of Pantano28 is 0]Es demasiado estrecho, demasiado oscuro y salen de ahí ruidos demasiado raros como para que sea razonable entrar en él. Y sin embargo estás casi seguro de que no queda otra que ir por ahí.[otherwise if resuelto of Pantano28 is 1]La entrada al peligroso nido de los deavorks.[otherwise]Es la entrada a los laberínticos túneles bajo la fortaleza de Sady Omú.[end if]".
+The printed name of tunel is "túnel".
 
-A pared is a scenery in Pantano28. It is female. The description of pared is "Sucia, como todo en el pantano, pero de aspecto impenetrable.".
+Una pared is a scenery in Pantano28. It is female. The description of pared is "Sucia, como todo en el pantano, pero de aspecto impenetrable.".
 Understand "roca" as pared when the location is Pantano28.
 
 Understand  "estrecho" or "oscuro" or "sucio" or "cueva" or "cuevas" as tunel when the location is Pantano28.
 
-Instead of pointing tunel when the location is Pantano28 and icalante is in Pantano28 and icalante is siguiendote:
-	say "El icalante mira unos segundos el agujero. Luego, entendiendo,[if there is a thing carried by icalante] deja todo lo que lleva y[end if] entra en el agujero.";
+Instead of pointing matched scenery when the location is Pantano28 and matched by is "agujero":
+	try pointing tunel.
+
+Instead of pointing tunel when the location is Pantano28 and icalante is in Pantano28 and icalante is i_siguiendote:
+	say "El [j]icalante[x] mira unos segundos el agujero. Luego, entendiendo,[if there is a thing carried by icalante] deja todo lo que lleva y[end if] entra en el agujero.";
 	bnw;
 	say "Se escuchan chillidos, y gritos, sobre todo de insecto y al poco varios insectos salen huyendo por el agujero; y tras ellos un sonriente icalante.";
 	repeat with item running through things carried by icalante:
 		move item to location;
-	change resuelto of Pantano28 to 2.
+	now resuelto of Pantano28 is 2.
+
+Instead of searching tunel:
+	try going north.
 
 [Salidas]
 Cueva1 is north of Pantano28.
@@ -3109,8 +3324,18 @@ Cuevas is a  region.
 A cueva oscura is a kind of room. A cueva oscura is usually dark.
 
 [Para complicar aún más el 'bonito' este laberinto, los nombres y descripciones de muchas habitaciones son al 'azar']
-The printed name of a cueva oscura is usually "[one of]Un rincón oscuro de las [o]cuevas[x] [or]Una cavidad natural, más bien angosta[or]Apenas un túnel[or]En la oscuridad, rodeadao de piedras de extrañas formas[at random]".
-The description of a cueva oscura is usually "[one of]Una parte de las [o]cuevas[x]  bajo el castillo de Sady Omú. Aquí y allá se abren orificios de diverso tamaño redondeados por el efecto de algún elemento natural (¿agua tal vez?) y que deben llevar a otras partes de las [o]cuevas[x] .[or]Rocas, pared de roca, formaciones rocosas y los huecos entre todas esas rocas. Eso es todo lo que te rodea.[or]Rocas que a ratos parecen amenazantes en la penumbra y a ratos simplemente parecen aburridas.[or]Tanta vida allá fuera en el pantano, aunque sucia y de podredumbre, y aquí abajo solamente hay rocas.[at random]".
+The printed name of a cueva oscura is usually "[one of]Un rincón oscuro de las [j]cuevas[x] [or]Una cavidad natural, más bien angosta[or]Apenas un túnel[or]En la oscuridad, rodeadao de piedras de extrañas formas[at random]".
+The description of a cueva oscura is usually "[one of]Una parte de las [j]cuevas[x]  bajo el castillo de Sady Omú. Aquí y allá se abren orificios de diverso tamaño redondeados por el efecto de algún elemento natural (¿agua tal vez?) y que deben llevar a otras partes de las [j]cuevas[x] .[or]Rocas, pared de roca, formaciones rocosas y los huecos entre todas esas rocas. Eso es todo lo que te rodea.[or]Rocas que a ratos parecen amenazantes en la penumbra y a ratos simplemente parecen aburridas.[or]Tanta vida allá fuera en el pantano, aunque sucia y de podredumbre, y aquí abajo solamente hay rocas.[at random]".
+
+When play begins:
+	let cave pictures be {Figure of Cuevas1,Figure of Cuevas2,Figure of Cuevas3,Figure of Cuevas4};
+	sort cave pictures in random order;
+	let position be 1;
+	repeat with cave running through {Cueva2,Cueva3,Cueva5}:
+		now the default picture of cave is entry position of cave pictures;
+		increase position by 1.
+			
+	
 
 [Todos las habitaciones del pantano tienen una serie de decorados iguales]
 The decoration of Cuevas is Table of DecoCuevas.
@@ -3119,14 +3344,15 @@ Table of DecoCuevas
 topic			description							genre
 "roca" or "rocas"	"Rocas. Nunca te han interesado. Son simplemente pedazos inertes de naturaleza de diversos colores y extrañas formas."	FP
 "huecos" or "tuneles" or "grietas"	"En todas direcciones se abren huecos por los que parece posible pasar a lugares igual de oscuros. Una de estas direcciones tiene que llevar a los sótanos del castillo de Sady Omú."	MP
-"cueva" or "cuevas"	"Estas [o]cuevas[x]  parecen tan sólo un sucio conjunto de túneles. Nada que ver con las residencias de los antiguos dragones en la Edad Ígnea."	FP
+"cueva" or "cuevas"	"Estas [j]cuevas[x]  parecen tan sólo un sucio conjunto de túneles. Nada que ver con las residencias de los antiguos dragones en la Edad Ígnea."	FP
 
 Section 1 - Junto a puerta
 
 Cueva1 is a cueva oscura in Cuevas. Cueva1 is lighted.
+The default picture of Cueva1 is Figure of Inicio Cuevas.
 
 The printed name of Cueva1 is "El destrozado nido de deavorks".
-The description of Cueva1 is "Esto debía de estar repleto de deavorks, ahora sólo quedan sus restos. Pero lo que hay más allá no pinta mejor que morir a manos de uno de estos insectos. Oscuras y laberínticas, así parecen las [o]cuevas[x] .".
+The description of Cueva1 is "Esto debía de estar repleto de deavorks, ahora sólo quedan sus [j]restos[x]. Pero lo que hay más allá no pinta mejor que morir a manos de uno de estos insectos. Oscuras y laberínticas, así parecen las [j]cuevas[x] .".
 
 The decoration of Cueva1 is Table of DecoNido.
 
@@ -3165,7 +3391,8 @@ Section 4 - Cueva 4 (Loc 34)
 Cueva4 is a cueva oscura in Cuevas.
 
 The printed name of Cueva4 is "Donde el resplandor".
-The description of Cueva4 is "En esta parte de las [o]cuevas[x]  un resplandor rojizo se filtra desde el oeste.".
+The default picture of Cueva4 is Figure of Next Lava.
+The description of Cueva4 is "En esta parte de las [j]cuevas[x]  un resplandor rojizo se filtra desde el oeste.".
 Cueva4 is lighted.
 
 [Salidas]
@@ -3184,9 +3411,11 @@ Cueva4 is north of Cueva5.
 Before going north from Cueva5:
 	[ Esta conexión no funcionará sin luz y sin mapa]
 	if in darkness or mosaico is not leido:
-		[say "Pongo C3.";]
 		now Cueva3 is mapped north of Cueva5;
-		say "[one of]Hay demasiadas salidas en este laberinto de túneles. Te da la sensación de estar andando en círculos.[or]¿No has pasado ya antes por aquí? ¿No has cogido ya este túnel? Uhm...[or]Así podríamos pasar días y días, me parece que nos hace falta [if in darkness]luz para poder penertrar estas tinieblas[otherwise]un mapa o algo así.[end if][or]Te empieza a parecer que estás perdido en estos túneles.[at random]".
+		say "[one of]Hay demasiadas salidas en este laberinto de túneles. Te da la sensación de estar andando en círculos.[or]¿No has pasado ya antes por aquí? ¿No has cogido ya este túnel? Uhm...[or]Así podríamos pasar días y días, me parece que nos hace falta [if in darkness]luz para poder penertrar estas tinieblas[otherwise]un mapa o algo así.[end if][or]Te empieza a parecer que estás perdido en estos túneles.[at random]";
+	otherwise:
+		now Cueva4 is mapped north of Cueva5;
+	continue the action.
 
 After going north from Cueva5:
 	[say "Pongo C4.";]
@@ -3209,7 +3438,7 @@ Lava is a room in Castillo.
 
 Lava can be congelada. Lava is not congelada.
 
-The printed name of Lava is "[if Lava is not congelada]Un tunel surcado por un río de lava[otherwise]Un túnel oscuro[end if]".
+The printed name of Lava is "[if Lava is not congelada]Un túnel surcado por un río de lava[otherwise]Un túnel oscuro[end if]".
 The description of Lava is "[if Lava is not congelada]Un vibrante río de lava cruza este lugar de [north] a [south]. Al otro lado del río, al [west] puede divisarse un túnel. Probablemente ese sea tu destino.[otherwise]El lugar ha quedado temporalmente transformado en roca endurecida y oscura. Al otro lado, al [west] te espera un prometedor túnel de salida.[end if]".
 
 The decoration of Lava is Table of DecoLava.
@@ -3219,7 +3448,7 @@ topic			description							genre
 "lava" or "rio" or "roca"	"[if Lava is not congelada]La roca hirviente siempre es una visión reconfortante para un dragón. Las leyendas dragón hablan de héroes míticos de vuestro pueblo que surcaban estas aguas de fuego, que vivían en ellas o que nacieron de ellas. Pero lo que vale para los héroes míticos no se aplica a los mortales, ni siquiera a los dragones. Si intentas cruzar este río de lava morirás sin remedio.[otherwise]Ver la lava transformada en roca es un alivio pues permite que sigas avanzando hacia tu destino, pero aún así resulta una visión decepcionante, nostálgica. Es como el mundo que desde el final de la Edad Ígnea se endurece y vuelve oscuro.[end if]"	F
 
 [Salidas]
-Lugar Oo Drack is west of Lava.
+Lugar_Oo_Drack is west of Lava.
 Cueva4 is north of Lava.
 
 [¡¡La lava no se puede cruzar!!]
@@ -3238,7 +3467,6 @@ To muerte en la lava:
 	say "Estás sintiendo demasiado calor. Demasiado calor... ¡esto es mucho peor que una olla de hirviente cera!";
 	bnw;
 	say "Tu ojo esmeraldino se quiebra finalmente y tu alma de dragón se escapa, probablemente condenada al helado infierno de los dragones por haber finalizado su vida con semejante estupidez.";
-	[dstop all sounds; ]
 	finalizar juego.
 
 Instead of jumping when location is Lava:
@@ -3270,27 +3498,27 @@ Instead of going east from Lava when in darkness:
 
 Section 2 - Oo Drack
 
-Lugar Oo Drack is a parte del castillo in Castillo.
-The printed name of Lugar Oo drack is "Una inmensa sala del tesoro".
-The description of Lugar Oo Drack is "El botín de un centenar de batallas de acumulan en este lugar. Los humanos creen que los dragones sois avariciosos por naturaleza, no entienden que a menudo los pocos tesoros que guardáis en húmedas y lejanas cavernas no son más que los míseros restos de vuestra herencia, no entienden, que los apreciáis más por su significado histórico, por lo que eran en la Edad Ígnea, que por su valor real. Este lugar recuerda uno de esos tesoros de dragón, pero es mucho mayor, y existe por la avaricia de un humano. Este lugar es el tesoro del nigromante Sady Omú.".
+Lugar_Oo_Drack is a parte del castillo in Castillo.
+The printed name of Lugar_Oo_Drack is "Una inmensa sala del tesoro".
+The description of Lugar_Oo_Drack is "El [j]botín[x] de un centenar de batallas de acumulan en este lugar. Los humanos creen que los dragones sois avariciosos por naturaleza, no entienden que a menudo los pocos [j]tesoros[x] que guardáis en húmedas y lejanas cavernas no son más que los míseros restos de vuestra herencia, no entienden, que los apreciáis más por su significado histórico, por lo que eran en la Edad Ígnea, que por su valor real. Este lugar recuerda uno de esos tesoros de dragón, pero es mucho mayor, y existe por la avaricia de un humano. Este lugar es el tesoro del nigromante Sady Omú.".
 
 [Salidas]
-Lava is east of Lugar Oo Drack.
+Lava is east of Lugar_Oo_Drack.
 
-Instead of going nowhere from Lugar Oo Drack:
+Instead of going nowhere from Lugar_Oo_Drack:
 	say "Caminas un poco entre los 'tesoros' pero no parece haber una salida en esa dirección.".
 
-The decoration of Lugar Oo Drack is Table of DecoTesoro.
+The decoration of Lugar_Oo_Drack is Table of DecoTesoro.
 
 Table of DecoTesoro
 topic			description						genre
 "tesoros" or "tesoro"	"No se trata de tesoros sino de rapiña. De los restos relucientes de los pueblos de su propia gente que el nigromante ha reducido a cenizas. No merecen la pena, lo que necesitas es un camino hacia el cubil del nigromante."	MP
-"botín"			"Los humanos dicen que durante la Edad Ígnea vosotros, los dragones, esclavizabais a todos, que les robabais su trabajo. Sin embargo, no hay más que echar un vistazo a este lugar para darse cuenta que todas historias estaban constituídas exclusivamente por la envidia de los humanos, por su deseo de atesorar ellos mismos todas las riquezas."	M
+"botin"			"Los humanos dicen que durante la Edad Ígnea vosotros, los dragones, esclavizabais a todos, que les robabais su trabajo. Sin embargo, no hay más que echar un vistazo a este lugar para darse cuenta que todas historias estaban constituídas exclusivamente por la envidia de los humanos, por su deseo de atesorar ellos mismos todas las riquezas."	M
 "riqueza" or "riquezas"	"Cualquier dragón en su sano juicio sabe que todo esto no son riquezas, sino despojos. La auténtica riqueza está en sobrevolar tus propios dominios, ver tu ganado engordando en el campo y sentir así tu libertad."	F
 "despojo" or "despojos" or "rapina"	"Todos estos despojos de batallas seguramente serán considerados tesoros por el nigromante, y 'codiciados' tesoros por sus orcos."	MP
 "camara" or "lugar"	"Este lugar es demasiado grande para ser sólo una cámara del tesoro. En el pasado debió ser alguna otra cosa."	F
 
-[The mensajes of Lugar Oo Drack is Table of MensajesTesoro
+[The mensajes of Lugar_Oo_Drack is Table of MensajesTesoro
 
 Table of MensajesTesoroNoVeo
 descripcion
@@ -3304,106 +3532,24 @@ descripcion
 
 Section 3 - Sady Omu
 
-Lugar Sady Omu is a parte del castillo in Castillo.
-The printed name of Lugar Sady Omu is "La sala del trono del nigromante".
-The description of Lugar Sady Omu is "Ahora que sabes que este lugar fué un castillo de la Edad Ígnea, reconoces este lugar como la más importante de las salas de una vivienda de los viejos señores dragón: el Incubatorio. Dada la extraña relación entre los machos y hembras humanos es probable que al nigromante no le agradase saber para qué se usaba esta sala. No es más que una prueba más de su ignorancia sobre nuestros temas. Por supuesto todo ha sido redecorado al gusto de un nigromante: trono de huesos humanos, orcos y de otras [o]criaturas[x] menores, cortinas viejas y oscuras, telarañas por todas partes, estandartes de ejércitos derrotados unidos a las cabezas disecadas de sus comandantes... todo muy inapropiado considerando que esto es el viejo Incubatorio.".
+Lugar_Sady_Omu is a parte del castillo in Castillo.
+The default picture of Lugar_Sady_Omu is Figure of Trono.
+The printed name of Lugar_Sady_Omu is "La sala del trono del nigromante".
+The description of Lugar_Sady_Omu is "Ahora que sabes que este lugar fué un castillo de la Edad Ígnea, reconoces este lugar como la más importante de las salas de una vivienda de los viejos señores dragón: el Incubatorio. Dada la extraña relación entre los machos y hembras humanos es probable que al nigromante no le agradase saber para qué se usaba esta sala. No es más que una prueba más de su ignorancia sobre nuestros temas. Por supuesto todo ha sido redecorado al gusto de un nigromante: trono de huesos humanos, orcos y de otras [j]criaturas[x] menores, cortinas viejas y oscuras, telarañas por todas partes, estandartes de ejércitos derrotados unidos a las cabezas disecadas de sus comandantes... todo muy inapropiado considerando que esto es el viejo Incubatorio.".
 
 [Salidas]
 
 Part 3 - Los objetos
 
-Chapter  0 - Nuevas clases de objeto
-
-Section 1 - Decorados y partes
-
-[--------------------------------------------------
-
-  Partes que son decoraciones
-
---------------------------------------------------]
-
-A partdecoration is a kind of thing.
-
-Instead of doing something except examining or metacommanding with a partdecoration when the noun is part of anything (called padre) (this is the actpart rule):
-	say "No tiene sentido intentar separar [the noun] [del padre], ¿a fin de cuentas para qué  quieres [the noun]?.". 
-
-
-Section 2 - NSE container
-
-[--------------------------------------------------
-
-   Contenedores que no muestran 
-   'vacio' cuando están vacíos.
-
-   Especialmente útil para que un
-   objeto que contiene cosas 
-   'ocultas' a descubrir por 'registro'.
-
---------------------------------------------------]
-
-A NSE container is a kind of container.
-
-Before printing the name of a NSE container (called contenedor):
-	if there is nothing in the contenedor:
-		omit contents in listing.
-
-Definition: a NSE container is muyVacio if the number of things in it is 0 and it is not a bag of tricks.
-
-Instead of searching a muyVacio NSE container:
-	say "No encuentras nada en [el noun].".
-
-Section 3 - Bag of tricks
-
-[--------------------------------------------------
-
-   Contenedores en los que se 
-   puede rebuscar y encontrar cosas
-   más o menos aleatorias.
-
---------------------------------------------------]
-
-A bag of tricks is a kind of NSE container. A bag of tricks has a list of objects called hidden objects. The hidden objects of a bag of tricks is usually {}.
-A bag of tricks has a text called nothing inside phrase. The nothing inside phrase of a bag of tricks is usually "Buscas un rato en [the noun] sin encontrar nada.".
-A bag of tricks has a text called found phrase. The found phrase of a bag of tricks is usually "Buscas un rato en [the noun] encontrando por sorpresa [a second noun].".
-A bag of tricks has a number called avisos. The avisos of a bag of tricks is usually 0.
-
-Instead of searching a bag of tricks:
-	let HO be the hidden objects of the noun;
-	let NHO be the number of entries in HO;
-	if NHO is 0:
-		say the nothing inside phrase of the noun;
-		say line break;
-	otherwise:
-		let longitud be the number of entries of HO;
-		let num be a random number from 1 to NHO;
-		change the second noun to  the entry num of HO;
-		say the found phrase of the noun;
-		say line break;
-		if the noun is scenery or the noun is a backdrop:
-			move entry num of HO to the location;
-		otherwise:
-			move entry num of HO to the noun;
-		remove entry num from the hidden objects of the noun.
-
-[Pista sobre la existencia de la bolsa de trucos]
-Every turn when there is a bag of tricks (called bolsa) in the location and not in darkness:
-	let N be the number of entries in hidden objects of bolsa;
-	if N is not 0:
-		let MAX be 10;
-		increase MAX by avisos of bolsa;
-		if a random chance of N in MAX succeeds:
-			say "[one of]Por un momento te ha parecido ver algo en [the bolsa][or]Uhm... tu intuición te dice que tal vez haya algo en [the bolsa][or]Te ha parecido ver con el rabillo del ojo algo extraño en [the bolsa][or]La verdad es que [the bolsa] tiene[n the bolsa] algo extraño, tal vez habría que registrar[lo the bolsa] a fondo[at random].";
-			increase avisos of bolsa by 5.
-
 Chapter 1 - EL ANILLO
 
 Section 1 - Objeto en sí
 
-The anillo is worn by nuhur. The description of anillo is "Verte a ti mismo reducido a un ridículo adorno para manos humanas va mucho más allá de la humillación. Jamás podrás olvidar haberte visto en estas circunstancias.". The tamano of anillo is minusculo.
+El anillo is worn by nuhur. The description of anillo is "Verte a ti mismo reducido a un ridículo adorno para manos humanas va mucho más allá de la humillación. Jamás podrás olvidar haberte visto en estas circunstancias.". The tamano of anillo is minusculo.
 
-Adorno is partdecoration. It is part of the anillo. The description of adorno is "Como anillo no luces nada mal. Dorado con ese color brillante y hermoso que tenían tus escamas. Con un ojo esmeraldino de 'mirada' penetrante. Muy mono. Este hecho incrementa considerablemente tus ganas de matar lentamente a Elnigróh.".
+El adorno is partdecoration. It is part of the anillo. The description of adorno is "Como anillo no luces nada mal. Dorado con ese color brillante y hermoso que tenían tus escamas. Con un ojo esmeraldino de 'mirada' penetrante. Muy mono. Este hecho incrementa considerablemente tus ganas de matar lentamente a Elnigróh.".
 
-Ojo is partdecoration. It is part of the anillo. The description of ojo is "Verde esmeralda, un pobre sustituto de poderosa mirada de dragón, y probablemente tu parte más débil en tu nueva forma.".
+El ojo is partdecoration. It is part of the anillo. The description of ojo is "Verde esmeralda, un pobre sustituto de poderosa mirada de dragón, y probablemente tu parte más débil en tu nueva forma.".
 
 Section 2 - Evitar las acciones que te pueden dejar fuera de juego
 
@@ -3426,7 +3572,7 @@ Chapter 2 - Objetos en el matorral
 
 Section 1 - Bolsa del hechizo
 
-A bolsa cuero is a thing. It is wearable and NSE container and openable and female. It is closed.
+Una bolsa cuero is a thing. It is wearable and NSE container and openable and female. It is closed.
 The description of bolsa cuero is "Está claro que no se trata de una bolsa de cuero normal, mientras casi todo lo demás del esqueleto estaba corroído por el pantano, ésta parece como nueva. Además estos extraños dibujos... tal vez se trate de un objeto hechizado de alguna forma.".
 
 The capacidad of bolsa cuero is 5.
@@ -3434,13 +3580,13 @@ The printed name of bolsa cuero is "bolsa de cuero".
 
 Understand "bolsa de cuero" as bolsa cuero.
 
-Some dibujos are partdecoration. They are part of the bolsa cuero. The description of dibujos is "Parecen marcas, tal vez grabadas con un punzón al rojo sobre el cuero. No sabes mucho de magia humana, pero has visto otras marcas similares en otros objetos encantados de los que hacen sus magos.".
+Some dibujos (m) are partdecoration. They are part of the bolsa cuero. The description of dibujos is "Parecen marcas, tal vez grabadas con un punzón al rojo sobre el cuero. No sabes mucho de magia humana, pero has visto otras marcas similares en otros objetos encantados de los que hacen sus magos.".
 
 Understand "marcas" as dibujos when dibujos is visible.
 
 Section 2 - Pedacito de tela
 
-A pedacito tela roja is a thing. 
+Un pedacito tela roja is a thing with keyword "tela". 
 The description of pedacito tela is "Es fácil de reconocer el pedazo como parte de una túnica de un hechicero. Ese color rojo con bordados plateados es inconfundible.".
 The naturaleza of pedacito tela is paper.
 The tamano of pedacito tela is minusculo.
@@ -3448,23 +3594,25 @@ The printed name of pedacito tela is "pedacito de tela roja".
 
 Understand "pedacito de tela roja" as pedacito tela.
 
-Some bordados are partdecoration. They are part of the pedacito tela. The description of bordados is "Casi no queda nada de los bordados, pero debieron ser hermosos en su momento, al menos en el sentido de belleza que entienden los humanos, claro.".
+Some bordados (m) are partdecoration. They are part of the pedacito tela. The description of bordados is "Casi no queda nada de los bordados, pero debieron ser hermosos en su momento, al menos en el sentido de belleza que entienden los humanos, claro.".
 
 Understand "plata" or "plateado" or "plateados" as bordados when the bordados are visible.
 
 
 Section 3 - Extrana aguja
 
-A extrana aguja is a thing. It is wearable and female.
+Una extrana aguja is a thing with keyword "aguja". It is wearable and female.
 The tamano of aguja is minusculo.
 The naturaleza of aguja is metal.
 The printed name of extrana aguja is "extraña aguja".
 The keyword of extrana aguja is "aguja".
-The description of extrana aguja is "Dorada con finos trazos en la superficie. Tal vez se trate de un objeto hechizado o del componente de un hechizo.".
+The description of extrana aguja is "Dorada con finos [j]trazos[x] en la superficie. Tal vez se trate de un objeto hechizado o del componente de un hechizo.".
+
+Algunos trazos are partdecoration. It is part of extrana aguja. The description of trazos is "Apenas son visibles, pero te recuerdan un poco a las cosas que los humanos hacen para que sus objetos estén dotados de magia.".
 
 Section 4 - Cuenta de cristal
 
-A cuenta cristal is a thing. It is female.
+Una cuenta cristal is a thing with keyword "cristal". It is female.
 The tamano of cuenta is minusculo.
 The description of cuenta cristal is "Perfectamente redonda y perfectamente transparente. No te haces una idea de qué puede ser o para qué puede servir.".
 The printed name of cuenta cristal is "cuenta de cristal".
@@ -3479,11 +3627,11 @@ Understand "cuenta de cristal" as cuenta.
 
 Section 5 - Esqueleto
 
-A esqueleto is a bag of tricks. It is transparent and fixed in place.
-The hidden objects of esqueleto are {bolsa cuero, pedacito tela, extrana aguja, cuenta cristal}.
-The description of esqueleto is "Son los [o]huesos[x] de un humano. El muy imbécil debió ser cazado por las fuerzas de Sady Omú cuando deambulaba por alguna razón en este [o]pantano[x]. Aunque algunos detalles del cuerpo te hacen pensar en que tal vez se tratase de un [o]mago[x].".
+Un esqueleto is a bag of tricks. It is transparent and fixed in place.
+The hidden objects of esqueleto are {bolsa cuero, pedacito tela, extrana aguja}.
+The description of esqueleto is "Son los [j]huesos[x] de un humano. El muy imbécil debió ser cazado por las fuerzas de Sady Omú cuando deambulaba por alguna razón en este [j]pantano[x]. Aunque algunos detalles del cuerpo te hacen pensar en que tal vez se tratase de un [j]mago[x].".
 
-The found phrase of esqueleto is "Apartando las [o]espinas[x] del [o]matorral[x], procuras rebuscar entre los huesos hundidos en el suelo del [o]pantano[x] y las raíces. Finalmente encuentras [a second noun], aunque tal vez haya más cosas.".
+The found phrase of esqueleto is "Apartando las [j]espinas[x] del [j]matorral[x], procuras rebuscar entre los huesos hundidos en el suelo del [j]pantano[x] y las raíces. Finalmente encuentras [a second noun], aunque tal vez haya más cosas.".
 
 Understand "cuerpo" or "muerto" or "mago" as esqueleto when esqueleto is visible.
 
@@ -3496,19 +3644,20 @@ Understand "huesos" as esqueleto when the esqueleto is visible.
 
 Section 6 - Matorral
 
-A matorral is a bag of tricks in Pantano6. It is transparent and fixed in place.
+Un matorral is a bag of tricks in Pantano6. It is transparent and fixed in place.
 The hidden objects of matorral are {esqueleto}.
-The description of matorral is "Destaca entre el resto de las [o]plantas[x] por su frondosidad y sus [espinas]. Es una planta fiera entre otras blandas y apestosas. Te cae bien.".
+The description of matorral is "Destaca entre el resto de las [j]plantas[x] por su frondosidad y sus [espinas]. Es una planta fiera entre otras blandas y apestosas. Te cae bien.".
 
 The found phrase of matorral is "Apartando las espinas y ramas duras con cuidado buscas en el matorral. Finalmente encuentras [a second noun], aunque tal vez haya más cosas.".
 
-Some espinas are partdecoration. They are part of the matorral. The description of espinas is "Casi parecen pequeñas zarpas. Hermoso arbusto.". The espinas are female.
+Some espinas (f) are partdecoration. They are part of the matorral. The description of espinas is "Casi parecen pequeñas zarpas. Hermoso arbusto.". The espinas are female.
 
 Understand "arbusto" as matorral when the matorral is visible.
 Understand "zarpas" as espinas when the matorral is visible.
 Understand "busca [ramas] [a thing]" as searching when matorral is visible.
 
 Before of waving or pushing matorral:
+	say "[if matorral is supporter]si[otherwise]no[end if]";
 	say "Lo sacudes un poco, pero no logras nada con ello. Tal vez buscando entre sus espinas con cuidado...";
 	stop the action.
 
@@ -3518,16 +3667,16 @@ After going to Pantano6:
 		decrease t by uvturn of Pantano6;
 		if PasosEnCentral is greater than t:
 			say "[one of]Uhm... ¿estás andando en círculos?[or]¡Otra vez este matorral? ¿O se trata de otro diferente?[or]¿Es posible que estés dando vueltas y regresando una y otra vez al matorral? ¿O es que es otro?[at random]";
-	change uvturn of Pantano6 to turn count;
+	now uvturn of Pantano6 is turn count;
 	continue the action.
 
 Section 7 - Pergamino congelador
 
-A pergamino azulado is a thing. It is in bolsa cuero. The description of pergamino azulado is "En un lado su superficie azulada está repleta de extrañas runas y dibujos geométricos. Por el otro lado en letra muy pequeña hay unas palabras en escritura humana.".  The naturaleza of pergamino azulado is paper. The tamano of pergamino azulado is minusculo.
+Un pergamino azulado is a thing. It is in bolsa cuero. The description of pergamino azulado is "En un lado su superficie azulada está repleta de extrañas runas y dibujos geométricos. Por el otro lado en letra muy pequeña hay unas palabras en escritura humana.".  The naturaleza of pergamino azulado is paper. The tamano of pergamino azulado is minusculo.
 
 Understand "azul" as pergamino azulado.
 
-Some palabras are partdecoration and female. They are part of the pergamino azulado. The description of palabras is "Aunque la letra es muy pequeña y el lenguaje más que desconocido te resulta molesto, se puede leer 'Moroth Vankut Morai'.".
+Some palabras (f) are partdecoration and female. They are part of the pergamino azulado. The description of palabras is "Aunque la letra es muy pequeña y el lenguaje más que desconocido te resulta molesto, se puede leer 'Moroth Vankut Morai'.".
 
 The printed name of palabras is "palabras del pergamino azulado".
 
@@ -3538,7 +3687,7 @@ Understand   "[azul]" or "palabras del pergamino [azul]" or "palabras de pergami
 
 Section 8 - Hueso
 
-A hueso is a thing. The description of hueso is "Uno de los huesos del esqueleto del matorral. ¿Una tibia? Algo así, no sabes mucho de anatomía humana. Por lo general para ti los huesos son 'esas cosas que escupes al acabar'.".
+Un hueso is a thing. The description of hueso is "Uno de los huesos del esqueleto del matorral. ¿Una tibia? Algo así, no sabes mucho de anatomía humana. Por lo general para ti los huesos son 'esas cosas que escupes al acabar'.".
 The tamano of hueso is medio.
 Hueso is part of esqueleto.
 
@@ -3553,7 +3702,8 @@ Chapter 3 - Objetos con el manzano perdido
 
 Section 1 - Manzana
 
-A manzana is a thing. It is edible. It is female. The naturaleza of manzana is green.
+Una manzana is a thing. It is edible. It is female. 
+The naturaleza of manzana is vegetable.
 The description of manzana is "Amarillenta y de aspecto enfermizo, aún así comestible... para tu portador, al menos. Los anillos no comen nada. Lamentablemente.".
 The tamano of manzana is medio.
 Manzana has a number called quedan. The quedan of manzana is 5.
@@ -3567,9 +3717,9 @@ Every turn:
 
 Section 3 - Manzano
 
-A manzano is a bag of tricks in Pantano15. It is transparent and fixed in place.
+Un manzano is a bag of tricks in Pantano15. It is transparent and fixed in place.
 The hidden objects of manzano are {manzana}.
-The description of manzano is "Este [o]árbol[x] frutal, triste y enfermucho, parece completamente fuera de lugar en esta [o]ciénaga[x]. Probablemente alguien tuvo la peculiar idea de tirar una manzana, o sus restos, aquí y el árbol la mala suerte de arraigar. O tal este lugar fue realmente parte de algo civilizado y este árbol es todo lo que queda de aquel tiempo.".
+The description of manzano is "Este [j]árbol[x] frutal, triste y enfermucho, parece completamente fuera de lugar en esta [j]ciénaga[x]. Probablemente alguien tuvo la peculiar idea de tirar una manzana, o sus restos, aquí y el árbol la mala suerte de arraigar. O tal este lugar fue realmente parte de algo civilizado y este árbol es todo lo que queda de aquel tiempo.".
 
 The found phrase of manzano is "Revisando entre las ramas del manzano finalmente encuentras [a second noun]. Aunque quién sabe si no habrá más cosas.".
 
@@ -3608,7 +3758,7 @@ Chapter 4 - Objetos junto a la fuente sanadora
 
 Section 1 - Fuente sanadora
 
-A manantial is a thing in Pantano1. It is male. It is fixed in place.
+Un manantial is a thing in Pantano1. It is male. It is fixed in place.
 The description of manantial is "Toda una sorpresa encontrar un manantial de aguas cristalinas aquí.".
 
 Instead of drinking manantial:
@@ -3616,7 +3766,7 @@ Instead of drinking manantial:
 
 Drinking fuente is an action applying to nothing.
 
-Understand "coge agua" or "bebe" or "bebe agua" as drinking fuente when the location is Pantano1.
+Understand "bebe en el manantial" or "bebe del manantial" or "bebe" as drinking fuente when the location is Pantano1.
 
 Instead of drinking matched scenery when the matched by is "agua" and the location is Pantano1:
 	try drinking fuente.
@@ -3634,18 +3784,22 @@ Chapter 5 - Objetos relacionados con la cruz
 
 Section 1 - El crucifijo
 
-A cruz is a thing. It is female.
+Una cruz is a thing. It is female.
 The description of cruz is "Uno de los objetos que representan a los dioses humanos. Crees que éste se corresponde a un tal Ou, un dios de la vida o algo así... Éste está realizado en alguna clase de metal bruñido, hierro tal vez.".
 
 The naturaleza of cruz is metal.
 The tamano of cruz is medio.
 
+Some cruzhierro is partdecoration. It is part of cruz. The description of cruzhierro is "Se trata de hierro o algo muy parecido que de alguna forma no se ha oxidado aún en este entorno.". The printed name of cruzhierro is "hierro".
+
+Understand "hierro" as cruzhierro when cruz is visible.
+
 Section 2 - El arbusto (que no se distingue sin más)
 
-A arbusto is a bag of tricks. It is transparent and fixed in place. The description of arbusto is "[if the number of entries of hidden objects of arbusto is 1]No es más que un arbusto más del pantano, pero estás seguro que los destellos salían de él.[otherwise]Es el arbusto en el que estaba escondida la cruz.[end if]".
+Un arbusto is a bag of tricks. It is transparent and fixed in place. The description of arbusto is "[if the number of entries of hidden objects of arbusto is 1]No es más que un arbusto más del pantano, pero estás seguro que los destellos salían de él.[otherwise]Es el arbusto en el que estaba escondida la cruz.[end if]".
 The hidden objects of arbusto are {cruz}.
 
-A destello is part of arbusto.
+Un destello is part of arbusto.
 
 Understand "destellos" as destello.
 
@@ -3678,7 +3832,7 @@ After going to Pantano3:
 		decrease t by uvturn of Pantano3;
 		if PasosEnCentral is greater than t:
 			say "[one of]Uhm... ¿estás andando en círculos?[or]¡Otra vez este arbusto? Realmente estás perdido en este pantano.[or]¿Es posible que estés dando vueltas y regresando una y otra vez al arbusto?[at random]";
-	change uvturn of Pantano3 to turn count;
+	now uvturn of Pantano3 is turn count;
 	continue the action.
 
 
@@ -3686,13 +3840,13 @@ Chapter 6 - Objetos relacionados con la grasa para antorchas
 
 Section 1 - El arbolillo de la goma
 
-A arbolillo de la goma is a NSE container. It is in Pantano7. It is fixed in place. 
-The printed name of arbolillo is "pequeño arbolillo".
-The description of arbolillo is "Un pequeño arbolillo con un peculiar olor y glóbulos amarillentos pegados a su corteza. Parece un arbolillo de las praderas o del desierto, triste por encontrarse en este espantoso pantano.".
+El arbolillo goma is a NSE container. It is in Pantano7. It is fixed in place. 
+The printed name of arbolillo is "arbolillo pequeño".
+The description of arbolillo is "Un pequeño arbolillo con un peculiar olor y [j]glóbulos[x] amarillentos pegados a su corteza. Parece un arbolillo de las praderas o del desierto, triste por encontrarse en este espantoso pantano.".
 
-Some globulos are partdecoration. They are part of the arbolillo. The description of globulos is "Bultos, como grandes lágrimas que el arbolillo ha derramado, espesas y amarillentas como oro, algunas de ellas aún blandas, trémulas al tacto.".
+Some globulos (m) are partdecoration. They are part of the arbolillo. The description of globulos is "Bultos, como grandes lágrimas que el arbolillo ha derramado, espesas y amarillentas como oro, algunas de ellas aún blandas, trémulas al tacto.".
 
-Understand "globulo" or "lagrimas" as globulos when globulos is visible.
+Understand "globulo" or "lagrimas"  or "lagrima" as globulos when globulos is visible.
 Understand "resina" as globulos when resina is not visible and globulos is visible.
 
 Understand "busca [ramas] [a thing]" as searching when arbolillo is visible.
@@ -3717,16 +3871,16 @@ Instead of searching arbolillo:
 
 Section 2 - Resina
 
-A resina is a thing. The printed name of resina is "poco de resina".
+Un resina is a thing with keyword "resina". The printed name of resina is "poco de resina".
 The tamano of resina is medio.
 Understand "poco de resina" as resina when the resina is visible.
-The description of resina is "Un poco de resina de uno de los árboles raros, de esos que parecían fuera de contexto en el pantano. Crees que es el árbol con el que lo humanos construyen muchos de sus 'instrumentos', como las antorchas. Los dragones tienen otras formas mucho más efectivas y directas de iluminar un lugar.".
+The description of resina is "Un poco de resina de uno de los [j]árboles[x] raros, de esos que parecían fuera de contexto en el [j]pantano[x]. Crees que es el árbol con el que lo humanos construyen muchos de sus 'instrumentos', como las antorchas. Los dragones tienen otras formas mucho más efectivas y directas de iluminar un lugar.".
 
 Chapter 7 - Objetos en la tela de araña
 
 Section 1 - Pedernal
 
-A pedazo pedernal is a thing. The description of pedazo pedernal is "No se trata más que de una minúscula piedra oscura que muchos humanos llevan encima. Crees que la usan para crear fuego de alguna forma. Los dragones lleváis algo parecido en vuestra garganta. ¡Ojalá pudieses usarla!".
+Un pedazo pedernal is a thing with keyword "pedernal". The description of pedazo pedernal is "No se trata más que de una minúscula piedra oscura que muchos humanos llevan encima. Crees que la usan para crear fuego de alguna forma. Los dragones lleváis algo parecido en vuestra garganta. ¡Ojalá pudieses usarla!".
 The printed name of pedernal is "pedazo de pedernal".
 
 Understand "pedazo de pedernal" as pedernal.
@@ -3736,10 +3890,10 @@ The tamano of pedernal is minusculo.
 
 Section 2 - Guantes de cota de malla
 
-Some guantes cota malla is a wearable thing. The description of guantes cota malla is "Unos pesados guantes de cota de malla. Están oxidados pero servirían para proteger las manos de cualquiera contra armas, espinos o incluso metales calientes por un corto periodo de tiempo.".
+Some guantes cota malla (m) is a wearable thing. The description of guantes cota malla is "Unos pesados guantes de cota de malla. Están oxidados pero servirían para proteger las manos de cualquiera contra armas, espinos o incluso metales calientes por un corto periodo de tiempo.".
 The tamano of guantes is medio.
 The printed name of guantes is "guantes de cota de malla".
-Understand "guantes de cota de malla" as guantes.
+Understand "guantes de cota de malla"  or "guante" as guantes.
 
 The naturaleza of guantes cota malla is metal.
 
@@ -3753,7 +3907,7 @@ Instead of wearing guantes when the player is berg:
 
 Section 2 - Cadáver en la telaraña
 
-A bulto pegajoso is a bag of tricks. It is transparent and fixed in place. The description of bulto pegajoso is "Se trata del cadáver de un humano. Por la pinta el de un desdichado comerciante más bien pobre. Está reseco, la araña gigante ha debido alimentarse de él durante largo tiempo.".
+Un bulto pegajoso is a bag of tricks. It is transparent and fixed in place. The description of bulto pegajoso is "Se trata del cadáver de un humano. Por la pinta el de un desdichado comerciante más bien pobre. Está reseco, la araña gigante ha debido alimentarse de él durante largo tiempo.".
 The hidden objects of bulto pegajoso is {pedazo pedernal, guantes cota malla}.
 
 The found phrase of bulto pegajoso is "Rebuscas en el bulto pegajoso, arrancando pedazos de la tela de araña que se quedan desagradablemente pegados entre los dedos de tu portador, y lo que es peor en ti mismo, pero finalmente merece la pena porque logras encontrar [a second noun].".
@@ -3762,11 +3916,11 @@ Chapter 8 - Goolos
 
 Section 1 - Planta del goolos
 
-A planta rastrera is a NSE container in Pantano11. It is transparent, female and fixed in place. The description of planta rastrera is "Hojas alargadas con pintas amarillas. Zarcillos que se aferran desesperados a cualquier cosa. Un tronco rojizo y ridículamente grueso. Es claramente una planta goolos.".
+Una planta rastrera is a NSE container in Pantano11. It is transparent, female and fixed in place. The description of planta rastrera is "Hojas alargadas con pintas amarillas. Zarcillos que se aferran desesperados a cualquier cosa. Un tronco rojizo y ridículamente grueso. Es claramente una planta goolos.".
 
 Section 2 - Goolos
 
-A goolos is a thing in planta rastrera. The description of goolos is "De color naranja intenso, de forma remotamente parecido a un híbrido entre una calabaza y una pera,  y de un olor intenso. Extremadamente dulce y nutritivo para muchos herbívoros grandes. Embriagador para un dragón. Mortal para casi todos los humanoides. Eso es un goolos maduro.".
+Un goolos is a thing in planta rastrera. The description of goolos is "De color naranja intenso, de forma remotamente parecido a un híbrido entre una calabaza y una pera,  y de un olor intenso. Extremadamente dulce y nutritivo para muchos herbívoros grandes. Embriagador para un dragón. Mortal para casi todos los humanoides. Eso es un goolos maduro.".
 The tamano of goolos is medio.
 
 [ Acciones modificadas para el Goolos ]
@@ -3789,29 +3943,29 @@ Instead of eating goolos:
 		morir en el pantano;
 	if the player is Icalante:
 		say "Uhm... delicioso, puedes sentir cómo, no sólo lo encuentra exquisito, sino también fortalece a tu portador.";
-		change hambre_del_jugador to 0.
+		now hambre_del_jugador is 0.
 
 [ Parte del puzzle del Icalente ]
-Instead of giving goolos to icalante when the icalante is enfadado:
+Instead of giving goolos to icalante when the icalante is i_enfadado:
 	remove goolos from play;
 	say "El enorme icalante olisquea la fruta. Primero con desconfianza, luego con sorpresa y finalmente con placer.";
 	bnw;
 	say "La coge con avidez y la devora de un único bocado. ¡Vaya parece muy satisfecho!";
-	now the icalante is preso.
+	now the icalante is i_preso.
 
 [ Con comida vegetal lo acepta y tiene cierta probabilidad de quedarse contento, probabilidad baja ]
-Instead of giving a edible vegetal thing (called comida) to icalante when the icalante is enfadado:
+Instead of giving a edible vegetal thing (called comida) to icalante when the icalante is i_enfadado:
 	remove comida from play;
-	say "El icalante olisquea [the comida] y finalmente se l[o comida] come, pero no parece gustarle demasiado.";
+	say "El [j]icalante[x] olisquea [the comida] y finalmente se l[o comida] come, pero no parece gustarle demasiado.";
 	bnw;
 	if a random chance of 1 in 20 succeeds:
 		say "Aún así parece satisfecho y mucho más tranquilo.";
-		now icalante is preso;
+		now icalante is i_preso;
 	otherwise:
 		say "Aún sigue muy enfadado.".
 
 [ Otros objetos los pilla y los arroja lejos ]
-Instead of giving a thing (called regalo) to icalante when the icalante is enfadado:
+Instead of giving a thing (called regalo) to icalante when the icalante is i_enfadado:
 	let the destination be a random adjacent room;
 	let the way be the best route from the location to the destination;
 	move regalo to the destination;
@@ -3826,7 +3980,7 @@ Chapter 9 - Madera seca
 
 Section 1 - Leno seco
 
-A leno seco is a thing. The printed name of leno seco is "leño seco".
+Un leno seco is a thing. The printed name of leno seco is "leño seco".
 The description of leno seco is "Lo más destacable de este pedazo de madera alargado es que ha permanecido seco en este entorno en el que todo está húmedo.".
 The tamano of leno is medio.
 
@@ -3837,7 +3991,7 @@ Leno seco has a number called duracion. Duracion of leno seco is 0.
 
 Section 2 - Piedra
 
-A piedra is a thing. It is female. The description of piedra is "No es más que una tosca piedra. Una más de entre los restos del refugio de los leñadores.".
+Una piedra is a thing. It is female. The description of piedra is "No es más que una tosca piedra. Una más de entre los restos del refugio de los leñadores.".
 The tamano of piedra is medio. Piedra is part of monton piedras.
 
 Before taking piedra when piedra is part of monton piedras:
@@ -3847,9 +4001,9 @@ Chapter 10 - Junto al Icalante
 
 Section 1 - Grilletes
 
-Some grilletes are a thing. The description of grilletes is "Unos grilletes de viejo hierro-dragón, oxidados pero extremadamente resistentes. Sólo la llave correcta, la magia o alguien fuerte como un dragón podría abrirlos.".
+Some grilletes (m) are a thing. The description of grilletes is "Unos grilletes de viejo hierro-dragón, oxidados pero extremadamente resistentes. Sólo la llave correcta, la magia o alguien fuerte como un dragón podría abrirlos.".
 
-HierroDragon is partdecoration. It is part of grilletes. The description of hierrodragon is "Este metal conocido como hierro-dragón es probablemente el más resistente de todos los que existen, una aleación del burdo hierro común con las más sagradas escamas de antiguos ancestros nuestros. Ni el más intenso fuego puede usarse para darle forma, ni el aliento de un dragón, tan sólo la hechicería puede moldearlo una vez forjado por primera vez.".
+El HierroDragon is partdecoration. It is part of grilletes. The description of hierrodragon is "Este metal conocido como hierro-dragón es probablemente el más resistente de todos los que existen, una aleación del burdo hierro común con las más sagradas escamas de antiguos ancestros nuestros. Ni el más intenso fuego puede usarse para darle forma, ni el aliento de un dragón, tan sólo la hechicería puede moldearlo una vez forjado por primera vez.".
 The printed name of HierroDragon is "hierro-dragón de los grilletes".
 
 Understand "hierro" or "hierro-dragon" or "dragon" or "metal" as HierroDragon when HierroDragon is visible.
@@ -3888,8 +4042,8 @@ Instead of taking or opening grilletes:
 		now icalibre is 1;
 	if icalibre is 1:
 		bnw;
-		say "El icalante parece muy, pero que muy agradecido con tu portador.";
-		now icalante is siguiendote;
+		say "El [j]icalante[x] parece muy, pero que muy agradecido con tu portador.";
+		now icalante is i_siguiendote;
 		activate icalante;
 		remove grilletes from play.
 
@@ -3906,13 +4060,13 @@ Chapter 11 - En Zhur
 
 Section 1 - Machete oxidado
 
-A machete oxidado is a thing. The description of machete oxidado is "Supones que un orco considerará esta cosa oxidada una espada de la mejor calidad, pero en realidad a duras penas merece el calificativo de 'machete inaceptable'.".
+Un machete oxidado is a thing. The description of machete oxidado is "Supones que un orco considerará esta cosa oxidada una espada de la mejor calidad, pero en realidad a duras penas merece el calificativo de 'machete inaceptable'.".
 The tamano of machete is medio.
 The naturaleza of machete is metal.
 
 Section 2 - Llave del icalante
 
-A llave is a thing. It is female. The description of llave is "Una llave grande, vieja, negra, pero que no está oxidada, ¿tal vez una llave de hierro-dragón? Tal vez, aunque, ¿para qué se construiría algo así con tan caro metal?, parece absurdo.".
+Una llave is a thing. It is female. The description of llave is "Una llave grande, vieja, negra, pero que no está oxidada, ¿tal vez una llave de hierro-dragón? Tal vez, aunque, ¿para qué se construiría algo así con tan caro metal?, parece absurdo.".
 The naturaleza of llave is metal.
 
 HierroDragon2 is partdecoration. It is part of llave. The description of hierrodragon2 is "Este metal conocido como hierro-dragón es probablemente el más resistente de todos los que existen, una aleación del burdo hierro común con las más sagradas escamas de antiguos ancestros nuestros. Ni el más intenso fuego puede usarse para darle forma, ni el aliento de un dragón, tan sólo la hechicería puede moldearlo una vez forjado por primera vez.".
@@ -3922,7 +4076,7 @@ Understand "hierro" or "hierro-dragon" or "dragon" or "metal" as HierroDragon2 w
 
 Chapter 12 - Liana
 
-A liana is a thing in Pantano13. "Entre la vegetación de este lugar destaca una robusta liana.".
+Una liana is a thing in Pantano13. "Entre la vegetación de este lugar destaca una robusta [j]liana[x].".
 The liana can be unida or cortada. The liana is unida. The liana is fixed in place. The liana is female.
 The tamano of liana is medio.
 The description of liana is "[if liana is unida]Está firmemente anclada a los árboles y demás vegetación circundante. Será necesario algo para poder cortarla, o mucha mucha fuerza.[otherwise]Flexible y resistente, podría usarse muy bien de cuerda para cualquier cosa.[end if][if there is a thing that is part of liana] Atado a ella: [list of things which are parts of liana with definite articles].[end if]".
@@ -3959,8 +4113,8 @@ To say montumul:
 	otherwise:
 		say "túmulo".
 
-A hiedra espinosa is fixed in place. "[if hiedra is not despejada]Una hiedra espinosa recubre gran parte de las piedras que conforman un montículo en este lugar.[otherwise]La hiedra recubre buena parte del [montumul] pero la parte que has arrancado deja ver un acceso a su interior, hacia abajo.[end if]".
-The description of hiedra is "Esta es una de esas planta malévolas del [o]pantano[x] Hapawa. No es una hiedra, ni una zarza exactamente, sino una especie de híbrido entre ambas, probablemente venenosa, y en cualquier caso una suerte de monstruo entre las [o]plantas[x]. Ésta se ha extendido mucho, debe ser muy antigua.";
+Una hiedra espinosa is fixed in place. "[if hiedra is not despejada]Una [j]hiedra[x] espinosa recubre gran parte de las [j]piedras[x] que conforman un montículo en este lugar.[otherwise]La [j]hiedra[x] recubre buena parte del [montumul] pero la parte que has arrancado deja ver un acceso a su interior, hacia abajo.[end if]".
+The description of hiedra is "Esta es una de esas planta malévolas del [j]pantano[x] Hapawa. No es una hiedra, ni una zarza exactamente, sino una especie de híbrido entre ambas, probablemente venenosa, y en cualquier caso una suerte de monstruo entre las [j]plantas[x]. Ésta se ha extendido mucho, debe ser muy antigua.".
 Hiedra espinosa is in Pantano23.
 
 Hiedra can be despejada. Hiedra is not despejada.
@@ -4024,19 +4178,19 @@ To mostrar entrada al tumulo:
 
 Section 1 - Monticulo
 
-A monticulo piedras is a scenery. It is in Pantano23.
+Un monticulo piedras is a scenery. It is in Pantano23.
 The printed name of monticulo is "montículo de piedras".
 Monticulo can be inicial, esTumulo or alDescubierto. Monticulo is inicial.
-The description of monticulo  is "[if monticulo is inicial]Grandes piedras, enormes más bien, que parecen parte de alguna clase de construcción, pero es irreconocible debido a la gran cantidad de hiedra espinosa que las recubren. Aún así se pueden entrever algunos símbolos o líneas esculpidas en algunas de ellas.[otherwise if monticulo is esTumulo]Se trata de un antiguo túmulo de tiempos remotos, la tumba de un arcaico señor de los dragones.[otherwise]Hay grandeza en la tumba de un señor dragón, más ahora que puedes verla al completo, con sus símbolos a la vista.[end if]".
+The description of monticulo  is "[if monticulo is inicial]Grandes piedras, enormes más bien, que parecen parte de alguna clase de construcción, pero es irreconocible debido a la gran cantidad de [j]hiedra[x] espinosa que las recubren. Aún así se pueden entrever algunos [j]símbolos[x] o [j]líneas[x] esculpidas en algunas de ellas.[otherwise if monticulo is esTumulo]Se trata de un antiguo [j]túmulo[x] de tiempos remotos, la tumba de un arcaico señor de los dragones.[otherwise]Hay grandeza en la tumba de un señor dragón, más ahora que puedes verla al completo, con sus símbolos a la vista.[end if]".
 
 Understand "piedra" or "piedras" or "ruinas" as monticulo when the location is Pantano23.
 Understand "monticulo de piedras" as monticulo when the location is Pantano23.
 
 Understand "tumulo" as monticulo when the location is Pantano23 and monticulo is not inicial.
 
-Some lineas are partdecoration. They are part of the monticulo. The description of lineas is "Líneas grabadas en las rocas que parecen forma uno o varios símbolos.".
+Some lineas (f) are partdecoration. They are part of the monticulo. The description of lineas is "Líneas grabadas en las rocas que parecen forma uno o varios [j]símbolos[x].".
 
-Some simbolos are partdecoration. They are part of the monticulo. The description of simbolos is "[if monticulo is not alDescubierto]Son las antiguas marcas tribales que identifican a una familia dragón. Lamentablemente están demasiado recubiertas de hiedra para poder leer los símbolos.[otherwise]Una vez limpios de hiedra es fácil reconocer los símbolos de los dragones dorados, tu filia, así como los del tronco arcaico de la familia Drack. Toda esta región debió ser parte de las tierras de esta familia en los tiempos anteriores a las revueltas de los humanos.[end if]".
+Some simbolos (m) are partdecoration. They are part of the monticulo. The description of simbolos is "[if monticulo is not alDescubierto]Son las antiguas marcas tribales que identifican a una familia dragón. Lamentablemente están demasiado recubiertas de [j]hiedra[x] para poder leer los símbolos.[otherwise]Una vez limpios de hiedra es fácil reconocer los símbolos de los dragones dorados, tu filia, así como los del tronco arcaico de la familia Drack. Toda esta región debió ser parte de las tierras de esta familia en los tiempos anteriores a las revueltas de los humanos.[end if]".
 
 Instead of searching simbolos:
 	try examining simbolos.
@@ -4046,7 +4200,7 @@ Instead of examining simbolos when monticulo is inicial:
 	bnw;
 	say "¡Esto es un túmulo draconil!";
 	bnw;
-	say "Una vieja tumba olvidada de los viejos tiempos, cuando los dragones gobernábamos sobre el resto de las [o]criaturas[x]. Un recuerdo de la Edad Ígnea, cuando hubiese sido imposible que un dragón cayese en un estado tan lamentable como el tuyo.";
+	say "Una vieja tumba olvidada de los viejos tiempos, cuando los dragones gobernábamos sobre el resto de las [j]criaturas[x]. Un recuerdo de la Edad Ígnea, cuando hubiese sido imposible que un dragón cayese en un estado tan lamentable como el tuyo.";
 	bnw;
 	say "Hay que entrar. Aunque sea para honrar a los restos del gran señor que debe ocupar el túmulo.";
 	now monticulo is esTumulo.
@@ -4058,7 +4212,7 @@ Chapter 14 - Interior túmulo
 
 Section 1 - Dedal
 
-A dedal is wearable. The printed name of dedal is "dedal de nobleza draconil".
+Un dedal is wearable. The printed name of dedal is "dedal de nobleza draconil".
 The description of dedal is "¡Qué maravilla! Una vieja reliquia de la la Edad Ígnea. Estos dedales, normalmente realizados en metal, como éste, eran portados por los nobles dragones en su zarpa principal de su mano diestra. Con ellos mostraban su ascendencia, demostraban ser quienes decían y al tiempo sugerían a sus visitantes que sus intenciones eran, de momento, pacíficas, pues cubrían su zarpa principal.".
 The naturaleza of dedal is metal.
 The tamano of dedal is grande.
@@ -4067,8 +4221,8 @@ Understand "dedal de nobleza draconil" as dedal.
 
 Section 2 - El mapa
 
-A antiguo mosaico is fixed in place. The printed name of antiguo mosaico is "antiguo mosaico".
-The description of antiguo mosaico is "Un viejo mosaico con escenas de la Edad Ígnea, con el mapa de los túneles bajo la fortaleza, que indica la ruta a seguir en los túneles: primero hacia el este, luego hacia el [south], retroceder por otro túnel al [north] y finalmente hacia el [west] un largo trecho hasta los sótanos de la fortaleza.".
+Un antiguo mosaico is fixed in place with keyword "mosaico". The printed name of antiguo mosaico is "antiguo mosaico".
+The description of antiguo mosaico is "Un viejo mosaico con escenas de la Edad Ígnea, con el mapa de los túneles bajo la fortaleza, que indica la ruta a seguir en los túneles: primero hacia el [east], luego hacia el [south], retroceder por otro túnel al [north] y finalmente hacia el [west] un largo trecho hasta los sótanos de la fortaleza.".
 Mosaico can be leido. Mosaico is not leido.
 
 Instead of examining antiguo mosaico for the first time:
@@ -4080,9 +4234,9 @@ Instead of examining antiguo mosaico for the first time:
 	bnw;
 	say "¡vaya, parece un mapa de los túneles bajo la fortaleza!";
 	bnw;
-	say "Puede ser muy útil. Según esto tras entrar en las [o]cuevas[x]  hay que ir al este. Luego coger un túnel hacia el [south]...";
+	say "Puede ser muy útil. Según esto tras entrar en las [j]cuevas[x]  hay que ir al [east]. Luego coger un túnel hacia el [south]...";
 	bnw;
-	say "ya ves... luego hay que retroceder hacia el [north] por otro tunel y finalmente...";
+	say "ya ves... luego hay que retroceder hacia el [north] por otro túnel y finalmente...";
 	bnw;
 	say "...un largo trayecto hacia el [west] que lleva a los sótanos de la fortaleza.";
 	now mosaico is leido.
@@ -4091,7 +4245,7 @@ Understand "mapa" as mosaico.
 
 Section 9 - Restos
 
-Some restos are a bag of tricks. They are scenery. They are in Pantano24. The description of restos is "Al observar todos los huesos aquí presentes no cabe duda quién es la raza superior. Los sagrados restos de tus antepasados, especialmente las escamas están relucientes, como escudos de bronce recién forjados.".
+Some restos (m) are a bag of tricks. They are scenery. They are in Pantano24. The description of restos is "Al observar todos los huesos aquí presentes no cabe duda quién es la raza superior. Los sagrados restos de tus antepasados, especialmente las escamas están relucientes, como escudos de bronce recién forjados.".
 The hidden objects of restos is {dedal, antiguo mosaico}.
 The printed name of restos is "restos del poderoso señor dragon".
 
@@ -4101,18 +4255,18 @@ Understand "hueso" or "huesos" or "cadaver" or "muerto" or "dragon" or "escamas"
 
 Section 10 - Restos servidores
 
-Some restos_servidores are a bag of tricks. They are scenery. They are in Pantano24. The description of restos_servidores is "Los huesos de los servidores del dragón enterado que tuvieron el honor de ser sacrificados a la muerte de su amo, así como probablemente los huesos de los enemigos lo bastante importantes como para ser recordados de esta forma.".
+Some restos_servidores (m) are a bag of tricks. They are scenery. They are in Pantano24. The description of restos_servidores is "Los huesos de los servidores del dragón enterado que tuvieron el honor de ser sacrificados a la muerte de su amo, así como probablemente los huesos de los enemigos lo bastante importantes como para ser recordados de esta forma.".
 The printed name of restos_servidores is "restos de sus servidores y enemigos".
 
 The found phrase of restos_servidores is "Revisas los restos hasta encontrar [the second noun]. Aunque quién sabe que más habrá, este lugar es tan antiguo...".
 
-Understand "servidores" or "enemigos" or "restos" as restos_servidores when the location is Pantano24.
+Understand "servidores" or "enemigos" or "restos de los servidores"  as restos_servidores when the location is Pantano24.
 
 Chapter 15 - Huerta abandonada
 
 Section 1 - Calabaza
 
-A calabaza is a thing. It is edible. It is female. The naturaleza of manzana is green.
+Una calabaza is a thing. It is edible. It is female. The naturaleza of calabaza is vegetable.
 The description of calabaza is "Una de esas calabazas dulces que gustan a casi todos los humanoides.[if calabaza is mordida] Le falta una parte.[otherwise if calabaza is poco] Una buena parte ya ha sido consumida.[otherwise if calabaza is media] Bueno, en realidad sólo como la mitad de ella.[otherwise if calabaza is casi] En realidad, ya sólo queda un poco de la calabaza.[end if]".
 
 Calabaza can be entera, mordida, poco, media, or casi. Calabaza is entera.
@@ -4123,7 +4277,7 @@ Instead of wearing calabaza:
 
 Section 2 - Huerta y decoración
 
-A huerta is a bag of tricks. It is scenery. It is in Pantano26.  It is female.
+Una huerta is a bag of tricks. It is scenery. It is in Pantano26.  It is female.
 The description of huerta is "Agujeros y extraños surcos aún se ven entre la vegetación. Es la clase de cosas que hacen los humanos, dibujar en la tierra y de alguna forma esperar así que ésta los alimente. Desde el aire sus dibujos pueden llegar a provocar terror por su evidente malignidad.".
 
 Understand "huerta" or "restos" or "tierra" or "huerto" or "surcos" as huerta when the location is Pantano26. 
@@ -4131,21 +4285,21 @@ Understand "huerta" or "restos" or "tierra" or "huerto" or "surcos" as huerta wh
 Before searching huerta:
 	if calabaza is off-stage and resuelto of Pantano26 is 0:
 		add calabaza to hidden objects of huerta;
-		change resuelto of Pantano26 to 1.
+		now resuelto of Pantano26 is 1.
 
 After examining huerta:
 	if calabaza is off-stage and resuelto of Pantano26 is 0:
 		bnw;
 		say "¡Mira! ¡Una calabaza aún ha crecido por aquí! Igual resulta de utilidad.";
 		move calabaza to Pantano26;
-		change resuelto of Pantano26 to 1.
+		now resuelto of Pantano26 is 1.
 
 
 Chapter 16 - Cárcel
 
 Section 1 - Jaula falsa
 
-A jaula_falsa is a scenery in Pantano20. It is female.
+Una jaula_falsa is a scenery in Pantano20. It is female.
 The printed name of jaula_falsa is "jaula".
 The description of jaula_falsa is "Hierro vulgar y oxidado colgado allá en lo alto, unida a una rama gruesa, parece contener algo.".
 
@@ -4156,12 +4310,15 @@ Instead of doing anything except examining or metacommanding with jaula_falsa:
 
 Section 2 - Arbol
 
-A recio arbol is a scenery in Pantano20. 
-The description of recio arbol is "Un arbol viejo y muy alto. Su corteza es demasiado lisa para tratarse de un árbol tan grande y sus ramas empiezan demasiado altas.".
+Does the player mean doing something with arbol recio when the player is in Pantano20: it is very likely.
+Does the player mean doing something with rama_arbol when the player is in Pantano20: it is very likely.
 
-A corteza is partdecoration. It is part of the recio arbol. The description of corteza is "De un tono pálido y de tacto liso, casi resbaladizo.".
+Un arbol recio is a scenery in Pantano20. 
+The description of recio arbol is "Un arbol viejo y muy alto. Su [j]corteza[x] es demasiado lisa para tratarse de un árbol tan grande y sus [j]ramas[x] empiezan demasiado altas.".
 
-A rama_arbol is partdecoration. It is part of the recio arbol. It is female. The description of rama_arbol is "Con la misma clase de corteza que el árbol, y demasiado altas como para saltar hasta ellas. Ojalá pudieses volar.". The printed name of rama_arbol is "rama". 
+La corteza is partdecoration. It is part of the recio arbol. The description of corteza is "De un tono pálido y de tacto liso, casi resbaladizo.".
+
+La rama_arbol is partdecoration. It is part of the recio arbol. It is female. The description of rama_arbol is "Con la misma clase de corteza que el árbol, y demasiado altas como para saltar hasta ellas. Ojalá pudieses volar.". The printed name of rama_arbol is "rama". 
 
 Before doing anything except tying or examining with rama_arbol:
 	say "Está demasiado alta.";
@@ -4174,7 +4331,7 @@ Instead of climbing recio arbol:
 
 Before of going up when the location is Pantano20:
 	if player is icalante:
-		say "La corteza de este árbol es realmente resbaladiza pero eso no es un problema para el icalante. Estos bichos vive para trepar.";
+		say "La [j]corteza[x] de este árbol es realmente resbaladiza pero eso no es un problema para el icalante. Estos bichos viven para trepar.";
 	otherwise if liana is not part of recio arbol:
 		say "Intentas trepar por la corteza del árbol, pero es demasiado resbaladiza para tu portador. ¡Ojalá tuviese alas!";
 		stop the action;
@@ -4186,7 +4343,7 @@ Instead of tying recio arbol to liana:
 	say "Atar la liana a la base del árbol no nos ayudaría a subirlo. Es mejor idea buscar alguna forma de atarla en una de las ramas.".
 
 Before of tying rama_arbol to liana:
-	say "Todas las ramas están demasiado altas. No alcanzas a atar la cuerda a ninguna de ellas.";
+	say "Todas las [j]ramas[x] están demasiado altas. No alcanzas a atar la cuerda a ninguna de ellas.";
 	stop the action.
 
 Instead of throwing liana at jaula_falsa:
@@ -4208,7 +4365,7 @@ Instead of throwing liana at rama_arbol:
 	let op be nothing;
 	repeat with item running through things which are parts of liana:
 		if tamano of item is medio:
-			change op to item;
+			now op is item;
 			break;
 	if op is nothing:
 		say "Arrojas la liana hacia la rama para intentar trepar por ella, pero te quedas corto. Tal vez atando algo de peso a uno de los extremos.";
@@ -4228,8 +4385,9 @@ Chapter 17 - Copa del arbol
 
 Section 1 - Jaula auténtica
 
-A jaula is a NSE container. It is fixed in place. It is in Copa. It is female and transparent. It is a closed openable container.
-The description of jaula is "Barrotes de recio hierro, aunque oxidado. Una puerta realizada con el mismo material y rematada con un cerrojo no demasiado grande.".
+Una jaula is a NSE container. It is fixed in place. It is in Copa. It is female and transparent. It is a closed openable container.
+The naturaleza of jaula is metal.
+The description of jaula is "[j]Barrotes[x] de recio hierro, aunque oxidado. Una [j]puerta[x] realizada con el mismo material y rematada con un cerrojo no demasiado grande.".
 
 Jaula has a number called intentos. The intentos of Jaula is 0.
 
@@ -4277,15 +4435,18 @@ The enjaulado rule is listed before the basic accessibility rule in the action-p
 
 Section 2 - Partes de la jaula
 
-Some barrotes are partdecoration. They are part of the jaula. The description of barrotes is "Demasiado gruesos como para torcerlos o romperlos. Probablemente abrir la puerta es la mejor opción para acceder al interior de la jaula.".
+Some barrotes (m) are partdecoration. They are part of the jaula. The description of barrotes is "Demasiado gruesos como para torcerlos o romperlos. Probablemente abrir la puerta es la mejor opción para acceder al interior de la jaula.".
+The naturaleza of barrotes is metal.
 
 Understand "barrote" as barrotes when barrotes is visible.
 
-A puerta are partdecoration. It is part of the jaula. The description of puerta is "No es más que una lámina de hierro oxidado con un cerrojo.".
+Una puerta jaula is a partdecoration. It is part of the jaula. The description of puerta jaula is "No es más que una lámina de hierro oxidado con un [j]cerrojo[x].".
+The naturaleza of puerta jaula is metal.
 
-Understand "lámina" as puerta when the puerta is visible.
+Understand "lámina" or  "puerta" as puerta jaula when the puerta jaula is visible.
 
-A cerrojo are partdecoration. It is part of the jaula. The description of cerrojo is "No es muy grande, ni muy resistente, aun sin la llave correcta tal vez se pueda forzar con facilidad si dispones de algún instrumento largo y delgado.".
+Un cerrojo are partdecoration. It is part of the jaula. The description of cerrojo is "No es muy grande, ni muy resistente, aun sin la llave correcta tal vez se pueda forzar con facilidad si dispones de algún instrumento largo y delgado.".
+The naturaleza of cerrojo is metal.
 
 Understand "cerradura" as cerrojo when cerrojo is visible.
 
@@ -4300,21 +4461,21 @@ The openjaula2 rule is listed before the actpart rule in the instead rules.
 Instead of putting a thing on cerrojo:
 	try opening jaula.
 
-Instead of putting a thing on puerta:
+Instead of putting a thing on puerta jaula:
 	try opening jaula.
 
 
 Section 3 - Petaca
 
-A petaca is a closed NSE container and openable. The description of petaca is "Se trata de una especie de botellita de cuerno repujado que has visto llevar a veces a los humanos. Especialmente a los despreciables soldados llamados 'escupe fuego'. Malditos simuladores del poder de los dragones.".
+Una petaca is a closed NSE container and openable. The description of petaca is "Se trata de una especie de botellita de cuerno repujado que has visto llevar a veces a los humanos. Especialmente a los despreciables soldados llamados 'escupe fuego'. Malditos simuladores del poder de los dragones.".
 
-The material de cuerno is partdecoration. It is part of the petaca. The description of material de cuerno is "Probablemente se trata del asta de una de las reses de los humanos. Ésta está repujada de forma compleja.".
+The material de cuerno (m) is partdecoration. It is part of the petaca. The description of material de cuerno is "Probablemente se trata del asta de una de las reses de los humanos. Ésta está repujada de forma compleja.".
 
-Some repujados are partdecoration. It is part of the petaca. The description of repujados is "Muchos humanos encuentran hermoso algo así, un tallado en sus instrumentos que pretenden simular flores y hojas. Supuestamente una representación de la naturaleza. En realidad una burda parodia, la deformación de la misma por la mente humana.".
+Some repujados (m) are partdecoration. It is part of the petaca. The description of repujados is "Muchos humanos encuentran hermoso algo así, un tallado en sus instrumentos que pretenden simular flores y hojas. Supuestamente una representación de la naturaleza. En realidad una burda parodia, la deformación de la misma por la mente humana.".
 
 Section 4 - Polvora
 
-A polvora is a thing. The printed name of polvora is "poco de polvo negro".
+Un polvora is a thing. The printed name of polvora is "poco de polvo negro". The keyword of polvora is "polvo".
 Understand "poco de polvora" or "poco de polvo negro" or "polvo negro" or "polvo" as polvora when the polvora is visible.
 The description of polvora is "Un polvo negro de intenso olor, incluso para la limitada capacidad olfativa de tu portador, es posible que se trate del polvo ígneo que usan los odiados 'escupe fuego', esos soldados humanos que pretenden simular la grandeza de un dragón.".
 
@@ -4322,24 +4483,24 @@ Polvora is in Petaca.
 
 Section 5 - Pergamino amarillo
 
-A pergamino amarillo is a thing. The description of pergamino amarillo is "Este pergamino tiene una extraña coloración amarillenta. Por una de sus caras un intrincado diseño de líneas rojizas se entrecruzan, la otra no contiene nada excepto algunas palabras en escritura humana.".  The naturaleza of pergamino amarillo is paper.
+Un pergamino amarillo is a thing. The description of pergamino amarillo is "Este pergamino tiene una extraña coloración amarillenta. Por una de sus caras un intrincado diseño de líneas rojizas se entrecruzan, la otra no contiene nada excepto algunas [j]palabras[x] en escritura humana.".  The naturaleza of pergamino amarillo is paper.
 The tamano of pergamino amarillo is minusculo.
 
-Some palabras2 are partdecoration and female. They are part of the pergamino amarillo. The description of palabras2 is "Aunque la letra es muy pequeña y el lenguaje más que desconocido te resulta molesto, se puede leer 'Mandai Bukah'.".
+Some palabras2 (f) are partdecoration and female. They are part of the pergamino amarillo. The description of palabras2 is "Aunque la letra es muy pequeña y el lenguaje más que desconocido te resulta molesto, se puede leer 'Mandai Bukah'.".
 
 The printed name of palabras2 is "palabras del pergamino amarillo".
 
 Understand "palabras" or "amarillo" or "amarillas" or "palabras del pergamino amarillo" or "palabras de pergamino amarillo" or "palabras pergamino amarillo" or "de pergamino amarillo" or "del pergamino amarillo" as palabras2 when palabras2 is visible.
 
-Some lineas_pergamino are partdecoration. They are part of the pergamino amarillo. The description of lineas_pergamino is "No es un entrecruzamiento de líneas al azar, tal vez se trate de algo de magia humana.".
+Some lineas_pergamino (f) are partdecoration. They are part of the pergamino amarillo. The description of lineas_pergamino is "No es un entrecruzamiento de líneas al azar, tal vez se trate de algo de magia humana.".
 
 Understand "lineas" or "rojizas" or "diseño" as lineas_pergamino when lineas_pergamino is visible.
 
-A coloracion is partdecoration. It is part of pergamino amarillo. The description of coloracion is "No se trata tanto de que el pergamino en sí sea amarillo como de alguna clase de efecto con la luz. Tal vez sea magia.".
+Una coloracion is partdecoration. It is part of pergamino amarillo. The description of coloracion is "No se trata tanto de que el pergamino en sí sea amarillo como de alguna clase de efecto con la luz. Tal vez sea magia.".
 
 Section 6 - Esqueleto colgado
 
-A esq_colgado is a bag of tricks. It is transparent. It is in jaula.
+Un esq_colgado is a bag of tricks. It is transparent. It is in jaula.
 The printed name of esq_colgado is "esqueleto".
 The hidden objects of esq_colgado are {petaca, pergamino amarillo}.
 The description of esq_colgado is "Son los huesos de un humano. Debieron capturarlo los orcos del campamento y lo dejaron colgado en la jaula hasta que murió.".
@@ -4351,7 +4512,7 @@ Understand "esqueleto" or "cuerpo" or "muerto" as esq_colgado when esq_colgado i
 
 Section 7 - Liana atada
 
-A liana_falsa is in Copa.
+Una liana_falsa is in Copa.
 The printed name of liana_falsa is "liana".
 Understand "liana" as liana_falsa when the liana_falsa is visible.
 The description of liana_falsa is "Tu única vía para bajar de aquí... sin matarse, claro. Mejor no tocarla mucho hasta que bajemos de este lugar resbaladizo.".
@@ -4363,7 +4524,7 @@ Chapter 18 - Objetos de aparición aleatoria
 	
 Section 1 - Cajita de madera
 
-A cajita madera is a closed NSE container. "Abandonada sobre el suelo, manchada y mojada, se ve una cajita.".
+Una cajita madera is a closed NSE container. "Abandonada sobre el suelo, manchada y mojada, se ve [cajita].".
 It is female. It is openable.
 The printed name of cajita madera is "cajita de madera".
 Understand "cajita de madera" as cajita.
@@ -4372,12 +4533,12 @@ The capacidad of cajita madera is 10.
 
 Section 2 - Venda
 
-A venda is a thing. It is in cajita madera. The naturaleza of venda is paper. Venda is female.
+Una venda is a thing. It is in cajita madera. The naturaleza of venda is paper. Venda is female.
 The description of venda is "Una banda estrecha y larga de tela. Supuestamente para ayudar a cuidar las heridas de los humanos.".  
 
 Section 3 - Vieja caja
 
-A vieja caja is a NSE container. It is female.
+Una vieja caja is a NSE container. It is female.
 It is in Pantano8. The printed name of vieja caja is "vieja caja".
 The description of vieja caja is "Una vieja y destartalada caja largo tiempo atrás abandonada.".
 The capacidad of vieja caja is 200.
@@ -4385,69 +4546,79 @@ The tamano of vieja caja is grande.
 
 Section 4 - Queso rancio
 
-A queso rancio is a thing. It is edible.  It is in vieja caja. The naturaleza of queso rancio is meat.
+Un queso rancio is a thing. It is edible.  It is in vieja caja. The naturaleza of queso rancio is meat.
 The description of queso rancio is "Parece ya casi una piedra y no huele muy bien, pero es probable que su gruesa corteza lo haya protegido y aún sea comestible.".
 The tamano of queso is medio.
 
 Section 5 - Longaniza seca
 
-A longaniza seca is a thing. It is edible. It is in vieja caja. It is female. The naturaleza of longaniza is meat.
+Una longaniza seca is a thing. It is edible. It is in vieja caja. It is female. The naturaleza of longaniza is meat.
 The description of longaniza is "Es una sorpresa que esta cosa humana aún parezca comestible... bueno, más o menos.".
 
 Section 6 - El sombrero 'rojo'
 
-A viejo sombrero rojo is wearable. "[if the location of the sombrero is in Pantano]Colgando de una rama se ve un mugriento sombrero[otherwise]En el suelo hay un sombrero arrugado[end if].".
+Un viejo sombrero rojo is wearable with keyword "sombrero". "[if the location of the sombrero is in Pantano]Colgando de una rama se ve un mugriento [j]sombrero[x][otherwise]En el suelo hay un [j]sombrero[x] arrugado[end if].".
 The description of viejo sombrero rojo is "Pequeño y arrugado, pero por algún motivo esta indumentaria humana de viejo terciopelo rojo te parece agradable.". 
 The naturaleza of sombrero rojo is paper.
 
 Section 7 - Viejo cráneo de orco
 
-A craneo_orco is wearable. "[if the location of the craneo_orco is in Pantano]Colocado sobre una rama, tal vez como una marca, se ve el cráneo de un orco[otherwise]Sonriendo desde el suelo un cráneo de orco[end if].".
+Un craneo_orco is wearable. "[if the location of the craneo_orco is in Pantano]Colocado sobre una rama, tal vez como una marca, se ve el [j]cráneo[x] de un orco[otherwise]Sonriendo desde el suelo un [j]cráneo[x] de orco[end if].".
 It is in Pantano2. The printed name of craneo_orco is "cráneo de orco".
+The keyword of craneo_orco is "cráneo".
 The description of craneo_orco is "Lo poco que ha quedado de un orco. Aun sin piel ni carne sobre los huesos queda patente su estupidez. Es un cráneo de un tamaño considerable, debió pertenecer a un orco gigantesco.".
 The tamano of craneo_orco is grande.
+
+Some huesos craneo is a partdecoration. It is part of craneo_orco. The printed name of huesos craneo is "huesos del cráneo". The keyword of huesos craneo is "huesos".
+The description of huesos craneo is "Hasta en los huesos los orcos tienen un color insano.".
+
+Does the player mean doing something with craneo_orco when a orco is visible: it is very unlikely.
+Does the player mean doing something with huesos craneo: it is very unlikely.
 
 Understand "orco" or "craneo" as craneo_orco when craneo_orco is visible.
 
 Section 8 - Medallon 'rojo'
 
-A medallon rojo is wearable. "[if the location of the medallon is in Pantano]Entre las hojas de la vegetación, ves el brillo del oro de un medallón.[otherwise]Enrollado en el suelo se ve un medallón[end if]".
+Un medallon rojo is wearable. "[if the location of the medallon is in Pantano]Entre las hojas de la vegetación, ves el brillo del oro de un [j]medallón[x].[otherwise]Enrollado en el suelo, casi enterrado, se ve un [j]medallón[x][end if]".
 The printed name of medallon is "medallón de rubí".
-The description of medallon rojo is "Un pequeño medallón realizado en plata y con un rubí engarzado. No tiene ningún entramado de líneas en su superficie, pero la belleza roja del rubí hace pensar en magia.".
+The description of medallon rojo is "Un pequeño medallón realizado en [j]plata[x] y con un [j]rubí[x] engarzado. No tiene ningún entramado de líneas en su superficie, pero la belleza roja del rubí hace pensar en magia.".
 The tamano of medallon is minusculo.
 
-A rubi is partdecoration. It is part of the medallon. The description of rubi is "Casi tan hermoso como tus ojos de esmeralda. Claro que nada comparable con tus ojos reales cuando eras un dragón. Eso sí que era una joya.".
+Un rubi is partdecoration. It is part of the medallon. The description of rubi is "Casi tan hermoso como tus ojos de esmeralda. Claro que nada comparable con tus ojos reales cuando eras un dragón. Eso sí que era una joya.".
+
+La plata is partdecoration. It is part of the medallon. The description of plata is "La plata aún es reconocible, pero muy pronto será tan negra y sucia como el pantano. Y la plata nunca podrá compararse, en cualquier caso, con el dorado de tus añoradas escamas.".
 
 The printed name of rubi is "rubí".
 
 Section 9 - Pergamino 'rojo'
 
-A pergamino rojizo is a thing. "[if the location of the medallon is in Pantano]Entre la maleza del [o]pantano[x] ves lo que parece un pergamino semienterrado.[otherwise]Un pedacito de pergamino está tirado en el suelo[end if]".
+Un pergamino rojizo is a thing. "[if the location of the medallon is in Pantano]Entre la maleza del [j]pantano[x] ves lo que parece un [j]pergamino[x] semienterrado.[otherwise]Un pedacito de [j]pergamino[x] está tirado en el suelo[end if]".
 The naturaleza of pergamino rojizo is paper.
 The description of pergamino rojizo is "Un pedazo de pergamino que ha estado doblado durante mucho tiempo. Su superficie es rojiza. Si alguna vez hubo palabras o líneas sobre él hace mucho que se borraron.".
 The tamano of pergamino rojizo is minusculo.
 
 Section 10 - Restos de una seta
 
-Some restos seta is edible. "[if the location of the restos seta is in Pantano]Entre el resto de la vegetación ves una seta medio comida.[otherwise]Aplastada en el suelo se ve una seta medio comida.[end if]".
-The naturaleza of restos seta is green.
+Some restos seta (m) is edible. "[if the location of the restos seta is in Pantano]Entre el resto de la vegetación ves una [j]seta[x] medio comida.[otherwise]Aplastada en el suelo se ve una [j]seta[x] medio comida.[end if]".
+The naturaleza of restos seta is vegetable.
 The description of restos seta is "Parecen los restos un poco resecos de una seta comestible. Al menos comestible para un humano, un dragón jamás comería algo así.".
 The tamano of restos seta is minusculo.
 The printed name of restos seta is "restos de una seta".
+The keyword of restos seta is "seta".
 
 Section 11 - Colmillo 'rojo'
 
-A colmillo is a thing. "[if the location of the colmillo is in Pantano]Clavado en un árbol, ves un peculiar colmillo.[otherwise]Tirado en el suelo se ve un peculiar colmillo.[end if]".
-The description of colmillo is "Se trata de un simple colmillo, de jabalí tal vez, tallado con simples líneas y tintado algo rojizo.".
+Un colmillo is a thing. "[if the location of the colmillo is in Pantano]Clavado en un árbol, ves un peculiar [j]colmillo[x].[otherwise]Tirado en el suelo se ve un peculiar [j]colmillo[x].[end if]".
+The description of colmillo is "Se trata de un simple colmillo, de jabalí tal vez, [j]tallado[x] con simples líneas y tintado algo rojizo.".
 The tamano of colmillo is minusculo.
 
-Some tallados are partdecoration. They are part of the colmillo. The description of tallados is "Son líneas decorativas, bueno, de mal gusto pero supones de decorativas. Probablemente se trata de 'arte' de los orcos.".
+Some tallados (m) are partdecoration. They are part of the colmillo. The description of tallados is "Son líneas decorativas, bueno, de mal gusto pero supones de decorativas. Probablemente se trata de 'arte' de los orcos.".
 
-Understand "lineas" as tallados when the tallados is visible.
+Understand "lineas" or "tallado" as tallados when the tallados is visible.
 
 Section 12 - Fajin rojo
 
-A fajin rojo is wearable. "[if the location of the fajin rojo is in Pantano]Un viejo rojo fajín sucio tirado entre el follaje.[otherwise]Un viejo fajín rojo abandonado en el suelo.[end if]".
+Un fajin rojo is wearable. "[if the location of the fajin rojo is in Pantano]Un viejo rojo [j]fajín[x] sucio tirado entre el follaje.[otherwise]Un viejo [j]fajín[x] rojo abandonado en el suelo.[end if]".
 The description of fajin rojo is "Un viejo fajín de un color rojo desvahído, tal vez de seda.".
 The printed name of fajin rojo is "fajín rojo".
 The naturaleza of fajin rojo is paper.
@@ -4457,7 +4628,7 @@ Section 99 - Funcion para su colocación
 
 [La lista de objetos nómadas]
 Nomadas is a list of objects that varies.
-Nomadas is {cajita madera, viejo sombrero rojo, medallon rojo, pergamino rojizo, restos seta, colmillo, fajin rojo}.
+Nomadas is {cajita madera, viejo sombrero rojo, pergamino rojizo, restos seta, fajin rojo,colmillo}.
 
 [Al empezar el juego cada uno se coloca en alguno de los 'hidden' disponibles, asi como en varias localidades]
 When play begins:
@@ -4470,15 +4641,26 @@ When play begins:
 		otherwise:
 			let RBT be a random bag of tricks;
 			if RBT is restos or RBT is arbusto:
-				change RBT to shuesos;
+				now RBT is shuesos;
 			if item is seta and (RBT is manzano or RBT is bulto):
-				change RBT to shuesos;
+				now RBT is shuesos;
 			[say "[item] --> [RBT].";]
-			add item to the hidden objects of RBT;
+			add item to the hidden objects of RBT.
+			
+Arcaicos is a list of objects that varies.
+Arcaicos is {medallon rojo, cuenta cristal}
+
+When play begins:
+	sort Arcaicos in random order;
+	repeat with item running through Arcaicos:
+		let RBT be a random bag of tricks;
+		if RBT is arbusto:
+			now RBT is restos;
+		add item to the hidden objects of RBT.
 
 Chapter 19 - Serpientes y huesos
 
-Some shuesos is a bag of tricks. It is scenery. It is in Pantano18.  
+Some shuesos (m) is a bag of tricks. It is scenery. It is in Pantano18.  
 The printed name of shuesos is "huesos".
 The description of shuesos is "No son más que pequeños fragmentos de hueso inservibles. ¿Restos de una comida tal vez? ¿Restos del terror y el sufrimiento.".
 
@@ -4486,7 +4668,7 @@ Understand "huesos" or "restos" as shuesos when the location is Pantano18.
 
 Chapter 20 - Restos deavorks
 
-Some nrestos is a bag of tricks. It is scenery. It is in Cueva1. 
+Some nrestos (m) is a bag of tricks. It is scenery. It is in Cueva1. 
 The printed name of nrestos is "restos".
 The description of nrestos is "Los sucios restos de los deavorks que has tenido que matar para poder pasar.".
 
@@ -4495,7 +4677,7 @@ Understand "restos" or "deavorks" as nrestos when the location is Cueva1.
 Chapter 21 - Se pueden coger de cualquier parte
 
 [Objetos correspondientes a backdrops omnipresentes]
-A rama is a thing. It is female.
+Una rama is a thing. It is female.
 The description of rama is "Una rama tronchada de un árbol, aceptablemente seca.".
 The tamano of rama is medio.
 
@@ -4545,8 +4727,8 @@ When play begins:
 
 --------------------------------------------------]
 
-A cadaver is a kind of thing.
-A cadaver can be nomordido, mordido or mordidoserpiente. A cadaver is usually nomordido.
+Un cadaver is a kind of thing.
+Un cadaver can be nomordido, mordido or mordidoserpiente. Un cadaver is usually nomordido.
 The indefinite article of a cadaver is usually "un".
 Understand "cadaver" as cadaver.
 The tamano of a cadaver is usually grande.
@@ -4569,7 +4751,7 @@ Section 1 - Lobo muerto
   El lobo muerto
 
 --------------------------------------------------]
-A lobo_muerto is a cadaver. The printed name of lobo_muerto is "cadáver de lobo".
+El lobo_muerto is a cadaver. The printed name of lobo_muerto is "cadáver de lobo".
 The description of the lobo_muerto is "Nunca fue un animal muy afortunado ni muy impresionante. Ahora simplemente es un cadáver.".
 
 Understand "lobo" as lobo_muerto when the lobo_muerto is visible.
@@ -4582,7 +4764,7 @@ Section 2 - Deavork
   Un deavork muerto
 
 --------------------------------------------------]
-A deavork_muerto is a cadaver. The printed name of deavork_muerto is "cadáver de deavork".
+El deavork_muerto is a cadaver. The printed name of deavork_muerto is "cadáver de deavork".
 The description of the deavork_muerto is "Siempre es una buena noticia ver a un sucio y apestoso deavork muerto.".
 Understand "deavork" as deavork_muerto when the deavork_muerto is visible.
 
@@ -4593,7 +4775,7 @@ Section 3 - Nuhur
    Nuhur muerto
 
 --------------------------------------------------]
-The nuhur_muerto is a cadaver. The printed name of nuhur_muerto is "cadáver de Nuhur". The indefinite article of nuhur_muerto is "el".
+El nuhur_muerto is a cadaver. The printed name of nuhur_muerto is "cadáver de Nuhur". The indefinite article of nuhur_muerto is "el".
 The description of the nuhur_muerto is "Este humano feo te sirvió bien. Lo echarás de menos.".
 Understand "nuhur" or "humano" as nuhur_muerto when the nuhur_muerto is visible.
 
@@ -4604,7 +4786,7 @@ Section 4 - Icalante
    El icalante muerto
 
 --------------------------------------------------]
-A icalante_muerto is a cadaver. The printed name of icalante_muerto is "cadáver de icalante".
+El icalante_muerto is a cadaver. The printed name of icalante_muerto is "cadáver de icalante".
 The description of the icalante_muerto is "Este gigantesco mono anaranjado sigue pareciendo un magnífico ejemplar a pesar de su muerte.".
 Understand "icalante" as icalante_muerto when the icalante_muerto is visible.
 The tamano of icalante_muerto is enorme.
@@ -4616,7 +4798,7 @@ Section 5 - Zhur
    Zhur muerto
 
 --------------------------------------------------]
-A zhur_muerto is a cadaver. The printed name of zhur_muerto is "cadáver de orco".
+El zhur_muerto is a cadaver. The printed name of zhur_muerto is "cadáver de orco".
 The description of the zhur_muerto is "Un centinela que no vigilará más. Claro que es probable que nunca vigilase mucho.".
 Understand "zhur" or "orco" as zhur_muerto when the zhur_muerto is visible.
 
@@ -4630,7 +4812,7 @@ Section 6 - Yerk
    Yerk muerto
 
 --------------------------------------------------]
-A yerk_muerto is a cadaver. The printed name of yerk_muerto is "enorme cadáver de orco".
+El yerk_muerto is a cadaver. The printed name of yerk_muerto is "enorme cadáver de orco".
 The description of the yerk_muerto is "Tan grande y tan maloliente, será un exquisito banquete para las moscas.".
 Understand "yerk" or "orco" as yerk_muerto when the yerk_muerto is visible.
 The tamano of yerk_muerto is enorme.
@@ -4642,7 +4824,7 @@ Section 7 - Berg
    Berg muerto
 
 --------------------------------------------------]
-A berg_muerto is a cadaver. The printed name of berg_muerto is "cadáver de orco forzudo".
+El berg_muerto is a cadaver. The printed name of berg_muerto is "cadáver de orco forzudo".
 The description of the berg_muerto is "Te alegras de verlo muerto, este orco tiene pinta de esa extraña maldad que dota de alguna suerte de aterradora inteligencia a los más estúpidos.".
 Understand "berg" or "orco" as berg_muerto when the berg_muerto is visible.
 
@@ -4653,7 +4835,7 @@ Section 8 - Serpiente
    Serpiente muerta
 
 --------------------------------------------------]
-A cadaver_serpiente is a cadaver. The printed name of cadaver_serpiente is "serpiente muerta".
+Una cadaver_serpiente is a cadaver. The printed name of cadaver_serpiente is "serpiente muerta".
 The description of the cadaver_serpiente is "Una parte de tí se alegra de ver aplastado a este peligro potencial, otra parte se apena de que un ser tan cercano a un dragón haya sido aplastado por un mono absurdo.".
 Understand "serpiente" or "muerta" as cadaver_serpiente when the cadaver_serpiente is visible.
 
@@ -4672,8 +4854,11 @@ A posible jugador is usually aimless. [y se mueven de forma aleatoria]
 The openingcapability of a posible jugador is usually unlockedonly.
 the reclosingcapability of a posible jugador is usually leave.
 
+A posible jugador can be muerto. A posible jugador is usually not muerto.
+A posible jugador can be dominado. A posible jugador is usually not dominado.
+
 [Tienen un cadaver]
-A posible jugador have a thing called el cadaver.
+Un posible jugador have a thing called cuerpo.
 
 Instead of telling a patroller about something, try asking noun about it.
 Instead of answering a patroller that something, try asking noun about it.
@@ -4701,7 +4886,7 @@ To decide what posible jugador is the jugador mas proximo:
 			next;
 		if pj is in NoLugar:
 			next;
-		if pj is icalante and (icalante is enfadado or icalante is preso):
+		if pj is icalante and (icalante is i_enfadado or icalante is i_preso):
 			next;
 		let nm be number of moves from the location to the location of pj;
 		[say "[pj] a [nm].";]
@@ -4732,6 +4917,9 @@ To say el portador:
 An orco is a kind of posible jugador.
 An orco has a number called buscando. The buscando of an orco is 0.
 
+[Estados de un orco... más simple que un arma hecha con un palo y un clavo]
+An orco can be esperando, persiguiendo, patrullando.
+
 Understand "orco" as orco.
 
 [Sus objetos se ven]
@@ -4753,11 +4941,11 @@ Section 1 - Nuhur
 Nuhur is a posible jugador in Pantano14. It is male.
 The printed name of Nuhur is "Nuhur".
 The description of Nuhur is "[if the player is Nuhur]Tu portador, [end if]Nuhur[if the player is Nuhur],[end if] no sólo es idiota, es rematadamente feo, incluso para un sucio humano.".
-El cadaver of Nuhur is nuhur_muerto.
+Cuerpo of Nuhur is nuhur_muerto.
 
 Nuhur can be muerto. Nuhur is not muerto.
 
-Understand "portador" as Nuhur when the player is Nuhur.
+Understand "portador" or "humano" as Nuhur when Nuhur is visible.
 
 Section 2 - Icalante
 
@@ -4767,9 +4955,9 @@ Section 2 - Icalante
 
 --------------------------------------------------]
 
-A icalante is a posible jugador. It is in Pantano17. It is male.
-The description of icalante is "Este enorme gorila de pelos anaranjados, es una de las bestias más fuertes que existen, y por lo general no son peligrosos. Excepto si están enfadados o atemorizados por alguna razón.[if the player is icalante] Será un excelente portador.[end if][if icalante is enfadado] Éste en concreto está fuera de sí de ira, probablemente debido a los grilletes que lo apresan.[end if][if icalante is siguiendote and icalante carries anything]Carga con: [list of things carried by icalante with definite articles] y viste: [list of things worn by icalante with definite articles]".
-El cadaver of icalante is icalante_muerto.
+Un icalante is a posible jugador. It is in Pantano17. It is male.
+The description of icalante is "Este enorme gorila de pelos anaranjados, es una de las bestias más fuertes que existen, y por lo general no son peligrosos. Excepto si están enfadados o atemorizados por alguna razón.[if the player is icalante] Será un excelente portador.[end if][if icalante is i_enfadado] Éste en concreto está fuera de sí de ira, probablemente debido a los grilletes que lo apresan.[end if][if icalante is i_siguiendote and icalante carries anything]Carga con: [list of things carried by icalante with definite articles] y viste: [list of things worn by icalante with definite articles]".
+Cuerpo of icalante is icalante_muerto.
 The drive of icalante is 100. [ se mueve siempre ]
 The turn frequency of icalante is 1. [pero se plantea cada turno]
 The icalante is following. [te sigue]
@@ -4782,25 +4970,41 @@ Understand "portador" as icalante when the player is icalante.
 [Pero no se activa!]
 
 [Posibles estados del Icalante]
-The icalante can be enfadado, preso, siguiendote, perdido, aterrado, enlaoscuridad, dominado, muerto.
+The icalante can be i_enfadado, i_preso, i_siguiendote, i_perdido, i_aterrado, i_enlaoscuridad.
 
 [Empieza el juego preso]
-The icalante is enfadado.
+The icalante is i_enfadado.
 
-Understand "enfadado" or "preso" as icalante when icalante is visible and icalante is enfadado.
+Understand "enfadado" or "preso" as icalante when icalante is visible and icalante is i_enfadado.
+
+To say estado icalante:
+	if icalante is  i_enfadado:
+		say "enfadado";
+	otherwise if icalante is i_preso:
+		say "preso";
+	otherwise if icalante is i_siguiendote:
+		say "siguiéndote";
+	otherwise if icalante is i_perdido:
+		say "perdido";
+	otherwise if icalante is i_aterrado:
+		say "aterrado";
+	otherwise if icalante is i_enlaoscuridad:
+		say "aterrado";
+	otherwise if icalante is dominado:
+		say "atontado".
 
 [Temporalmente pongo el estado visible]
 After printing the name of the icalante while listing contents: 
 	if the icalante carries anything or icalante wears anything:
 		if icalante wears anything:
 			if icalante carries anything:
-				say " ([icalante condition] y llevando [list of things carried by icalante with definite articles] mientras que viste [list of things worn by icalante with definite articles])";
+				say " ([estado icalante] y llevando [list of things carried by icalante with definite articles] mientras que viste [list of things worn by icalante with definite articles])";
 			otherwise:
-				say " ([icalante condition] y vistiendo [list of things worn by icalante with definite articles])";
+				say " ([estado icalante] y vistiendo [list of things worn by icalante with definite articles])";
 		otherwise:
-			say " ([icalante condition] y llevando [list of things carried by icalante with definite articles])";
+			say " ([estado icalante] y llevando [list of things carried by icalante with definite articles])";
 	otherwise:
-		say " ([icalante condition])".
+		say " ([estado icalante])".
 
 [Sus objetos se ven]
 Rule for deciding the concealed possessions of the icalante: no.
@@ -4811,36 +5015,36 @@ The grilletes are carried by Icalante.
 [ACCIONES del Icalante según estado]
 
 [ENFADADO]
-Every turn when the Icalante is enfadado:
+Every turn when the Icalante is i_enfadado and icalante is not muerto:
 	if AssI is 0:
 		[ Sólo un ataque iracundo por turno]
 		if the player is an orco and the icalante is visible:
-			say "El icalante, por sorpresa, salta sobre tu portador y le coloca la cabeza en una postura incompatible con la vida.";
+			say "El [x]icalante[x], por sorpresa, salta sobre tu portador y le coloca la cabeza en una postura incompatible con la vida.";
 			bnw;
 			morir en el pantano;
 		otherwise if there is some orco (called victima) in the location of icalante:
 			matar al pnj victima;
 			if the icalante is visible:
-				say "En un brutal arranque de ira el icalante ataca al orco, lo inmoviliza y finalmente acaba con él retorciéndole la cabeza.";
+				say "En un brutal arranque de ira el [j]icalante[x] ataca al orco, lo inmoviliza y finalmente acaba con él retorciéndole la cabeza.";
 		otherwise if the icalante is visible and a random chance of 1 in 3 succeeds:
-			say "[one of]El icalante aúlla, resultando un sonido aterrador[or]El icalante te mira con una ira ciega, probablemente ni ve lo que tiene delante, tal es su furia[or]El icalante hace un esfuerzo por arrancar las cadenas que le tienen preso. Casi parece un terremoto, pero las cadenas no ceden[at random].";
+			say "[one of]El [j]icalante[x] aúlla, resultando un sonido aterrador[or]El [j]icalante[x] te mira con una ira ciega, probablemente ni ve lo que tiene delante, tal es su furia[or]El [j]icalante[x] hace un esfuerzo por arrancar las cadenas que le tienen preso. Casi parece un terremoto, pero las cadenas no ceden[at random].";
 	otherwise:
 		now AssI is 0;
 
 [REACCIONES del Icalante según estado]
 
 [ENFADADO]
-Instead of taking or touching icalante when the icalante is enfadado:
-	say "Intentas acercarte al Icalante. Piensas que tal vez con unas palabras de ánimo y unas caricias puedas tranquilizarlo. Pero... en lugar de tranquilizarlo arremete contra tu portador, lo golpea con tal fuerza que lo arroja como un trapo entre la maleza. El sonido que hace su cabeza al golpear contra el último árbol no es muy prometedor.";
+Instead of taking or touching icalante when the icalante is i_enfadado:
+	say "Intentas acercarte al [j]icalante[x]. Piensas que tal vez con unas palabras de ánimo y unas caricias puedas tranquilizarlo. Pero... en lugar de tranquilizarlo arremete contra tu portador, lo golpea con tal fuerza que lo arroja como un trapo entre la [j]maleza[x]. El sonido que hace su cabeza al golpear contra el último árbol no es muy prometedor.";
 	now AssI is 1;
 	morir en el pantano.
 
-Instead of taking or touching or opening grilletes when the icalante is enfadado and grilletes is visible:
-	say "Liberar al icalante. Ésa es la respuesta. Lo tranquilizará y... pero no, ¡oh, maldita sea! Mientras intentas acercarte a los grilletes para revisarlos con cuidado, tal vez abrirlos, el icalante reacciona con violencia. Golpea con tal fuerza a tu portador que éste muere casi al instante.";
+Instead of taking or touching or opening grilletes when the icalante is i_enfadado and grilletes is visible:
+	say "Liberar al [j]icalante[x]. Ésa es la respuesta. Lo tranquilizará y... pero no, ¡oh, maldita sea! Mientras intentas acercarte a los grilletes para revisarlos con cuidado, tal vez abrirlos, el icalante reacciona con violencia. Golpea con tal fuerza a tu portador que éste muere casi al instante.";
 	now AssI is 1;
 	morir en el pantano.
 
-Instead of putting polvora on grilletes when the icalante is enfadado:
+Instead of putting polvora on grilletes when the icalante is i_enfadado:
 	say "Intentas meter un poco del polvo negro en el grillete. Así podrías... oh, oh... Mientras intentas hacerlo el icalante reacciona con violencia. Golpea con tal fuerza a tu portador que éste muere de inmediato.";
 	now AssI is 1;
 	remove polvora from play;
@@ -4858,7 +5062,6 @@ Section 3 - Cosas que hacen los orcos
 [ Objetos deseables para un orco ]
 Table of DeseosOrcos
 objeto
-a thing
 llave
 machete
 guantes
@@ -4919,7 +5122,7 @@ Instead of giving a thing to an orco when the player is an orco:
 [Renovar los deseos de un orco]
 Before going:
 	if there is a persiguiendo orco (called asesino) in the location:
-		change buscando of asesino to 0.
+		now buscando of asesino is 0.
 
 
 Section 4 - Zhur el orco
@@ -4935,9 +5138,9 @@ Section 4 - Zhur el orco
 
 --------------------------------------------------]
 
-A zhur is a orco. It is in Pantano19. It is male.
+Un zhur is a orco. It is in Pantano19. It is male.
 The description of zhur is "[if the player is zhur]Tu actual portador no es precisamente de tu gusto. [end if]Se trata de un explorador orco de los ejércitos del nigromante. No hay más que verlo para saberlo: indumentaria informal, cara de pasmao, armas en un estado lamentable. Indudablemente la élite del ejército.".
-El cadaver of zhur is zhur_muerto.
+Cuerpo of zhur is zhur_muerto.
 The printed name of zhur is "orco".
 
 [Y es el orco por defecto]
@@ -4950,9 +5153,6 @@ The zhur is aimless. [aleatorio en principio]
 The openingcapability of zhur is unlockedonly.
 The reclosingcapability of zhur is leave.
 Understand "portador" as zhur when the player is zhur.
-
-[Estados de un orco... más simple que un arma hecha con un palo y un clavo]
-Zhur can be esperando, persiguiendo, patrullando, dominado, muerto.
 
 [Empieza el juego patrullando]
 Zhur is patrullando.
@@ -4973,30 +5173,41 @@ This is the zhurPatrullando rule:
 	if zhur is in the location:
 		if the player is not an orco or zhur is antiguo poseso:
 			say "[The zhur] grita: 'Zoog! Jusk, jusk! Zoog!' mientras suelta espumarajos por la boca. ¿Eso es que va a atacar? Menudos bichos más asquerosos.";
-			change buscando of zhur to 0;
+			now buscando of zhur is 0;
 			now Zhur is persiguiendo;
 			now Zhur is following;
 		otherwise if the player is an orco:
 			if a random chance of 1 in 4 succeeds:
 				say "[one of][The zhur] grita: '¡[el portador]! ¡Vronk! ¡Vronk!', parece divertido.[or][The zhur] te mira con una sonrisa. Debe ser un orco feliz. Dan ganas de decirle que él, el orco féliz, es el peor de todos los seres, pero probablemente no lo entendería.[or][The zhur] aparta a algunos mosquitos con aspavientos. Como si los mosquitos quisiesen beber apestosa sangre de orco.[or][The zhur] dice: '¿Mongu mongu [el portador] vronkuhg?', parece esperar respuesta; pero no piensas rebajarte a contestarle, desde luego que no.[at random]";
 			otherwise:
-				hacer que zhur haga de orco;
+				if the location is Pantano1 and a random chance of 1 in 7 succeeds:
+					say "[The zhur] se arrodilla en el manantial y bebe del agua limpia.";
+				otherwise if the location is Pantano15 and manzana is off-stage and a random chance of 1 in 6 succeeds:
+					say "[The zhur] rebusca en el [j]manzano[x] encontrando una [j]manzana[x]. La olisquea y con asco la deja caer.";
+					move manzana to Pantano15;
+				otherwise:
+					hacer que zhur haga de orco;
 	otherwise:
 		hacer que zhur haga de orco.
 
 [PERSIGUIENDO]
 This is the zhurPersiguiendo rule:
 	if zhur is in the location:
-		change buscando of zhur to 0;
-		say "[The zhur] te ataca[if machete is carried by Zhur] con su viejo machete[end if].";
-		if a random chance of 8 in 10 succeeds:
-			say "Pero falla. Además de asqueroso es patético [if machete is carried by Zhur]con un arma[otherwise]combatiendo[end if].";
+		now buscando of zhur is 0;
+		if lobo is visible and lobo is contentado:
+			say "[The zhur] blande su machete pero el lobo se interpone y lo hace recular.";
+		otherwise if icalante is visible and icalante is i_siguiendote:
+			say "[The zhur] blande su machete pero el icalante se interpone y lo hace recular.";
 		otherwise:
-			if the player is nuhur:
-				say "Y el ataque resulta mortal. [if machete is carried by Zhur]Su mugrienta espada produce un corte profundo en el pecho del retrasado humano, y sientes como éste se ahoga en su propia sangre[otherwise]Su puño hunde el pecho de Nuhur. Se escuchan costillas rotas y luego sólo estertores[end if]. ";
+			say "[The zhur] te ataca[if machete is carried by Zhur] con su viejo machete[end if].";
+			if a random chance of 8 in 10 succeeds:
+				say "Pero falla. Además de asqueroso es patético [if machete is carried by Zhur]con un arma[otherwise]combatiendo[end if].";
 			otherwise:
-				say "Y el ataque resulta mortal. [if machete is carried by Zhur]Su mugrienta espada produce un corte profundo en tu portador, y sientes como se le escapa la vida[otherwise]Su puño hunde el pecho de tu portador. Se escuchan costillas rotas y luego sólo estertores[end if]";
-			morir en el pantano;
+				if the player is nuhur:
+					say "Y el ataque resulta mortal. [if machete is carried by Zhur]Su mugrienta espada produce un corte profundo en el pecho del retrasado humano, y sientes como éste se ahoga en su propia sangre[otherwise]Su puño hunde el pecho de Nuhur. Se escuchan costillas rotas y luego sólo estertores[end if]. ";
+				otherwise:
+					say "Y el ataque resulta mortal. [if machete is carried by Zhur]Su mugrienta espada produce un corte profundo en tu portador, y sientes como se le escapa la vida[otherwise]Su puño hunde el pecho de tu portador. Se escuchan costillas rotas y luego sólo estertores[end if]";
+				morir en el pantano;
 	otherwise:
 		increase buscando of zhur by 1;
 		 if a random chance of buscando of zhur in 45 succeeds: 
@@ -5006,7 +5217,7 @@ This is the zhurPersiguiendo rule:
 
 [ GENERAL ]
 Every turn:
-	if the player is not zhur:
+	if the player is not zhur and zhur is not muerto:
 		if zhur is patrullando:
 			follow zhurPatrullando rule;
 		otherwise if zhur is persiguiendo:
@@ -5025,9 +5236,9 @@ Section 5 - Yerk el orco
 
 --------------------------------------------------]
 
-A yerk is an orco. It is in Pantano19. It is male.
+Un yerk is an orco. It is in Pantano19. It is male.
 The description of yerk is "[if the player is yerk]Tu actual portador no es precisamente de tu gusto. [end if]Este orco es... grande. Sí, ese adjetivo lo define por completo. Grande de tamaño, grande en ignorancia y grande en estupidez."
-El cadaver of yerk is yerk_muerto.
+Cuerpo of yerk is yerk_muerto.
 The printed name of yerk is "orco enorme".
 Understand "enorme" as yerk.
 The drive of yerk is 100. [ se mueve siempre ]
@@ -5037,9 +5248,6 @@ The yerk is aimless. [aleatorio en principio]
 The openingcapability of yerk is unlockedonly.
 The reclosingcapability of yerk is leave.
 Understand "portador" as yerk when the player is yerk.
-
-[Estados de un orco... más simple que un arma hecha con un palo y un clavo]
-Yerk can be esperando, persiguiendo, patrullando, dominado, muerto.
 
 [Empieza el juego patrullando]
 Yerk is esperando.
@@ -5065,7 +5273,7 @@ This is the yerkPatrullando rule:
 			say "[The yerk] grita: 'J'sosk Zug!.' que asco de lengua.";
 			now yerk is persiguiendo;
 			now yerk is following;
-			change buscando of yerk to 0;
+			now buscando of yerk is 0;
 		otherwise if the player is an orco:
 			if a random chance of 1 in 4 succeeds:
 				say "[one of][The yerk] grita: '[el portador]. Morhg mouhk. ¿[el portador]? Mouhk.' te sorprende que pueda decir tantas cosas juntas.[or][The yerk] mira al infinito durante algunos segundos. Se le cae la baba. La recoge con una de las manos y la mira. Meditaciones orcas, no cabe duda.[or][The yerk] mira una hoja, duda un momento, y la lame. Pone cara de desagrado. Imbécil.[or][The yerk] silba. ¿Una canción orca tal vez? En cualquier caso es un ruido desagradable.[at random]";
@@ -5078,13 +5286,18 @@ This is the yerkPatrullando rule:
 [PERSIGUIENDO]
 This is the yerkPersiguiendo rule:
 	if yerk is in the location:
-		change buscando of yerk to 0;
-		say "[The yerk] te ataca haciendo un esfuerzo tan grande que casi parece cómico.";
-		if a random chance of 5 in 6 succeeds:
-			say "Pero falla. [The yerk] es menos peligroso de lo que parecía.";
+		now buscando of yerk is 0;
+		if lobo is visible and lobo is contentado:
+			say "[The yerk] te ataca pero el lobo se interpone y lo hace recular.";
+		otherwise if icalante is visible and icalante is i_siguiendote:
+			say "[The yerk] te ataca pero el icalante se interpone y lo hace recular.";
 		otherwise:
-			say "Y de un solo golpe arranca la cabeza [if the player is nuhur]del pobre retrasado[otherwise if the player is an orco]de su antiguo compañero[otherwise]del simio naranja[end if].";
-			morir en el pantano;
+			say "[The yerk] te ataca haciendo un esfuerzo tan grande que casi parece cómico.";
+			if a random chance of 5 in 6 succeeds:
+				say "Pero falla. [The yerk] es menos peligroso de lo que parecía.";
+			otherwise:
+				say "Y de un solo golpe arranca la cabeza [if the player is nuhur]del pobre retrasado[otherwise if the player is an orco]de su antiguo compañero[otherwise]del simio naranja[end if].";
+				morir en el pantano;
 	otherwise:
 		increase buscando of yerk by 1;
 		 if a random chance of buscando of yerk in 25 succeeds: 
@@ -5094,7 +5307,7 @@ This is the yerkPersiguiendo rule:
 
 [ GENERAL ]
 Every turn:
-	if the player is not yerk:
+	if the player is not yerk and yerk is not muerto:
 		if yerk is patrullando:
 			follow yerkPatrullando rule;
 		otherwise if yerk is persiguiendo:
@@ -5117,10 +5330,10 @@ Section 5 - Berg el orco
 
 --------------------------------------------------]
 
-A berg is an orco. It is in Pantano19. It is male.
+Un berg is an orco. It is in Pantano19. It is male.
 The description of berg is "[if the player is berg]Tu actual portador no es precisamente de tu gusto. [end if]Este orco parece algo más inteligente que los demás."
 The printed name of berg is "orco forzudo".
-El cadaver of berg is berg_muerto.
+Cuerpo of berg is berg_muerto.
 Understand "forzudo" as berg.
 The drive of berg is 100. [ se mueve siempre ]
 The turn frequency of berg is 1. [pero se plantea cada turno]
@@ -5129,9 +5342,6 @@ The berg is aimless. [aleatorio en principio]
 The openingcapability of berg is unlockedonly.
 The reclosingcapability of berg is leave.
 Understand "portador" as berg when the player is berg.
-
-[Estados de un orco... más simple que un arma hecha con un palo y un clavo]
-Berg can be esperando, persiguiendo, patrullando, dominado, muerto.
 
 [Empieza el juego patrullando]
 Berg is esperando.
@@ -5168,12 +5378,17 @@ This is the bergPatrullando rule:
 [PERSIGUIENDO]
 This is the bergPersiguiendo rule:
 	if berg is in the location:
-		say "[The berg] te ataca mientras sisea con un ruido muy desagradable.";
-		if a random chance of 1 in 2 succeeds:
-			say "Pero falla. [The berg] es menos listo de lo que parecía.";
+		if lobo is visible and lobo is contentado:
+			say "[The berg] te ataca pero el lobo se interpone y lo hace recular.";
+		otherwise if icalante is visible and icalante is i_siguiendote:
+			say "[The berg] te ataca pero el icalante se interpone y lo hace recular.";
 		otherwise:
-			say "Y de un mordisco secciona la vena del cuello [if the player is nuhur]del pobre retrasado[otherwise if the player is an orco]de su antiguo compañero[otherwise]del simio naranja[end if]. Un manantial de sangre es el resultado.";
-			morir en el pantano;
+			say "[The berg] te ataca mientras sisea con un ruido muy desagradable.";
+			if a random chance of 1 in 2 succeeds:
+				say "Pero falla. [The berg] es menos listo de lo que parecía.";
+			otherwise:
+				say "Y de un mordisco secciona la vena del cuello [if the player is nuhur]del pobre retrasado[otherwise if the player is an orco]de su antiguo compañero[otherwise]del simio naranja[end if]. Un manantial de sangre es el resultado.";
+				morir en el pantano;
 	otherwise if a random chance of 1 in 35 succeeds: 
 		[Berg se cansa muy raramente de perseguir]
 		now Berg is patrullando;
@@ -5181,7 +5396,7 @@ This is the bergPersiguiendo rule:
 
 [ GENERAL ]
 Every turn:
-	if the player is not berg:
+	if the player is not berg and berg is not muerto:
 		if berg is patrullando:
 			follow bergPatrullando rule;
 		otherwise if berg is persiguiendo:
@@ -5211,7 +5426,7 @@ Section 1 - Lobo
   El lobo vivo
 
 --------------------------------------------------]
-A lobo famelico is a movil. It is in Pantano5.
+Un lobo famelico is a movil. It is in Pantano5.
 The printed name of lobo is "lobo famélico".
 The description of the lobo is "Parece un perro famélico y peligroso. El sitio de un lobo no está en este apestoso pantano, debería estar con los suyos en los bosques o en las praderas. ¿Qué habrá pasado para que acabe aquí?".
 
@@ -5229,7 +5444,7 @@ Every turn:
 	if the hambre of lobo is greater than 60:
 		if there is a edible carne thing (called comida) in the location of lobo:
 			move comida to estomago del lobo;
-			change hambre of lobo to 0;
+			now hambre of lobo is 0;
 			if lobo is visible:
 				say "El lobo, muy hambriento, se come [the comida].";
 		otherwise:
@@ -5245,9 +5460,21 @@ Every turn:
 					if a random chance of 1 in 4 succeeds:
 						[Te mata y se te come]
 						hacer que el lobo ataque;
-						change hambre of lobo to 0;
+						now hambre of lobo is 0;
 					otherwise:
-						say "[one of]El lobo te mira ansioso, tal vez pensando si tu portador es comestible.[or]El lobo parece muy, muy hambriento. ¿No querrá atacar a tu portador?[or]Por un momento has pensado que el lobo iba a atacar a tu portador cegado por el hambre.[at random]".
+						say "[one of]El lobo te mira ansioso, tal vez pensando si tu portador es comestible.[or]El lobo parece muy, muy hambriento. ¿No querrá atacar a tu portador?[or]Por un momento has pensado que el lobo iba a atacar a tu portador cegado por el hambre.[at random]";
+	otherwise if lobo is in Pantano18:
+		if a random chance of 1 in 4 succeeds:
+			let HO be the hidden objects of shuesos;
+			let NHO be the number of entries in HO;
+			if NHO is 0:
+				lobo hace "El lobo olisquea los huesos, pero se retira frustrado.";
+			otherwise:
+				let longitud be the number of entries of HO;
+				let num be a random number from 1 to NHO;
+				let kosa be the entry num of HO;
+				move kosa to Pantano18;
+				lobo hace "El lobo rebusca entre los huesos y encuentra [the kosa].".
 
 To hacer que el lobo ataque:
 	if lobo is contentado:
@@ -5263,7 +5490,7 @@ Instead of giving hueso to lobo:
 	now lobo is contentado;
 	now hueso is part of esqueleto;
 	say "Le lanzas el hueso al lobo, que lo atrapa en el aire de inmediato, y da buena cuenta de él. Parece muy contento.";
-	change hambre of lobo to 0.
+	now hambre of lobo is 0.
 
 Instead of throwing a cadaver at lobo:
 	try giving the noun to lobo.
@@ -5274,12 +5501,12 @@ Instead of throwing a edible thing at lobo:
 Instead of giving a edible thing to lobo:
 	say "Le lanzas [the noun] al lobo,";
 	if the naturaleza of noun is meat:
-		say " que lo pilla al vuelo y acaba con ello en un momento.";
+		say " que l[o noun] pilla al vuelo y acaba con ell[o noun] en un momento.";
 		now lobo is contentado;
-		change hambre of lobo to 0;
+		now hambre of lobo is 0;
 		remove the noun from play;
 	otherwise:
-		say " pero tras olfatearlo un poco lo ignora. Debe ser que no le gusta.";
+		say " pero tras olfatearlo un poco l[o noun] ignora. Debe ser que no le gusta.";
 		move the noun to location.
 
 Instead of giving a cadaver (called cad) to lobo:
@@ -5287,18 +5514,21 @@ Instead of giving a cadaver (called cad) to lobo:
 	move cad to location;
 	say "Dejas caer [the cad]. El lobo capta de inmediato tus intenciones y sacia su hambre. Parece muy contento.";
 	now cad is mordido;
-	change hambre of lobo to 0;
+	now hambre of lobo is 0;
 	if noun is cadaver_serpiente:
 		remove cadaver_serpiente from play.
 
 Instead of dropping a cadaver (called cad) when the lobo is in the location:
 	try giving cad to lobo.
+	
+Instead of metacommanding estomago:
+	say "No hay ningún lobo por aquí.".
 
 Chapter 4 - Especiales
 
 Section 1 - Esqueleto protector
 
-The protector is a patroller. The description of protector is "Fabuloso ejemplo de la anciana nigromancia de los dragones. ¡Es tan glorioso poder verlo!. Estático, fija la mirada en los ojos de tu portador, defendiendo el paso a la tumba de su amo, probablemente igual que hace mil años. La magia de negación de la vida que lo sostiene lo circunda, parpadeando en su luminiscencia negra, recorriéndolo como el titilar de una estrella de oscuridad.".
+El protector is a patroller. The description of protector is "Fabuloso ejemplo de la anciana nigromancia de los dragones. ¡Es tan glorioso poder verlo!. Estático, fija la mirada en los ojos de tu portador, defendiendo el paso a la tumba de su amo, probablemente igual que hace mil años. La magia de negación de la vida que lo sostiene lo circunda, parpadeando en su luminiscencia negra, recorriéndolo como el titilar de una estrella de oscuridad.".
 The protector is aimless.
 
 Understand "esqueleto" as protector when the protector is visible.
@@ -5335,11 +5565,17 @@ Section 2 - Deavork
    El deavork vivo
 
 --------------------------------------------------]
-A deavork is a movil. It is in Pantano22.
+Un deavork is a movil. It is in Pantano22.
 The printed name of deavork is "[if carga del insecto is greater than 199]deavork muy hinchado[otherwise if carga del insecto is greater than 99]deavork apreciablemente hinchado[otherwise if carga del insecto is greater than 49]deavork algo hinchado[otherwise]deavork[end if]".
-The description of the deavork is "Este sucio insecto de los pantanos siempre está hambriento, y puede comerse prácticamente cualquier cosa que pueda caberle en la boca y... su boca puede dilatarse (como el resto de su cuerpo) de una forma increíble. Lo mejor es no estar demasiado tiempo junto a él o devorará a tu portador.[if carga del insecto is greater than 199] Está hinchado, como si fuese a reventar.[otherwise if carga del insecto is greater than 99] Se mueve pesadamente como si hubiese comido demasiado.[otherwise if carga del insecto is greater than 49] Parece que lleva la barriga llena con algo.[end if]".
+The description of the deavork is "Este sucio insecto de los pantanos siempre está hambriento, y puede comerse prácticamente cualquier cosa que pueda caberle en la [j]boca[x] y... su boca puede dilatarse (como el resto de su cuerpo) de una forma increíble. Lo mejor es no estar demasiado tiempo junto a él o devorará a tu portador.[if carga del insecto is greater than 199] Está hinchado, como si fuese a reventar.[otherwise if carga del insecto is greater than 99] Se mueve pesadamente como si hubiese comido demasiado.[otherwise if carga del insecto is greater than 49] Parece que lleva la barriga llena con algo.[end if]".
 
-The deavork can be enterrando. The deavork is not enterrando.
+La BocaDeavork is partdecoration. It is part of the deavork. The description of bocadeavork is "Mejor no mirarla demasiado, es horrible y sucia, con eso basta.". The printed name of BocaDeavork is "boca".
+
+Understand "boca" as BocaDeavork when Deavork is visible.
+
+El CuerpoDeavork is partdecoration. It is part of the deavork. The description of cuerpodeavork is "Escamoso, duro, de quitina, pero sobre todo desagradable de mirar.". The printed name of CuerpoDeavork is "cuerpo".
+
+Understand "cuerpo" as BocaDeavork when Deavork is visible.
 
 Understand "insecto" as deavork.
 
@@ -5359,11 +5595,11 @@ Every turn:
 		let nc be carga del insecto;
 		let sehincha be 0;
 		if ac is less than 49 and nc is greater than 48:
-			change sehincha to 1;
+			now sehincha is 1;
 		if ac is less than 99 and nc is greater than 98:
-			change sehincha to 1;
+			now sehincha is 1;
 		if ac is less than 199 and nc is greater than 198:
-			change sehincha to 1;
+			now sehincha is 1;
 		if the deavork is visible:
 			say "El espantoso insecto, el deavork, devora [the comida].[if tamano of comida is grande or tamano of comida is enorme][line break]Para poder lograrlo su mandíbula se desencaja de forma esperpéntica y su boca se agranda de forma terrorífica.[end if][if sehincha is 1][line break]Un sonido espeluznante de escamas quitinosas rozando una contra otra, gimiendo, acompaña a un claro incremento del volumen de su cuerpo. ¡Se ha hinchado para hacer espacio a aún más comida![end if]";
 			now comida is handled;
@@ -5419,7 +5655,6 @@ Chapter 5 - Limitaciones de movimiento
 
 Table of Estado Previo
 pnj		estado			
-a patroller	a Status
 lobo		Off Patrol
 deavork		Off Patrol
 zhur		Off Patrol	
@@ -5430,7 +5665,6 @@ icalante		Off Patrol
 [ Lugares a los que NO pueden ir ]
 Table of Limites 
 pnj		limite		activada
-a patroller	a room		a number
 lobo		Copa		0
 lobo		Pantano10	0
 lobo		Pantano23	0
@@ -5472,14 +5706,14 @@ After going to a room (called destino):
 			let st be (estado corresponding to an pnj of pnj entry in Table of Estado Previo);
 			if st is On Patrol:
 				activate pnj entry;
-			change activada entry to 0;
+			now activada entry is 0;
 			[say "Retornando [the pnj entry] a [st].";]
 	repeat through Table of Limites:
 		if destino is limite entry and pnj entry is not in limite entry:
 			let st be status of pnj entry;
 			deactivate pnj entry;
-			change activada entry to 1;
-			change (estado corresponding to an pnj of pnj entry in Table of Estado Previo) to st;
+			now activada entry is 1;
+			now (estado corresponding to an pnj of pnj entry in Table of Estado Previo) is st;
 			[say "Parando por tabú [the pnj entry] que estaba [st].";]
 	continue the action.
 
@@ -5525,7 +5759,7 @@ To say nombre localidad:
 	otherwise if location is Pantano23:
 		say "Hiedra y montículo";
 	otherwise if location is Pantano28:
-		say "Entrada a [o]cuevas[x] ";
+		say "Entrada a [j]cuevas[x] ";
 	otherwise if location is Lava:
 		say "Río de lava";
 	otherwise if location is Pantano12:
@@ -5551,31 +5785,34 @@ When play begins:
 	[enable veneer acceleration;]
 	close the statusline;
 	poner cuadro de inicio;
-	wait for any key;
+	say "¿Quieres ver la introducción?";
+	say "Contesta sí o no>>";
+	if the player consents:
+		clear the screen;	
+		poner cuadro de creditos;
+		wait for any key;
+		clear the screen;
+		say line break;
+		say line break;
+		poner cuadro de aviso;
+		wait for any key;
+		clear the screen;
+		say line break;
+		say line break;
+		contar inicio de la historia;
+		say line break;
+		say line break;
+	clear the screen;
 	now the player is in NoLugar;
 	now the player is nuhur;
-   	clear the screen;	
-	poner cuadro de creditos;
-	wait for any key;
-	clear the screen;
-	say line break;
-	say line break;
 	create the midground channel;
 	set the foreground volume to 2;
 	set the background volume to 3;
 	set the midground volume to 4;
 	start musical introduction;
-	poner cuadro de aviso;
-	wait for any key;
-	clear the screen;
-	say line break;
-	say line break;
-	contar inicio de la historia;
-	say line break;
-	say line break;
 	open the statusline;
-	change left hand status line to "[nombre localidad]";
-	change right hand status line to "[el portador]: [hambre y sed]";
+	now left hand status line is "[nombre localidad]";
+	now right hand status line is "[el portador]: [hambre y sed]";
 	now Efectos-Sonando is true;
 	play the sound of efectos in background with loop;
 	activar sonidos ambientales.
@@ -5584,14 +5821,18 @@ When play begins:
 To poner cuadro de inicio:
 	display the boxed quotation
 	"
-	Anillo III
-
+	De la saga de El Anillo
+	su tercera parte y conclusión
 
 	Un relato de Johan Paz.
-	Año 2009, sobre diseño de 1989.
+	Año 2009, sobre diseño de 1989,
+	para su 20 aniversario.
 	
 	Actualizado en 2014,
 	para el 25 aniversario del CAAD.
+	
+	Recompilado en la nueva versión
+	de Inform 7 en 2015.
 	";
 	show the current quotation.
 
@@ -5616,6 +5857,10 @@ To poner cuadro de creditos:
 	Portada de: Urbatain.
 	Sonidos del pantano de: Xpktro.
 	Musica de: coax, the ice garden
+	
+	Gracias a los múltiples colaboradores,
+	editores y testers que esta obra
+	ha tenido.
 	";
 	show the current quotation.
 
@@ -5627,12 +5872,13 @@ To contar inicio de la historia:
 Table of Historia Inicial
 frase
 "Demasiado ha durado ya tu maldición. Pero pronto cesará."
-"El sucio El Nigróh, que debería haber estado muerto, redujo tu magnificencia, tu poder, tu destino, el legado de todos tus ancestros, por no hablar de la belleza de un auténtico dragón, a una caricatura."
-"Un ridículo anillo de ojos de esmeralda."
-"A duras penas lograste escapar de aquel pueblo minúsculo en el que casi todos te odiaban,  y con gran dificultad lograste que un humano muy corto de miras te sacase del castillo del noble local. Mucho habéis sufrido tú y el humano desde entonces pero todo está a punto de acabarse."
-"Ahora dominas al humano por completo, como si fuese una de tus añoradas alas, y estáis casi junto a las puertas del nigromante Sady Omú, el único con el poder y, tal vez, la voluntad de retornarte tu cuerpo de dragón."
-"Aquí, entre árboles, rodeados de apestosos pantanos, en uno de los dedos de tu portador, mirando por sus ojos, puedes adivinar la silueta de la fortaleza del nigromante al noreste. Ya falta poco."
-"Mas, es probable que esos lugares estén vigilados por las tropas de orcos del nigromante, tropas estúpidas, que serían incapaces de reconocer en ti el poder, la majestad de un auténtico dragón. Hay que evitarlas."
+"El sucio El Nigróh -que debería haber estado muerto- redujo tu magnificencia, tu poder, el legado de todos tus ancestros -por no hablar de la belleza de un auténtico dragón- a una caricatura."
+"Un minúsculo anillo de ojos de esmeralda."
+"A duras penas lograste escapar de aquel pueblucho en el que casi todos te odiaban,  y con mayor dificultad aún lograste que un humano muy corto de miras te sacase del castillo del noble local."
+"Mucho habéis sufrido tú y tu portador humano desde entonces pero todo está a punto de acabarse."
+"Ahora dominas al humano por completo, como si fuese una de tus añoradas alas, y estáis casi junto a las puertas del nigromante Sady Omú, el único con el poder y tal vez la voluntad de retornarte tu cuerpo de dragón."
+"Aquí, entre árboles, rodeado de apestosos pantanos, en uno de los dedos de tu portador, mirando por sus ojos, puedes adivinar la silueta de la fortaleza del nigromante al noreste. Ya falta poco."
+"Mas, es probable que esos lugares estén vigilados por las tropas de orcos del nigromante. Tropas estúpidas, que serían incapaces de reconocer en ti el poder, la majestad de un auténtico dragón. Hay que evitarlas."
 "Entrar por la puerta principal queda descartado, pero recuerdas que existía otra forma de llegar. Los sótanos de la fortaleza conectaban con un laberinto de estrechas y oscuras cuevas, y por ellas sabes que se alcanzaba el pantano."
 "Hay que encontrar la entrada a esas cuevas."
 
@@ -5664,7 +5910,7 @@ Before going from somewhere in Pantano:
 		
 
 To describir caminar por el pantano:
-	say "[one of]Con dificultad apartas las [o]plantas[x] y te pones a caminar... no, en realidad se parece más a chapotear, chapotear entre charcas estancadas, y avanzas sin tener demasiado claro a dónde te encaminan tus pasos. La [o]bruma[x] del [o]pantano[x] no hace precisamente más fácil saber hacia donde vas.[or]Un pie tras otro, siempre hundido en barro sucio y rodeado por la neblina del pantano, logras avanzar aunque no estás muy seguro de que sea en la dirección deseada.[or]Las húmedas [o]plantas[x] del [o]pantano[x] e incluso sus árboles parecen querer tender una trampa a tu portador a cada paso. Avanzas, pero tan preocupado de no caer que no estás seguro de si lo has hecho hacia la dirección correcta.[or]Arrancas [o]plantas[x], esquivas troncos de árboles retorcidos y raíces putrefactas cubiertas de [o]bruma[x] para poder ir en esa dirección. Cuando lo logras ya no estás seguro de que hayas ido en la dirección deseada.[at random]".
+	say "[one of]Con dificultad apartas las [j]plantas[x] y te pones a caminar... no, en realidad se parece más a chapotear, chapotear entre charcas estancadas, y avanzas sin tener demasiado claro a dónde te encaminan tus pasos. La [j]bruma[x] del [j]pantano[x] no hace precisamente más fácil saber hacia donde vas.[or]Un pie tras otro, siempre hundido en barro sucio y rodeado por la neblina del pantano, logras avanzar aunque no estás muy seguro de que sea en la dirección deseada.[or]Las húmedas [j]plantas[x] del [j]pantano[x] e incluso sus árboles parecen querer tender una trampa a tu portador a cada paso. Avanzas, pero tan preocupado de no caer que no estás seguro de si lo has hecho hacia la dirección correcta.[or]Arrancas [j]plantas[x], esquivas troncos de árboles retorcidos y raíces putrefactas cubiertas de [j]bruma[x] para poder ir en esa dirección. Cuando lo logras ya no estás seguro de que hayas ido en la dirección deseada.[or]Avanzar en este [j]pantano[x] es tan confuso que es caminar en cualquier dirección.[or]Odias todas estas plantas. Te confuden. No sabes al final a dónde has ido.[stopping]".
 
 Section 2 - No hay en el pantano lugares a los que no se pueda ir
 
@@ -5679,12 +5925,12 @@ Section 2 - No hay en el pantano lugares a los que no se pueda ir
 Before going nowhere from somewhere in Pantano:
 	if the noun is up:
 		if location is Pantano20 and liana is not part of recio arbol:
-			say "Intentas trepar por la corteza del árbol, pero es demasiado resbaladiza para tu portador. ¡Ojalá tuviese alas!" instead;
+			say "Intentas trepar por la corteza del [j]árbol[x], pero es demasiado resbaladiza para tu portador. ¡Ojalá tuviese alas!" instead;
 		otherwise:
 			say "Aún no puedes volar. ¡Qué más quisieras!" instead;
 	otherwise:
 		if the noun is down:
-			say "No hay que tener tanta prisa en sumergirse en el pantano. Si acabas en la ciénaga podrían pasar siglos antes de que te volviesen a encontrar. Una posibilidad aterradora." instead;
+			say "No hay que tener tanta prisa en sumergirse en el [j]pantano[x]. Si acabas en la ciénaga podrían pasar siglos antes de que te volviesen a encontrar. Una posibilidad aterradora." instead;
 		otherwise if the location is not Pantano28 and the location is not Pantano20 and location is not PuertaCastillo and noun is not inside and noun is not outside:
 			describir caminar por el pantano;
 			let destination be a random adjacent room;
@@ -5716,7 +5962,7 @@ PasosEnCentral is a number that varies. PasosEnCentral is 0.
 
 Before going from a room (called origen) to a central room:
 	if origen is not central:
-		change PasosEnCentral to 0;
+		now PasosEnCentral is 0;
 		[say "Poniendo el contador a cero.";]
 	otherwise:
 		increase PasosEnCentral by 1;
@@ -5762,7 +6008,7 @@ Instead of listening:
 				say "Escuchas sonidos normales (y desagradables) del pantano, excepto desde [the way] en donde los animales parecen callar. Que extraño...";
 				now algoEscuchado is true;
 			-- Pantano25: 
-				say "Extraños sonidos, como si el viento zarandease las [o]plantas[x] llegan desde [the way], pero... no hay viento.";
+				say "Extraños sonidos, como si el viento zarandease las [j]plantas[x] llegan desde [the way], pero... no hay viento.";
 				now algoEscuchado is true;
 	otherwise if there is a listenable thing (called cosa) in an adjacent room (called lugar):
 		let way be the best route from the location to lugar;
@@ -5772,11 +6018,14 @@ Instead of listening:
 		otherwise:
 			 if cosa is:
 				-- deavork: 
-					say "En [the way] se escucha como si algo zarandease las [o]plantas[x].";
+					say "En [the way] se escucha como si algo zarandease las [j]plantas[x].";
 					now algoEscuchado is true;
 				-- lobo: 
 					if hambre of lobo is greater than 40:
 						say "Desde [the way] llegan unos apagados quejidos lastimosos.";
+						now algoEscuchado is true;
+					else:
+						say "Desde [the way] llega un aullido débil.";
 						now algoEscuchado is true;
 				-- zhur:
 					say "[one of]Escuchas desde [the way] unas apagadas palabras en lenguaje orco.[or]En [the way] se escuchan como chapoteos.[or]Alguien parece andar por [the way].[at random]";
@@ -5788,7 +6037,7 @@ Instead of listening:
 					say "[one of]Escuchas desde [the way] unas apagadas palabras en lenguaje orco.[or]En [the way] el sonido una risilla bastante molesta.[or]Alguien parece andar por [the way]... no, no, ha sido sólo una impresión.[at random]";
 					now algoEscuchado is true;
 				-- icalante:
-					if icalante is enfadado:
+					if icalante is i_enfadado:
 						say "Desde [the way] llegan extraños gruñidos.";
 						now algoEscuchado is true;
 	if algoEscuchado is false:
@@ -5802,10 +6051,10 @@ Instead of listening:
 			say "Aquí el silencio es el rey, al menos en comparación con el pantano.";
 		otherwise if location is Lava:
 			say "El ruido que hace la lava al avanzar lentamente, los gases borboteando pesadamente, el crujir de las rocas, cubre cualquier otro sonido.";
-		otherwise if location is Lugar Oo Drack:
+		otherwise if location is Lugar_Oo_Drack:
 			say "Un extraño temblor casi imperceptible se puede 'notar', más que oirse. ¿Qué será?.";
 		otherwise if location is parte del pantano:
-			say "[one of]Se escuchan ranas, pero eso no impide que se escuchen moscas y cosas así.[or]Moscas, mosquitos, más moscas, más mosquitos.[or]Pues... ya sabes, los ruidos típicos del pantano: [o]criaturas[x] lamentables lamentándose de ser lamentables.[at random]";
+			say "[one of]Se escuchan ranas, pero eso no impide que se escuchen moscas y cosas así.[or]Moscas, mosquitos, más moscas, más mosquitos.[or]Pues... ya sabes, los ruidos típicos del pantano: [j]criaturas[x] lamentables lamentándose de ser lamentables.[at random]";
 		otherwise if location is cueva oscura:
 			say "Grietas, grietas y más grietas. Túneles horadados por la colonia de deavorks y cosas probablemente más sucias. ¡Se puede ir en cualquier dirección! Todas parecen igual de improbables y desagradables.";
 		otherwise:
@@ -5845,7 +6094,6 @@ To ser aplastado por (pnj - a patroller):
 	say "Y realmente lo termina logrando.";
 	bnw;
 	say "Primero es una pequeña grieta en tu ojo esmeraldino, luego un corte completo de la gema, un corte por la que se escapa tu alma de dragón. Un alma probablemente condenada para siempre por su inutilidad y por dejarse matar por seres inferiores.";
-	[dstop all sounds; ]
 	finalizar juego.
 
 [ Marca para poner los nombres de los orcos ]
@@ -5856,11 +6104,13 @@ To morir en el pantano:
 	say line break;
 	[escogemos siempre el más próximo]
 	let nj be jugador mas proximo;
-	[say "[nj].";]
 	if nj is the player:
 		[Para siempre en el pantano]
 		fracasar la aventura;
 	otherwise:
+		repeat with pat running through visible patroller:
+			if pat is not nj and pat is not the player:
+				move pat to a random adjacent room;
 		poner cadaver;
 		[Es el nuevo portador]
 		[Ponerle el anillo]
@@ -5877,8 +6127,7 @@ To morir en el pantano:
 		now aj is muerto;
 		contar muerte de aj y encuentro con nj;
 		move nj to location;
-		change the player to nj;
-		[say "[the location].";]
+		now the player is nj;
 		[mover el antiguo jugador fuera de juego]
 		move aj to NoLugar;
 		[reinicio de los orcos]
@@ -5901,7 +6150,7 @@ To cambiar de portador orco:
 				say "El otro orco, bastante confuso huye entre el follaje.";
 			now the anillo is carried by pos;
 			now the player is antiguo poseso;
-			change the player to pos;
+			now the player is pos;
 			reinicia a los orcos;
 			if there is a orco (called nohuido) which is not the player in the location:
 				if nohuido is not the player:
@@ -5924,7 +6173,7 @@ To matar al pnj (pnj - a patroller):
 			move deavork_muerto to the location of deavork;
 			move deavork to Pantano28;
 			if the location is Pantano28:
-				say "Un deavork sale de las [o]cuevas[x] .";
+				say "Un deavork sale de las [j]cuevas[x] .";
 		otherwise if pnj is lobo:
 			move lobo_muerto to the location of lobo;
 			move lobo to NoLugar;
@@ -5935,13 +6184,13 @@ To matar al pnj (pnj - a patroller):
 
 [ Poner el cadaver de un pnj ]
 To poner cadaver de (pnj - a posible jugador):
-	move el cadaver of pnj to the location of pnj;
-	now all of the things carried by pnj are in the location of el cadaver of pnj.
+	move cuerpo of pnj to the location of pnj;
+	now all of the things carried by pnj are in the location of cuerpo of pnj.
 
 [ Crear un cadaver adecuado ]
 To poner cadaver:
 	[the cadaver físicamente al lugar]
-	move el cadaver of the player to the location;
+	move cuerpo of the player to the location;
 	[ahora dejar todo]
 	now all of the things carried by the player are in the location;
 	now all of the things worn by the player are in the location.
@@ -5989,11 +6238,11 @@ To poner nombre propio a orcos:
 	now the printed name of yerk is "Yerk";
 	now yerk is proper-named;
 	now the printed name of zhur_muerto is "cadáver de Zhur";
-	change the indefinite article of zhur_muerto to "el";
+	now the indefinite article of zhur_muerto is "el";
 	now the printed name of berg_muerto is "cadáver de Berg";
-	change the indefinite article of berg_muerto to "el";
+	now the indefinite article of berg_muerto is "el";
 	now the printed name of yerk_muerto is "cadáver de Yerk";
-	change the indefinite article of yerk_muerto to "el";
+	now the indefinite article of yerk_muerto is "el";
 	bnw;
 	say "Una de las cosas que has podido aprender de este portador son los nombres de los orcos destinados por aquí: Zhur, Berg, Yerk... apestosos nombres de orco.";
 	bnw;
@@ -6011,10 +6260,9 @@ To contar muerte de (aj - a posible jugador) y encuentro con (nj - a posible jug
 	if aj is nuhur:
 		recordar a Nuhur;
 	[Si el nuevo está ahí mismo no hay problema]
-	if the location of nj is the location of el cadaver of aj:
+	if the location of nj is the location of cuerpo of aj:
 		tener un poco de angustia al pasar de aj a nj;
 	otherwise:
-		[say "ouch!";]
 		tener un mucho de angustia al pasar de aj a nj.
 		
 
@@ -6023,30 +6271,28 @@ To recordar a Nuhur:
 	bnw;
 	say "Te ha servido bien. A pesar de sus evidentes limitaciones y sus miedos, sin él no hubieses podido salir nunca de aquel lamentable castillo perdido en las tierras bajas.";
 	bnw;
-	say "Sin él no hubieses llegado hasta el [o]pantano[x] apestoso, a la visión de la fortaleza de Sady Omú.";
+	say "Sin él no hubieses llegado hasta el [j]pantano[x] apestoso, a la visión de la fortaleza de Sady Omú.";
 	bnw;
 	say "¿Podrás encontrar un portador igual de útil? Lo dudas mucho.";
 	bnw.
 
 To tener un poco de angustia al pasar de (aj - a posible jugador) a (nj - a posible jugador):
-	say "[one of]'¿Y ahora qué?', es lo primero que piensas.[or]'Aquí estamos de nuevo', piensas, 'a solas'.[or]Piensas que de nuevo te ves sin un portador.[at random]";
+	say "[one of]'¿Y ahora qué?', es lo primero que piensas.[or]'Aquí estamos de nuevo', piensas, 'a solas'.[or]De nuevo te ves sin un portador.[or]¡Muerto otra vez![stopping]";
 	bnw;
-	say "Después te asaltan recuerdos de [one of]verte devorado por [o]criaturas[x] inferiores, rodeado de detritus, [or]enterrado, perdido en el fondo de un zurrón[at random]...";
+	say "Después te asaltan recuerdos de verte [one of]devorado por [j]criaturas[x] inferiores[or]rodeado de detritus[or]enterrado en fango[or]perdido en el fondo de un zurrón[or]abandonado en una cloaca[or]en una caja, olvidado[at random]...";
 	bnw;
-	say "Por un momento te asalta la angustiosa idea de verte abandonado para siempre en el pantano. Una anillo de oro macizo puede durar miles de años. ¿Te espera una eternidad de esperar?";
+	say "[one of]Por un momento te asalta la angustiosa idea de verte abandonado para siempre en el pantano.[or]La angustia te asalta.[stopping][first time] Una anillo de oro macizo puede durar miles de años. ¿Te espera una eternidad de esperar?[only]";
 	bnw;
-	say "Pero entonces ves cómo los ojos [del nj] se posan en ti y [if nj is a orco]te arranca descuidadamente de entre los dedos de [el portador].[otherwise]con eso basta para que contactes con su simple mente.[end if] El resto es fácil, un poco de exploración de una mente simple y luego la dominación completa.".
+	say "Pero entonces ves cómo los ojos [del nj] se posan en ti y [if nj is a orco]te arranca descuidadamente de entre los dedos de [el portador].[otherwise]con eso basta para que contactes con su simple mente.[end if][first time] El resto es fácil, un poco de exploración de una mente simple y luego la dominación completa.[only]".
 	
 To tener un mucho de angustia al pasar de (aj - a posible jugador) a (nj - a posible jugador):
-	say "[one of]Y aquí nos encontramos. Perdidos en mitad de un apestoso pantano.[or]¡Otra vez sin un portador![at random]";
+	say "[one of]Y aquí nos encontramos. Perdidos en mitad de un apestoso pantano.[or]¡Otra vez sin un portador![or]¡Solos de nuevo![or]¡Muertos de nuevo![stopping]";
 	bnw;
-	say "No puedes dejar de pensar que pronto lloverá de nuevo, que todo se inundará, que este cuerpo, el de tu portador, se hundirá entre los fangos. Que te acabrá arrastrando a un foso de arenas movedizas donde permanercerás para siempre.";
+	say "[one of]No puedes dejar de pensar que pronto lloverá de nuevo, que todo se inundará, que este cuerpo, el de tu portador, se hundirá entre los fangos. Que te acabrá arrastrando a un foso de arenas movedizas donde permanercerás para siempre.[or]Cualquier cosa puede pasarte.[stopping]";
 	bnw;
-	say "¡Cualquier cosa es mejor que ese destino! Así que aprovechas cualquier oportunidad, el más miserable animal, el más ridículo, el más minúsculo, e intentas atraerlo... sin suerte...";
+	say "[one of]¡Cualquier cosa es mejor que ese destino! Así que aprovechas cualquier oportunidad, el más miserable animal, el más ridículo, el más minúsculo, e intentas atraerlo... sin suerte...[or]Necesitas un portador. ¡Cualquiera![stopping]";
 	bnw;
-	say "Hasta que finalmente ves surgir de entre la frondosa vegetación [al nj]. [if nj is a orco]Sus ojos avariciosos le delatan, te coge, se alegra. No tiene ni idea de lo que le espera.[otherwise]Te alegras de tu enorme suerte, te basta con brillar un poco y que el simio te observe para contactar con su mente.[end if]";
-	bnw;
-	say "El resto es fácil, un poco de exploración de una mente simple y luego la dominación completa.".
+	say "Finalmente ves surgir de entre la frondosa vegetación [al nj]. [if nj is a orco]Sus ojos avariciosos le delatan, te coge, se alegra. No tiene ni idea de lo que le espera.[otherwise]Te alegras de tu enorme suerte, te basta con brillar un poco y que [el nj] te observe para contactar con su mente.[end if][first time] El resto es fácil, un poco de exploración de una mente simple y luego la dominación completa.[only]".
 
 To fracasar la aventura:
 	say "'¡No!', es el grito desesperado que te asalta al sentir que tu portador está muerto.";
@@ -6068,7 +6314,7 @@ To fracasar la aventura:
 	finalizar juego.
 
 To muerte en las cuevas:
-	say "Estas [o]cuevas[x]  son solitarias.";
+	say "Estas [j]cuevas[x]  son solitarias.";
 	bnw;
 	say "Demasiado solitarias.";
 	bnw;
@@ -6081,12 +6327,6 @@ To muerte en las cuevas:
 	say "¿O tal vez no?...";
 	[dstop all sounds; ]
 	finalizar juego.
-	
-[HISTORIA: transición general]
-[Table of transicion general
-frase
-"Tu portador yace muerto."
-"La espera se hace interminable, mientras ruegas aterrorizado que esto no sea el final, que tu destino no sea hundirte para siempre en las fétidas aguas del Hapawa."]
 
 Chapter 5 - Hechizos, de los de verdad, o casi
 
@@ -6097,6 +6337,7 @@ To congelar (lugar - a room):
 	if lugar is in Pantano:
 		now the printed name of lugar is "Un extraño lugar congelado en mitad del pantano";
 		now the description of lugar is "Este lugar ha quedado irreconocible. Tal vez hubiese (o haya) mortales arañas, o arenas movedizas, pero todo lo que se ve ahora es escarcha que lo cubre todo.";
+		now the default picture of lugar is Figure of Frozen;
 		now the decoration of lugar is Table of DecoEscarchaPan;
 	otherwise if lugar is in Cuevas:
 		now the printed name of lugar is "Una cueva de hielo";
@@ -6110,9 +6351,9 @@ To congelar (lugar - a room):
 
 Table of DecoEscarchaPan
 topic			description							genre
-"arbol" or "arboles" or "frondosidad" or "copas" or "plantas"	"Los árboles del [o]pantano[x] casi no se ven en este lugar, tan cubiertos de escarcha que están."	M
-"pantano" or "cienagas" or "manglar" or "aguas" or "agua" or "charco" or "charcos" or "cienaga"	"Incluso las aguas del [o]pantano[x] están recubiertas de hielo y escarcha."	M
-"criaturas" or "criatura" or "bestias" or "seres"	"En este lugar las [o]criaturas[x] del pantano, callan. Probablemente porque estén congeladas."	FP
+"arbol" or "arboles" or "frondosidad" or "copas" or "plantas"	"Los árboles del [j]pantano[x] casi no se ven en este lugar, tan cubiertos de escarcha que están."	M
+"pantano" or "cienagas" or "manglar" or "aguas" or "agua" or "charco" or "charcos" or "cienaga"	"Incluso las aguas del [j]pantano[x] están recubiertas de hielo y escarcha."	M
+"criaturas" or "criatura" or "bestias" or "seres"	"En este lugar las [j]criaturas[x] del pantano, callan. Probablemente porque estén congeladas."	FP
 "escarcha" or "hielo" or "nieve"	"Blanca y mortal. Lamentablemente recuerdas demasiado bien como llegó hasta aquí."	M
 
 Table of DecoEscarchaCue
@@ -6137,7 +6378,7 @@ Before going from somewhere in Cuevas:
 		if in darkness:
 			say "Caminas palpando. Buscando con tus manos una grieta o túnel por el que salir en esa dirección. Crees encontrar una, pero no estás nada seguro de haber escogido la correcta.";
 		otherwise:
-			say "[one of]Escoges una de las múltiples grietas que parecen ir en esa dirección, estás casi seguro que no has ido ya por ahí.[or]Hay un túnel que parece ir en esa dirección, un túnel que crees no haber recorrido aún, así que tomas ese túnel.[or]Es muy dificil orientarse, incluso para ti en estas profundidades, así que no tienes nada claro haber escogido el túnel correcto.[or]Estás casi seguro de haber escogido el túnel correcto para ir hacia esa dirección, pero... ¡hay tantos! ¡Malditas [o]cuevas[x] !.[at random]".
+			say "[one of]Escoges una de las múltiples grietas que parecen ir en esa dirección, estás casi seguro que no has ido ya por ahí.[or]Hay un túnel que parece ir en esa dirección, un túnel que crees no haber recorrido aún, así que tomas ese túnel.[or]Es muy dificil orientarse, incluso para ti en estas profundidades, así que no tienes nada claro haber escogido el túnel correcto.[or]Estás casi seguro de haber escogido el túnel correcto para ir hacia esa dirección, pero... ¡hay tantos! ¡Malditas [j]cuevas[x]![at random]".
 
 
 Section 2 - No hay en las cuevas direcciones a las que no se pueda ir
@@ -6152,7 +6393,7 @@ Section 2 - No hay en las cuevas direcciones a las que no se pueda ir
 
 Before going nowhere from somewhere in Cuevas:
 	if the noun is up:
-		say "No se puede salir de estas [o]cuevas[x]  por el techo." instead;
+		say "No se puede salir de estas [j]cuevas[x]  por el techo." instead;
 	otherwise:
 		if the noun is down:
 			say "Esperas que no haya demasiados huecos bajo tus pies... eso esperas...." instead;
@@ -6193,12 +6434,8 @@ Instead of going north from Pantano28:
 		move deavork_muerto to Pantano28;
 		move deavork to Pantano28;
 		morir en el pantano;
-		change resuelto of Pantano28 to 1;
+		now resuelto of Pantano28 is 1;
 	otherwise:
-		[if Musica-Intro-Sonando is false and Musica-Sonando is true:
-			dstop the sound of pantano;
-		if Efectos-Sonando is true:
-			dstop sound of efectos;]
 		 if resuelto of Pantano28 is less than 2:
 			say "Entras en en nido de deavorks y en seguida sientes el dolor de un mordisco de esas bestias defendiendo su nido.";
 			bnw;
@@ -6208,9 +6445,7 @@ Instead of going north from Pantano28:
 			bnw;
 			say "Decepcionantemente pronto los supervivientes de entre los deavork huyen despavoridos en todas direcciones. Dejando el camino expedito.";
 			move deavork to Pantano1;
-			change resuelto of Pantano28 to 2;
-		if Musica-Intro-Sonando is false and Musica-Sonando is true:
-			play the sound of cuevas in foreground with loop;
+			now resuelto of Pantano28 is 2;
 		continue the action.
 
 After going to Pantano28 from Cueva1:
@@ -6218,6 +6453,14 @@ After going to Pantano28 from Cueva1:
 		play the sound of pantano in foreground with loop;
 	if Efectos-Sonando is true:
 		play sound of efectos in background with loop;
+	continue the action.
+	
+After going to Cueva1 from Pantano28:
+	if Musica-Sonando is true:
+		play the sound of cuevas in foreground with loop;
+		now Musica-Intro-Sonando is false;
+	if Efectos-Sonando is true:
+		stop the background sound;
 	continue the action.
 		
 
@@ -6230,9 +6473,15 @@ Section 1.1 - Inicio
 
 [Ataque de Oo Drack]
 At the time when Oo Drack ataca:
+	if location is not Lugar_Oo_Drack:
+		Oo Drack ataca in two turns from now;
+		stop;
 	if Musica-Sonando is true:
+		stop the foreground sound;
 		play the sound of castillo in foreground with loop;
 	now Efectos-Sonando is false;
+	close the statusline;
+	image Figure of Tesoro Con;
 	say "Una ensordecedora carcajada precede a todo...";
 	bnw;
 	say "...le sigue un estrépito de tesoros metálicos cayendo, chocando unos contra otros...";
@@ -6252,7 +6501,6 @@ At the time when Oo Drack ataca:
 			say "...surge en él una grieta, y por ella se escapa tu alma de dragón.";
 			bnw;
 			say "Tu pobre alma condenada a buen seguro al infierno eterno y helado, debido a tu incapacidad.";
-			[dstop all sounds; ]
 			finalizar juego;
 		otherwise:
 			say "Tu, sin embargo, sobrevives. Tu resistencia draconil, probablemente, te ha salvado.";
@@ -6275,7 +6523,7 @@ At the time when Oo Drack ataca:
 		bnw;
 		say "En lugar de eso coge con su zarpa al humano y lo alza con delicadeza hasta sus ojos.";
 		bnw;
-		if icalante is visible and icalante is siguiendote:
+		if icalante is visible and icalante is i_siguiendote:
 			say "El icalante sale huyendo llevándose todo lo que llevaba con él.";
 			bnw;
 		say "'Eres el humano más feo que he visto', dice, 'por un momento pensé que érais un orco.";
@@ -6294,15 +6542,24 @@ This is the mata a nuhur rule:
 	bnw;
 	say "Entonces llega tu turno bajo el fuego abrasador de Oo Drack.";
 	bnw;
-	say "Tu sufrimiento tampoco dura mucho; pronto tu alma de dragón escapa de su forma de anillo y vuela directa al infierno de los inútiles y vagos.";
-	[dstop all sounds; ]
+	say "Tu sufrimiento tampoco dura mucho; pronto tu alma de dragón escapa de su forma de anillo y vuela directa al infierno de los inútiles y los débiles.";
+	finalizar juego.
+	
+[Reglas de final]
+This is the mata a orco rule:
+	say "Tras lo cual golpea repetidamente al orco contra el suelo.";
+	bnw;
+	say "Su sufrimiento no dura demasiado.";
+	bnw;
+	say "Entonces llega tu turno bajo el fuego abrasador de Oo Drack.";
+	bnw;
+	say "Tu sufrimiento tampoco dura mucho; pronto tu alma de dragón escapa de su forma de anillo y vuela directa al infierno de los inútiles y los débiles.";
 	finalizar juego.
 
 This is the mata a anillo rule:
 	say "Tras lo cual simplemente te aplasta con facilidad con sus enormes dedos de dragón dorado.";
 	bnw;
-	say "Tu sufrimiento no dura mucho; pronto tu alma de dragón escapa de su forma de anillo y vuela directa al infierno de los inútiles y vagos.";
-	[dstop all sounds; ]
+	say "Tu sufrimiento no dura mucho; pronto tu alma de dragón escapa de su forma de anillo y vuela directa al infierno de los inútiles y los débiles.";
 	finalizar juego.
 
 This is the ir a Sady Omu rule:
@@ -6315,7 +6572,8 @@ This is the ir a Sady Omu rule:
 	say "Atravesáis las salas de la vieja fortaleza hasta la supuestamente terrorífica sala del trono del nigromante; en donde el esqueleto animado te entrega a su amo.";
 	bnw;
 	clear the screen;
-	move the player to Lugar Sady Omu, without printing a room description;
+	image Figure of Trono;
+	move the player to Lugar_Sady_Omu, without printing a room description;
 	try looking;
 	if player is nuhur:
 		say "El humano, Nuhur, llega no mucho después. Sonriente y balbuceando algo sobre que ha regresado al castillo pero que está más feo.";
@@ -6340,8 +6598,7 @@ To Oo Drack habla con un orco:
 
 [Tabla ejemplo]
 Table of Oo Drack Orco
-numero		seleccion		respuesta								activado	activa			extra
-a number	a text			a text									a number	a list of numbers	a rule
+numero	seleccion		respuesta	activado	activa	extra
 0 [inicial]	--			"'Un anillo mágico en manos de un orco', dice y se queda pensando."	1		{1, 3}			the fake rule
 1 [>0]		"He venido a suplicar tu ayuda, ¡oh poderoso Oo Drack!"		"'¡Vaya hablas!, ¿Y por qué tendría que ayudarte?', dice."					0		{4, 9002, 5 }		the fake rule
 3 [>0,2]		"Soy el poderoso Uudrum, ¿acaso no me reconoces anciano?"	"'No eres Uudrum', contesta algo molesto, 'y Uudrum no era poderoso'."	0		{9003}			the fake rule
@@ -6368,7 +6625,7 @@ a number	a text			a text									a number	a list of numbers	a rule
 9000 [>*]	"Eso no te importa"						"'Tú mismo', contesta aparentemente divertido."				0		--			the mata a nuhur rule
 9002 [>1]	"¡Maldita sea anciano! He llegado hasta aquí sorteando mil dificultades para que me ayudes."	"'Demasiado irrespetuoso', dice cansado."						0		--			the mata a anillo rule
 9003 [>*]	"¡Soy Uudrum, apestoso anciano! Y siempre he sido mucho más poderoso que vos."				"'Demasiado irrespetuoso', dice cansado."						0		--			the mata a anillo rule
-9004 [>*]	"¡Mataré a Sady Omú!."						"'Entiendo', dice cansado, 'pero no podemos permitirnos traidores, ni siquiera ahora, ni siquiera tras lo que he sufrido'."						0		--			the mata a nuhur rule
+9004 [>*]	"¡Mataré a Sady Omú!."						"'Entiendo', dice cansado, 'pero no podemos permitirnos traidores, ni siquiera ahora, ni siquiera tras lo que he sufrido'."						0		--			the mata a orco rule
 9005 [>*]	"¡Por los ancestros os juro que no es falso!."			"'Odio a la gente irrespetuosa con los muertos', dice cansado."										0		--			the mata a anillo rule
 9100 [>*]	"¡Tenía el dedal de los dragones con el orco! ¡Eso prueba sus derechos! ¡Buscadlo!"	"Sonríe. 'Tal vez haya esperanza', dice."												0		--			the ir a Sady Omu rule
 
@@ -6386,7 +6643,6 @@ To Oo Drack habla con un anillo:
 [Tabla ejemplo]
 Table of Oo Drack Anillo
 numero		seleccion		respuesta								activado	activa			extra
-a number	a text			a text									a number	a list of numbers	a rule
 0 [inicial]	--			"'Pero... ¿qué es lo que eres pequeña cosa?', dice."				1		{1, 2, 3}			the fake rule
 1 [>0]		"Soy un anillo mágico, llévame de inmediato con el nigromante o te dominaré."	"'¿Eres peligroso?', pregunta."	0		{9001}			the fake rule
 2 [>0]		"He venido a suplicarte poderoso Oo Drack."	"'¿Suplicarme?', dice con aspecto cansado, 'No sé quien eres pero no puedo ayudar a nadie ahora'. "	0		{4, 5}			the fake rule
@@ -6415,7 +6671,6 @@ To Oo Drack habla con Nuhur:
 [Tabla ejemplo]
 Table of Oo Drack Nuhur
 numero		seleccion							respuesta								activado	activa			extra
-a number	a text								a text									a number	a list of numbers	a rule
 0 [inicial]	--								"'¿Que hace un humano aquí?', pregunta, '¿Robar?'"			1		{9001, 1, 2, 3, 9000 }	the fake rule
 1 [>0]		"He venido a suplicar tu ayuda, ¡oh poderoso Oo Drack!"		"'¿Y por qué tendría que ayudarte?', dice."					0		{4, 9002, 5 }		the fake rule
 2 [>0]		"No es un humano"						"'Explicate', dice intrigado."						0		{6, 7, 3}			the fake rule
@@ -6471,7 +6726,6 @@ This is the sady omu caja rule:
 	say "...para toda la eternidad.";
 	bnw;
 	say "¿O tal vez no?";
-	[dstop all sounds; ]
 	finalizar juego.
 
 This is the sady omu mata rule:
@@ -6480,7 +6734,6 @@ This is the sady omu mata rule:
 	say "Una pizca basta. Ahora, en tu forma de anillo, apenas estás vivo en realidad, así que en cuanto la magia de Sady Omú roza tu ojo esmeraldino tu vida cesa.";
 	bnw;
 	say "Una eternidad de sufrimiento helado te espera en el otro lado, en el infierno de los dragones.";
-	[dstop all sounds; ]
 	finalizar juego.
 
 
@@ -6492,6 +6745,8 @@ This is the happy end rule:
 	say "Finalmente asiente brevemente con la cabeza.";
 	bnw;
 	clear the screen;
+	close the statusline;
+	image Figure of Success;
 	if Musica-Sonando is true:
 		play the sound of final in foreground;
 	say line break;
@@ -6517,22 +6772,20 @@ This is the happy end rule:
 	say "Pero organizar una revuelta contra el nigromante sería algo tan molesto y complicado, en comparación con la posibilidad de servirle y asar a sus enemigos...";
 	bnw;
 	say "Además... ¿a quién diablos le importan los viejos como Oo y sus cosas?";
-	[dstop all sounds; ]
 	wait for any key;
-	finalizar juego.
+	finalizar juego, con victoria.
 
 Table of Sady Omu
 numero		seleccion							respuesta								activado		activa			extra
-a number	a text								a text									a number	a list of numbers		a rule
-0 [inicial]	--								"'Vaya, vaya', dice el nigromante, 'así que aquí es donde has estado todo este tiempo Uudrum.'"				1		{1, 2, 3, 4}	the fake rule
-1 [>0]		"Sí, mi señor, caí preso de un encantamiento de El Nigróh."		"'Maldito El Nigróh', dice el nigromante, 'la noche en la que empezamos esta guerra, escapó entre mis propias manos. De una forma estúpida, con la ayuda de un ridículo aprendiz. Cazamos a aquel aprendiz no muy lejos de aquí, junto con otros jóvenes que pretendían darme muerte, nada más y nada menos'.'"			0		{5}		the fake rule
+0 [inicial]	--								"'Vaya, vaya', dice el nigromante, 'así que aquí es donde has estado todo este tiempo Uudrum'."				1		{1, 2, 3, 4}	the fake rule
+1 [>0]		"Sí, mi señor, caí preso de un encantamiento de El Nigróh."		"'Maldito El Nigróh', dice el nigromante, 'la noche en la que empezamos esta guerra, escapó entre mis propias manos. De una forma estúpida, con la ayuda de un ridículo aprendiz. Cazamos a aquel aprendiz no muy lejos de aquí, junto con otros jóvenes que pretendían darme muerte, nada más y nada menos'."			0		{5}		the fake rule
 2 [>0]		"Sí, nigromante, pero ahora me liberarás."				"Sady Omú suelta una desagradable carcajada, tras la que dice con una sonrisa: '¿y por qué iba a hacer semejante cosa por ti?'"		0		{10, 11}		the fake rule
 3 [>0]		"Así es, el Poderoso Uudrum transformado en un mísero anillo."		"'¿Poderoso?', dice el nigromante, 'si no recuerdo mal los otros dragones tendían a llamarte el Glotón Dorado'."		0		{12}		the fake rule
 4 [>0,6,7,8]	"Oh, Poderoso Señor, Rey de las Tinieblas, os ruego humildemente que me devolváis a mi forma orginal."		"'¿Ruegas?', pregunta el nigromante."					0		{9000}		the fake rule
-5 [>1]		"En este tiempo en el que he estado preso, he aprendido mucho sobre los humanos. Puedo ayudaros contra ellos."	"'Realmente no eres muy listo, ¿no?', dice el nigromante, '¿acaso no soy yo un humano?'.'"											0		{6, 7, 8}		the fake rule
-6 [>5]		"Oh, Poderoso Señor, vois mucho más que un humano."	"'Gracias', dice el nigromante, 'siempre lo he pensado así'.'"								0		{4}		the fake rule
-7 [>5]		"Yo quiero decir... o sea, es que...."	"'Lo que queréis decir, es lo que quieren decir mucho de los vuestros', dice el nigromante con gran seriedad, 'que pensáis que esta guerra es para vosotros, para los dragones, que me ayudáis pero ya me traicionaréis cuando todo esté a vuestro favor. Sabandijas.'.'"			0		{4}		the fake rule
-8 [>5]		"Tenéis razón, soy idiota."		"'Así es', dice el nigromante, '¿Y qué quiere este idiota?.'.'"											0		{4, 9}		the fake rule
+5 [>1]		"En este tiempo en el que he estado preso, he aprendido mucho sobre los humanos. Puedo ayudaros contra ellos."	"'Realmente no eres muy listo, ¿no?', dice el nigromante, '¿acaso no soy yo un humano?'."											0		{6, 7, 8}		the fake rule
+6 [>5]		"Oh, Poderoso Señor, vois mucho más que un humano."	"'Gracias', dice el nigromante, 'siempre lo he pensado así'."								0		{4}		the fake rule
+7 [>5]		"Yo quiero decir... o sea, es que...."	"'Lo que queréis decir, es lo que quieren decir mucho de los vuestros', dice el nigromante con gran seriedad, 'que pensáis que esta guerra es para vosotros, para los dragones, que me ayudáis pero ya me traicionaréis cuando todo esté a vuestro favor. Sabandijas.'."			0		{4}		the fake rule
+8 [>5]		"Tenéis razón, soy idiota."		"'Así es', dice el nigromante, '¿Y qué quiere este idiota?.'."											0		{4, 9}		the fake rule
 9 [>8]		"Que me liberéis, volver a ser un dragón"	"'Ya', dice el nigromante, '¿y por qué iba a hacer semejante cosa por ti?'."									0		{10, 11}		the fake rule
 10 [>2,9]		"Por que soy un soldado de tu ejército, uno muy importante."	"'Te sobrevaloras', dice el nigromante, 'montones de los tuyos me sirven y más me servirán, ¿qué tienes tú de especial?'."			0		{11, 12, 13}	the fake rule
 11 [>2,9,14]	"Conozco vuestro secreto."		"'¿De qué hablas?', dice el nigromante mirándote con atención."											0		{17, 16, 19}	the fake rule
@@ -6589,6 +6842,28 @@ table of MensajesTesoroDecorado]
 
 
 
-	
+Part 9 - Pasados al final
+
+Chapter 0 - Parsing
+
+Section 5 - Cosas no incluídas en 'todo'
+
+Rule for deciding whether all includes scenery: it does not. 
+Rule for deciding whether all includes backdrops: it does not. 
+Rule for deciding whether all includes fixed in place: it does not. 
+Rule for deciding whether all includes partdecoration: it does not.
+Rule for deciding whether all includes patroller: it does not. 
+Rule for deciding whether all includes grilletes: it does not. 
+
+Section 6 - Preferencias generales
+
+Does the player mean doing something with a carried thing: it is very likely.
+Does the player mean doing something with a cadaver: it is likely.
+Does the player mean doing something with a cadaver: it is likely.
+Does the player mean doing something with a fixed in place thing: it is unlikely.
+Does the player mean doing something with a scenery thing: it is very unlikely.
+Does the player mean doing something with a backdrop: it is very unlikely.
+Does the player mean doing something with anillo: it is very unlikely.
+Does the player mean doing something with matched scenery: it is very unlikely.
 
 

@@ -56,26 +56,135 @@ relato, ya sean personajes, items o localidades.
 	Librerías y opciones
 
 ==============================]
+
+Include Simple Graphical Window by Emily Short.
 Include Aki Blue Lacuna by Johan Paz.
 Include Glulx Boxed Quotation by Eliuk Blau.
 Include Status Line Removal by Emily Short.
+Include Multiple Sounds by Massimo Stella.
+
 
 Use full-length room descriptions.
 Use no scoring.
 Use boxed quotation without frame.
 
-Release along with a website, an interpreter.
+Release along with cover art ("Hierba tras el cristal"), a website, an interpreter, the source text.
 
 [==============================
 
 	Referencia bibliográfica
 
 ==============================]
-The story headline is "'Una historia sobre cuando estando sólo preferirías la soledad.'".
+The story headline is "'Una historia sobre cuando estando solo querrías un poco de soledad.'".
 The story genre is "Ciencia Ficción".
-The release number is 0.
+The release number is 2.
 The story description is "¿Qué puedes hacer cuando sólo puedes hablar y hablar es insuficiente?.".
 The story creation year is 2007.
+
+[==============================
+
+	Multimedia
+
+==============================]
+
+Part 0 - Multimedia
+
+Chapter 0 - Right alligned rule
+
+Include (-  
+ [ MyRedrawGraphicsWindowsUpRight cur_pic result graph_width graph_height 
+		img_width img_height w_offset h_offset w_total h_total;
+
+	if (FollowRulebook( (+glulx picture selection rules+) ) ) { cur_pic = ResourceIDsOfFigures-->(+ internally selected picture +); }   
+	if (cur_pic == 0) rtrue;
+
+	  if (gg_picwin) {  
+
+	result = glk_window_get_size(gg_picwin, gg_arguments, gg_arguments+WORDSIZE);
+			 	graph_width  = gg_arguments-->0;
+			 	graph_height = gg_arguments-->1;
+
+	result = glk_image_get_info( cur_pic, gg_arguments,  gg_arguments+WORDSIZE);
+	img_width  = gg_arguments-->0;
+	img_height = gg_arguments-->1;
+
+	w_total = img_width;
+	h_total = img_height;
+
+	if (graph_height - h_total < 0) !	if the image won't fit, find the scaling factor
+	{
+		w_total = (graph_height * w_total)/h_total;
+		h_total = graph_height;
+
+	}
+	
+	w_offset = (graph_width - w_total); if (w_offset < 0) w_offset = 0;
+	h_offset = 0;
+
+	glk_image_draw_scaled(gg_picwin, cur_pic, w_offset, h_offset, w_total, h_total); 
+	}
+ ]; 
+ -).
+ 
+ This is the up right scaled drawing rule:
+	blank window to graphics background color;
+	draw up right scaled image in graphics window.
+
+To draw up right scaled image in graphics window:
+	(- MyRedrawGraphicsWindowsUpRight(); -)
+	
+Include (-  
+ [ SelectWindowPixelCount cur_pic result graph_width graph_height 
+		img_width img_height w_offset h_offset w_total h_total;
+		
+	if (gg_picwin) {  
+		result = glk_window_get_size(gg_picwin, gg_arguments, gg_arguments+WORDSIZE);
+			graph_width  = gg_arguments-->0;
+			graph_height = gg_arguments-->1;
+	}
+	
+	if (graph_width > 1313)
+		return 525;
+	else
+		return (graph_width*40)/100;
+];
+-).
+	
+To decide which number is window pixel count:
+	(- SelectWindowPixelCount() -)
+
+Chapter 1 - Ficheros
+
+Figure of Cabina is the file "cabina.png".
+Sound of Viento is the file "wind.ogg".
+Sound of Lemur is the file "lemur.ogg".
+
+
+Section 2 - Figuras en el movimiento
+
+To image (fig - a figure name):
+	now currently shown picture is fig;
+	follow the current graphics drawing rule.	
+
+Section 3 - Inicio
+
+The graphics background color is "$FFFFFF".
+[The graphics window pixel count is 525.]
+The graphics window proportion is  40.
+
+The graphics window construction rule is not listed in any rulebook.
+
+Graphics window position is g-right.
+
+Before looking for the first time:
+	now the current graphics drawing rule is the up right scaled drawing rule;
+	now currently shown picture is Figure of Cabina;
+	play sound of viento in background with loop;
+	build graphics window;
+	follow the current graphics drawing rule.
+	
+Before looking more than once:
+	follow the current graphics drawing rule.
 
 [==============================
 
@@ -212,7 +321,7 @@ a number		a rule
 Instead of taking a decorado activo (called cogido):
 	if the seccion is visible
 	begin;
-		say "Normalmente podría arracancar cualquier cosa de cualquier soporte con mis manos. Retorcer barras de acero y todo ese tipo de cosas, pero ahora... mejor ni intentarlo.";
+		say "Normalmente podría arracancar cualquier cosa de cualquier soporte con mis [j]manos[x]. Retorcer barras de acero y todo ese tipo de cosas, pero ahora... mejor ni intentarlo.";
 	otherwise;
 		try going east;
 	end if.
@@ -271,12 +380,18 @@ Chapter 0 - El comienzo
 
 --------------------------------------------------]
 When play begins:
+	create the midground channel;
+	set the foreground volume to 2;
+	set the background volume to 2;
+	set the midground volume to 2;
 	poner cuadro de inicio;
-	center "Pulse una tecla.";
-	wait for any key;
-   	clear the screen;
-	contar inicio de la historia;
-	now the description of the player is "Todo me duele. ¡Por lo demás tengo un aspecto destripante!. Mi dinero me ha costado estar jodidamente buena. Un dinero bien gastado si se tiene en cuenta que además puedo tirar de un furgón de carga con mis propias manos.".
+	say "¿Quieres ver la introducción?";
+	say "Contesta sí o no>>";
+	if the player consents:
+		clear the screen;
+		contar inicio de la historia;
+	clear the screen;
+	now the description of the player is "Todo me duele. ¡Por lo demás tengo un aspecto destripante!. Mi dinero me ha costado estar jodidamente buena. Un dinero bien gastado si se tiene en cuenta que además puedo tirar de un furgón de carga con mis propias [j]manos[x].".
 
 [FRASE: Cuadro de inicio con el nombre del relato y fecha]
 To poner cuadro de inicio:
@@ -286,7 +401,8 @@ To poner cuadro de inicio:
 
 
 	Un relato de Johan Paz.
-	Año 2007. Revisado en 2015.";
+	Año 2007. Revisado en 2015.
+	Multimedia en 2016.";
 	show the current quotation.
 
 [FRASE: Introducción que relata el despertar de Layna]
@@ -325,7 +441,7 @@ After looking when the location is cabina, increase ContadorDeCabina by 1.
 Es la única localidad de todo el relato]
 La cabina de la nave is a room. 
 [The msjSiNoVesDecoracion of cabina is "Miro a un lado y a otro, pero no veo nada más que destrozos y cosas ennegrecidas.".]
-The description of cabina is "[if ContadorDeCabina is 0]El [o]bote[x] salvavidas es más que un [o]traje[x] espacial tan sólo en la justa medidad para poder llamarlo 'nave'. Y de ninguna manera se le podría calificar de medio de transporte. Decir que se trata de un [o]ataúd[x] dotado de la última tecnología para tener un entierro espacial bastante lujoso en vida sería mucho más apropiado. Claro que decir que ESTE bote tiene la última tecnología, sería casi como decir que es un medio de transporte. Así que el hecho de haber logrado aterrizar 'en alguna parte' y no haberme incinerado en la reentrada, debería consolarme de que todo parezca [o]negro[x] y retorcido.[otherwise]Es evidente que el [o]bote[x] salvavidas no va a sacarme de este lugar, está destrozado.[end if] El [o]parabrisas[x] parece más o menos intacto. [if ContadorDeCabina is 0]Los [o]controles[x]... bueno, la verdad es que no sé si llamarlos ya así teniendo en cuenta que la parte delantera del [o]asiento[x] y lo que parece un [o]extintor[x] están empotrados más o menos en el centro de lo que eran los [o]indicadores[x].[otherwise]Los [o]controles[x] ya no son controles, ahora son una masa retor... digamos que... que son el soporte improvisado y muy poco adecuado de un [o]extintor[x] despanzurrado y vacío.[end if] [if ContadorDeCabina is 0]Un jodido desastre. Es como si el mamón del [o]bolillero[x] Ramírez hubiese pasado por aquí con su habitual habilidad. [end if][if ContadorDeCabina is less than 4]Todo lo demás tiene la misma pinta de... estar a punto de ser reciclado... concienzudamente. [end if][if the seccion is visible]Una sección del [o]fuselaje[x] se ha desprendido atrapando tus pies y la parte baja de tus [o]piernas[x].[end if]".
+The description of cabina is "[if ContadorDeCabina is 0]El [j]bote[x] salvavidas es más que un [j]traje[x] espacial tan sólo en la justa medidad para poder llamarlo 'nave'. Y de ninguna manera se le podría calificar de medio de transporte. Decir que se trata de un [j]ataúd[x] dotado de la última tecnología para tener un entierro espacial bastante lujoso en vida sería mucho más apropiado. Claro que decir que ESTE bote tiene la última tecnología, sería casi como decir que es un medio de transporte. Así que el hecho de haber logrado aterrizar 'en alguna parte' y no haberme incinerado en la reentrada, debería consolarme de que todo parezca [j]negro[x] y retorcido.[otherwise]Es evidente que el [j]bote[x] salvavidas no va a sacarme de este lugar, está destrozado.[end if] El [j]parabrisas[x] parece más o menos intacto. [if ContadorDeCabina is 0]Los [j]controles[x]... bueno, la verdad es que no sé si llamarlos ya así teniendo en cuenta que la parte delantera del [j]asiento[x] y lo que parece un [j]extintor[x] están empotrados más o menos en el centro de lo que eran los [j]indicadores[x].[otherwise]Los [j]controles[x] ya no son controles, ahora son una masa retor... digamos que... que son el soporte improvisado y muy poco adecuado de un [j]extintor[x] despanzurrado y vacío.[end if] [if ContadorDeCabina is 0]Un jodido desastre. Es como si el mamón del [j]bolillero[x] Ramírez hubiese pasado por aquí con su habitual habilidad. [end if][if ContadorDeCabina is less than 4]Todo lo demás tiene la misma pinta de... estar a punto de ser reciclado... concienzudamente. [end if][if the seccion is visible]Una sección del [j]fuselaje[x] se ha desprendido atrapando tus pies y la parte baja de tus [j]piernas[x].[end if]".
 The printed name of cabina is "[if ContadorDeCabina is 0]La minúscula cabina del bote salvavidas[end if][if ContadorDeCabina is less than 3 and ContadorDeCabina is not 0]La ennegrecida y frustrante cabina del bote salvavidas[end if][if ContadorDeCabina is greater than 2]La cabina[end if]".
 
 [--------------------------------------------------
@@ -335,7 +451,7 @@ The printed name of cabina is "[if ContadorDeCabina is 0]La minúscula cabina de
 --------------------------------------------------]
 
 Instead of examining a direction:
-	say "Mire a donde mire solo veo un fundido [o]bote[x] salvavidas requemado. Bueno también está la mierda de [o]hierba[x] tras el [o]cristal[x].".
+	say "Mire a donde mire solo veo un fundido [j]bote[x] salvavidas requemado. Bueno también está la mierda de [j]hierba[x] tras el [j]cristal[x].".
 
 [
 
@@ -344,8 +460,8 @@ DECORADOS ACTIVOS
 ]
 
 [DECORADO ACTIVO: Paredes]
-The paredes is a decorado activo in cabina. 
-The description of paredes is "Es solo [o]metal[x], [o]cristal[x] y [o]plástico[x] listo para ser reciclado, en hermosos RZs si hay mucha suerte.".
+Las paredes is a decorado activo in cabina. 
+The description of paredes is "Es solo [j]metal[x], [j]cristal[x] y [j]plástico[x] listo para ser reciclado, en hermosos RZs si tienen la suficiente suerte.".
 The paredes is plural-named.
 Understand "pared" as paredes.
 The comportamiento of paredes is Table of CompParedes.
@@ -357,30 +473,36 @@ vez			regla
 3 			the pared tercera rule
 
 This is the pared primera rule:
-	say "No es que un [o]XMRT[x] tenga [o]paredes[x] 'exactamente', es demasiado pequeño. O sea, básicamente es una tapa que cubre algo en lo que te tumbas. Sí, eso es, justamente como un [o]ataúd[x].".
+	say "No es que un [j]XMRT[x] tenga [j]paredes[x] 'exactamente', es demasiado pequeño. O sea, básicamente es una tapa que cubre algo en lo que te tumbas. Sí, eso es, justo como en un [j]ataúd[x].".
 
 This is the pared segunda rule:
-	say "La verdad, es que si observamos las junturas con cuidado... nah, todo está hecho un desastre.".
+	say "La verdad, es que si observamos las [j]junturas[x] con cuidado... nah, todo está hecho un desastre.".
 
 This is the pared tercera rule:
-	say "No hay mucho que mirar. A ver, recordemos. El [o]parabrisas[x], los [o]controles[x], el [o]asiento[x] del... ejem... conductor, el [o]compartimiento[x] trasero que no puedo alcanzar y... lo demás está fuera, el motor, la aviónica en general... aunque supongo que todo eso estará también completamente destozado.".
+	say "No hay mucho que mirar. A ver, recordemos. El [j]parabrisas[x], los [j]controles[x], el [j]asiento[x] del... ejem... conductor, el [j]compartimiento[x] trasero que no puedo alcanzar y... lo demás está fuera, el motor, la aviónica en general... aunque supongo que todo eso estará también completamente destozado.".
+	
+Las junturas is a decorado activo in cabina.
+The description of junturas is "No es que tenga exactamente junturas, o sea sí, el [j]XMRT[x] tiene... bueno, tenía muchas piezas unidas, pero ya es todo un amasijo de [j]metal[x] fundido, más que nada... no, más que nada, no, ahora es nada de nada.".
+
+The junturas is plural-named.
+Understand "juntura" as junturas.
 
 [DECORADO ACTIVO: Hierba]
 La hierba is a decorado activo in cabina. The hierba is reflexed. [Aunque no lo es nos sirve]
 The description of hierba is "Fuera de la nave parece haber sólo una extensa pradera... más bien
-debería decir que un jodido bosque... de una ridícula [o]hierba[x] amarronada demasiado alta y demasiado
+debería decir que un jodido bosque... de una ridícula [j]hierba[x] amarronada demasiado alta y demasiado
 delgada.". 
-Understand "agrostis" or "gigantea" or "hierbas" or "agostis" as hierba.
+Understand "agrostis" or "gigantea" or "hierbas" or "agostis" or "pradera" or "bosque" as hierba.
 
 [DECORADO ACTIVO: Asiento]
-The asiento is a decorado activo in cabina. The description of asiento is "Se supone que con sólo sentarse en ella esta cosa debe abrazar al ocupante hasta que acabe el viaje (lo que por lo general quiere decir que es el último abrazo que recibirá el 'ocupante') y que debe permanecer fijo en su lugar todo el trayecto. No parece que haya estado muy 'fijo' durante el trayecto, aunque ahora que está empotrado en la [o]consola[x] de control, ocupando casi todo el espacio que deberían ocupar los [o]indicadores[x] es probable que esté bastante 'fijo'.".
+El asiento is a decorado activo in cabina. The description of asiento is "Se supone que con sólo sentarse en ella esta cosa debe abrazar al ocupante hasta que acabe el viaje (lo que por lo general quiere decir que es el último abrazo que recibirá el 'ocupante') y que debe permanecer fijo en su lugar todo el trayecto. No parece que haya estado muy 'fijo' durante el trayecto, aunque ahora que está empotrado en la [j]consola[x] de control, ocupando casi todo el espacio que deberían ocupar los [j]indicadores[x] es probable que esté bastante 'fijo'.".
 Understand "silla" or "sillón" or "asiento" as asiento.
 
 [DECORADO ACTIVO: Traje]
-The traje is a decorado activo in cabina. The description of traje is "Aunque es sólo un poco más ancho que uno, el [o]bote[x] no es un traje espacial. Ni tampoco cabrías aquí dentro con uno de esos puestos. Es otra de las ventajas de los botes salvavidas, que si se rompe algo ni siquiera puedes llevar un traje de vacío... aunque pensándolo bien, es preferible una muerte rápida.".
+El traje is a decorado activo in cabina. The description of traje is "Aunque es sólo un poco más ancho que uno, el [j]bote[x] no es un traje espacial. Ni tampoco cabrías aquí dentro con uno de esos puestos. Es otra de las ventajas de los botes salvavidas, que si se rompe algo ni siquiera puedes llevar un traje de vacío... aunque pensándolo bien, es preferible una muerte rápida.".
 
 [DECORADO ACTIVO: Negro]
-The negro is a decorado activo in cabina. The description of negro is "Todo está negro. Cubierto de hollín, y eso las cosas que simplemente no están retorcidas o derretidas. Parte de la reentrada ha ocurrir cuando ya hubiese alguna grieta en el [o]parabrisas[x]. ¡Joder! Espero que no se me haya derretido la puta [o]cara[x]. Me costó horas y horas escoger la que llevo ahora.".
+El negro is a decorado activo in cabina. The description of negro is "Todo está negro. Cubierto de hollín, y eso las cosas que simplemente no están retorcidas o derretidas. Parte de la reentrada ha ocurrir cuando ya hubiese alguna grieta en el [j]parabrisas[x]. ¡Joder! Espero que no se me haya derretido la puta [j]cara[x]. Me costó horas y horas escoger la que llevo ahora.".
 Understand "negro" or "quemado" or "hollin" or "negrura" or "retorcido" or "metales" or "ceramicas" or "plasticos" or "masa" or "desastre" or "metal" or " ceramica" or "plastico"or "lo negro" or "tostadora" as negro.
 The negro is proper-named.
 The printed name of negro is "todo lo negro".
@@ -389,15 +511,15 @@ Instead of rubbing negro:
 	say "Son demasiadas cosas. Tal vez se puedan ir limpiando una a una.".
 
 [DECORADO ACTIVO: Indicador]
-The indicador is a decorado activo in cabina. The description of indicador is "No queda gran cosa de los indicadores, lo que hay es un [o]extintor[x] despanzuarrado ocupando su lugar.".
+El indicador is a decorado activo in cabina. The description of indicador is "No queda gran cosa de los indicadores, lo que hay es un [j]extintor[x] despanzuarrado ocupando su lugar.".
 Understand "indicadores" or "indicador" or "medidores" or "comunicador" as indicador.
 
 [DECORADO ACTIVO: La nave en sí]
-The bote is a decorado activo in cabina. The description of bote is "Se trata de un viejo XMRT. Casi todo el mundo que está en estas historias los conoce como los 'eXtraMortales'. [if the veces examinado of bote is 0]¡Chirriada! Estoy pensando tonterías, ERA un XMRT, ahora es sólo un puto amasijo de [o]metales[x], [o]cerámicas[x] y [o]plásticos[x] demasiado pasado por la tostadora de la reentrada... por ambos lados.[otherwise]Y para resumirlo... está tostado, tan útil como un tío cachas castrado, y con el mismo nivel de inteligencia.[end if]".
+El bote is a decorado activo in cabina. The description of bote is "Se trata de un viejo XMRT. Casi todo el mundo que está en estas historias los conoce como los 'eXtraMortales'. [if the veces examinado of bote is 0]¡Chirriada! Estoy pensando tonterías, ERA un XMRT, ahora es sólo un puto amasijo de [j]metales[x], [j]cerámicas[x] y [j]plásticos[x] demasiado pasado por la tostadora de la reentrada... por ambos lados.[otherwise]Y para resumirlo... está tostado, tan útil como un tío cachas castrado, y con el mismo nivel de inteligencia.[end if]".
 Understand "bote" or "salvavidas" or "nave" or "ataúd" or "medio" or "transporte" or "xmrt" or "xmrt-345-qp" or "cabina" as bote.
 
 [DECORADO ACTIVO: Parabrisas]
-The parabrisas is a decorado activo in cabina. The description of parabrisas is "Una cubierta de poliresina cerámica o policerámica resinosa o como sea, capaz de soporta grandes temperaturas... si está intacta. Que no es el caso, claro. Hay un enorme agujero en la parte derecha por donde asoman incluso algunos brotes de hierba alta del exterior."
+El parabrisas is a decorado activo in cabina. The description of parabrisas is "Una cubierta de poliresina cerámica o policerámica resinosa o como sea, capaz de soporta grandes temperaturas... si está intacta. Que no es el caso, claro. Hay un enorme agujero en la parte derecha por donde asoman incluso algunos brotes de hierba alta del exterior."
 Understand "parabrisas" or "cristal" or "ventana" or "cubierta" as parabrisas.
 The parabrisas is reflexed.
 The comportamiento of parabrisas is Table of CompParabrisas.
@@ -408,8 +530,8 @@ This is the primera visión del parabrisas rule:
 Table of descripcion inicial del parabrisas
 frase
 "Es un parabrisas..."
-"[italic type]...realizado en serie para los módulos de salvamenteo [o]XMRT[x][italic type], construído con lo que en su momento fue un prodigioso descubrimiento: la poliresina sobre base de [o]cerámica[x][italic type] de wolframio molecular, flexible pero duro, y extremadamente resistente al calor...[roman type][line break][line break]...con un jodido agujero..."
-"[italic type]...que teniendo en cuenta las marcas de propagación, debió empezar como una micro [o]grieta[x][italic type], un impacto de un grano de arena lanzado a velocidades siderales tal vez...[roman type][line break][line break]...en todo el centro."
+"[italic type]...realizado en serie para los módulos de salvamenteo [j]XMRT[x][italic type], construído con lo que en su momento fue un prodigioso descubrimiento: la poliresina sobre base de [j]cerámica[x][italic type] de wolframio molecular, flexible pero duro, y extremadamente resistente al calor...[roman type][line break][line break]...con un jodido agujero..."
+"[italic type]...que teniendo en cuenta las marcas de propagación, debió empezar como una micro [j]grieta[x][italic type], un impacto de un grano de arena lanzado a velocidades siderales tal vez...[roman type][line break][line break]...en todo el centro."
 
 
 Table of CompParabrisas
@@ -417,15 +539,15 @@ vez	regla
 1	primera visión del parabrisas rule
 
 [DECORADO ACTIVO: Controles]
-Some controles is a decorado activo in cabina. The description of controles is "Se supone que contienen todo lo necesario para controlar el [o]bote[x] salvavidas. O sea, prácticamente nada: unos medidores de cuándo te vas morir, un comunicador de demasiada corta distancia, y el botón de lanzar y rezar -lanza el bote y reza... que ayuda vas a necesitar toda la posible.[line break][line break]En cualquier caso no queda nada de todo eso, está todo aplastado[if controles is sucio], [o]negro[x][end if]. Ya no es casi [italic type]nada[roman type], ahora lo es de forma completa. Eso sí, hay un [o]extintor[x] despamzurrado justo en el centro de lo que fueron los controles.".
+Los controles is a decorado activo in cabina. The description of controles is "Se supone que contienen todo lo necesario para controlar el [j]bote[x] salvavidas. O sea, prácticamente nada: unos medidores de cuándo te vas morir, un comunicador de demasiada corta distancia, y el botón de lanzar y rezar -lanza el bote y reza... que ayuda vas a necesitar toda la posible.[line break][line break]En cualquier caso no queda nada de todo eso, está todo aplastado[if controles is sucio], [j]negro[x][end if]. Ya no es casi [italic type]nada[roman type], ahora lo es de forma completa. Eso sí, hay un [j]extintor[x] despamzurrado justo en el centro de lo que fueron los controles.".
 
 Understand "soporte" as controles.
 
 [DECORADO ACTIVO: Compartimiento]
-The compartimiento is a decorado activo in cabina. The description of compartimiento is "[if the extintor is sucio]Desde donde estoy es imposible verlo, está justo detrás del asiento, necesitaría [o]salir[x] para verlo o [o]girarme[x] o tener un espejo, ya puestos.[otherwise]Ahora puedo verlo reflajado en el extintor, en su interior se puede ver un cilindro de metal con un único adorno, el león tricéfalo de la Naykho Corp. [end if]". The compartimiento is reflexed.
+El compartimiento is a decorado activo in cabina. The description of compartimiento is "[if the extintor is sucio]Desde donde estoy es imposible verlo, está justo detrás del asiento, necesitaría [j]salir[x] para verlo o [j]girarme[x] o tener un espejo, ya puestos.[otherwise]Ahora puedo verlo reflajado en el extintor, en su interior se puede ver un [j]cilindro[x] de metal con un único adorno, el león tricéfalo de la Naykho Corp. [end if]". The compartimiento is reflexed.
 
 [DECORADO ACTIVO: Agujero]
-The agujero is a decorado activo in cabina. The description of agujero is "Solo tiene un par de palmos, no creo que quepa por ahí. Fuera del [o]parabrisas[x], especialmente a través el [o]agujero[x] sólo se ve un 'bosque' de las gigantescas [o]agostis[x] esas o como se llamen.".
+El agujero is a decorado activo in cabina. The description of agujero is "Solo tiene un par de palmos, no creo que quepa por ahí. Fuera del [j]parabrisas[x], especialmente a través el [j]agujero[x] sólo se ve un 'bosque' de las gigantescas [j]agostis[x] esas o como se llamen.".
 Understand "grieta" as agujero.
 The comportamiento of agujero is Table of CompAgujero.
 
@@ -455,7 +577,7 @@ Chapter 2 - El jugador
 [Lo primero es traerlo a la cabina -hacerlo 
 relevante- en cuanto se intenta cualquier 
 cosa que no sea mirar]
-Instead of doing anything except pointing or waking or singing or thinking or looking or examining or taking inventory or rubbing or metacommanding or topiccommanding or gasking or asking when the seccion is not in cabina (this is the descubre fuselaje rule):
+Instead of doing anything except pointing or waking or singing or thinking or looking or examining or taking inventory or rubbing or metacommanding or topiccommanding or gasking or asking or telling or touching when the seccion is not in cabina and the current action is not asking something about (this is the descubre fuselaje rule):
 	relatar fragmento en Table of Descubriendo el Fuselaje;
 	say "[italic type]Está bien. Sólo intento ser útil[roman type].";
 	now seccion is in cabina.
@@ -466,17 +588,17 @@ The descubre fuselaje rule is listed first in the instead rules.
 Table of Descubriendo el Fuselaje
 frase
 "¡Joder!"
-"No... ¡no puedo mover las [o]piernas[x]! Una sección del [o]fuselaje[x] está aplastándolas, apresándolas. ¡Me inmoviliza!"
-"¡Puta mierda! Esas [o]piernas[x] son de la mejor calidad. Me costaron una enorme cantidad de créditos, no solo son jodidamente hermosas, deberían poder levantar varios quintales sin ningún esfuerzo. ¡Por qué fundida razón no son capaces de apartar un ridículo pedazo de fuselaje?"
+"No... ¡no puedo mover las [j]piernas[x]! Una sección del [j]fuselaje[x] está aplastándolas, apresándolas. ¡Me inmoviliza!"
+"¡Puta mierda! Esas [j]piernas[x] son de la mejor calidad. Me costaron una enorme cantidad de créditos, no solo son jodidamente hermosas, deberían poder levantar varios quintales sin ningún esfuerzo. ¡Por qué fundida razón no son capaces de apartar un ridículo pedazo de fuselaje?"
 "[italic type]No quisiera entrometerme, pero probablemente esta forma de aterrizaje tan brusco haya provocado un funcionamiento inadecuado en los seudo-músculos. No me es posible ver los identificadores de serie de los comp...[roman type][line break][line break]Si vas a ser tan útil cállate. Lo que estás diciendo es evidente..."
 "¡Oh, joder![italic type][line break][line break]¿Qué..[roman type]"
-"¡Oh, no, no, no... mis brazos tampoco pueden apartar el [o]fuselaje[x]!. No tienen fuerza. Incluso tiemblan con el esfuerzo.[line break][line break][italic type]He de decir que, este nuevo síntoma de debilidad muscular, coincide con mi sugerencia sobre el mal funcionamiento de los seudo-músculos. Es probable que la reentrada con un parabrisas en mal estado haya provocado un recalentamiento extremo, lo que explicaría el aspecto ennegrecido del interior de esta cápsula de salvamento del modelo XMRT-345-QP, una edición muy fiable y muy utilizada durante las guerras...[roman type][line break][line break]¡Callate!"
+"¡Oh, no, no, no... mis brazos tampoco pueden apartar el [j]fuselaje[x]!. No tienen fuerza. Incluso tiemblan con el esfuerzo.[line break][line break][italic type]He de decir que, este nuevo síntoma de debilidad muscular, coincide con mi sugerencia sobre el mal funcionamiento de los seudo-músculos. Es probable que la reentrada con un parabrisas en mal estado haya provocado un recalentamiento extremo, lo que explicaría el aspecto ennegrecido del interior de esta cápsula de salvamento del modelo XMRT-345-QP, una edición muy fiable y muy utilizada durante las guerras...[roman type][line break][line break]¡Callate!"
 "[italic type]Sólo intentaba explicar que eso también...[roman type][line break][line break]¿Y ahora qué?[line break][line break][italic type]...dado que el gradiente de temperatura y las características de los materiales...[roman type][line break][line break]Esto pinta francamente mal. No puedo moverme y nadie vendrá a sacarme.[line break][line break][italic type]...los circuitos del neocortex auxiliar, en concidiciones atmosféricas normales...[roman type][line break][line break]Primero se agotarán las baterías y luego tendré la más lenta y desagradable de las muertes mientras la parte orgánica del cerebro agoniza de hambre y sed.[line break][line break][italic type]...claro, que si hemos de suponer una trayectoria desconocida...[roman type][line break][line break]¡Callate!"
 
 [Cualquier movimiento quedará de todas formas impedido en presencia del fuselaje]
 Instead of going or exiting or entering or turning or jumping when the seccion is in cabina:
-	say "Es imposible moverse de aquí, incluso girarme, mientras me tenga apresada esta jodida [o]cosa[x]...";
-	if Itk is visible, say "[line break] El [o]mono[x] salta animando ante mis intentos de moverme y grita: 'Soak! Itk! Oook!'.".
+	say "Es imposible moverse de aquí, incluso girarme, mientras me tenga apresada esta jodida [j]cosa[x]...";
+	if Itk is visible, say "[line break] El [j]mono[x] salta animando ante mis intentos de moverme y grita: 'Soak! Itk! Oook!'.".
 
 [Suprimimos el TODO de una manera un poco extravagante]
 Todo is a decorado activo in cabina.
@@ -503,25 +625,25 @@ Instead of squeezing something:
 	try attacking the noun.
 
 [ACCIÓN MOVER LAS PIERNAS: aclarar que no pueden salir]
-Instead of pulling or pushing the piernas:
-	say "Intento mover las [o]piernas[x], pero siguen atrapadas.";
-	if Itk is visible, say "[line break]El [o]mono[x], al ver mis esfuerzos, golpea el [o]fuselaje[x] y dice: 'Oo lami lami noop'.".
+Instead of pulling or pushing las piernas:
+	say "Intento mover las [j]piernas[x], pero siguen atrapadas.";
+	if Itk is visible, say "[line break]El [j]mono[x], al ver mis esfuerzos, golpea el [j]fuselaje[x] y dice: 'Oo lami lami noop'.".
 
 [ACCION MOVER PARTES DEL CUERPO: poner frase graciosilla]
 Instead of pulling or pushing a parte del cuerpo:
 	say "Muevo [el noun], lo que no me ayuda mucho.";
-	if Itk is visible, say "[line break]El [o]mono[x] repite exactamente los mismos movimientos que yo y parece muy divertido... ven para acá monito y verás...".
+	if Itk is visible, say "[line break]El [j]mono[x] repite exactamente los mismos movimientos que yo y parece muy divertido... ven para acá monito y verás...".
 
 [ACCIÓN TIRAR: de nuevo como golpear]
 Instead of pulling or pushing something:
 	try attacking the noun;
-	if Itk is visible, say "[line break]El [o]mono[x] también lo intenta. Fracasa y se vuelve. Sonríe y dice: 'Oo lami noea Itk oo.'.".
+	if Itk is visible, say "[line break]El [j]mono[x] también lo intenta. Fracasa y se vuelve. Sonríe y dice: 'Oo lami noea Itk oo.'.".
 
 [Caso especial para el extintor]
 Instead of pulling or pushing the extintor:
 	say "Intento mover el extintor, tal vez haya algo de los controles que pueda ser... pero nada... no hay manera.";
 	now the extintor is tocado;
-	if Itk is visible, say "[line break]El [o]mono[x] también lo intenta. Fracasa y se vuelve. Sonríe y dice: 'Oo lami noea Itk oo.'.".
+	if Itk is visible, say "[line break]El [j]mono[x] también lo intenta. Fracasa y se vuelve. Sonríe y dice: 'Oo lami noea Itk oo.'.".
 
 [ACCIÓN PENSAR: decir algo nuevo...]
 Instead of thinking:
@@ -546,7 +668,7 @@ Carry out of selfpointing:
 	say line break;
 	if Itk is visible
 	begin;
-		say "El [o]mono[x] señala y dice: 'Itk. Lami lami oo.'";
+		say "El [j]mono[x] señala y dice: 'Itk. Lami lami oo.'";
 	otherwise;
 		say "Lo que no es más que una redomada estupidez, todo sea dicho.";
 	end if.
@@ -554,7 +676,7 @@ Carry out of selfpointing:
 Carry out of pointing:
 	if Itk is visible
 	begin;
-		say "Señalo [al noun] con diversos gestos y el extraño [o]mono[x] mira con atención, como si quisiese interpretar mis gestos.";
+		say "Señalo [al noun] con diversos gestos y el extraño [j]mono[x] mira con atención, como si quisiese interpretar mis gestos.";
 	otherwise;
 		say "Hago gestos señalando [al noun], aunque no hay nadie para verlo así que no sé que fundida cosa se me ha pasado por la cabeza.";
 	end if.
@@ -565,7 +687,7 @@ Before of showing a thing to Itk when the noun is not carried:
 	stop the action.
 
 Instead of showing a thing to Itk:
-	say "El [o]mono[x] [lo noun] coge con avidez, pero [lo noun] deja caer en cuanto ve que no es comestible.";
+	say "El [j]mono[x] [lo noun] coge con avidez, pero [lo noun] deja caer en cuanto ve que no es comestible.";
 	move the noun to cabina.
 
 [ACCION BUSCAR: la cambiamos por examinar]
@@ -586,7 +708,7 @@ Instead of attacking:
 [ACCIÓN OLER: por lo menos poner un texto graciosillo]
 Instead of smelling:
 	say "Uhm... no huelo nada extraño... ¡oh, no! No huelo una fundida cosa. El olfato también debe haber dejado de funcionar.";
-	if Itk is visible, say "[line break]El [o]mono[x] hace gesto de oler... y parece que algo no huele muy bien, espero no ser yo...".
+	if Itk is visible, say "[line break]El [j]mono[x] hace gesto de oler... y parece que algo no huele muy bien, espero no ser yo...".
 
 [ACCION REGISTRAR: la redirigimos a examinar]
 Instead of searching something:
@@ -595,7 +717,7 @@ Instead of searching something:
 [ACCIÓN ESCUCHAR: lo mismo]
 Instead of listening:
 	say "Aumento lo que puedo mi sensibilidad auditiva... y no escucho nada de interés.";
-	if Itk is visible, say "El [o]mono[x] mira mis orejas artificiales con curiosidad.".
+	if Itk is visible, say "El [j]mono[x] mira mis orejas artificiales con curiosidad.".
 
 [ACCIÓN SABOREAR: lo mismo]
 Instead of tasting a parte del cuerpo:
@@ -607,12 +729,12 @@ Instead of tasting:
 [ACCIÓN TOCAR: un poco más...]
 Instead of touching a limpio thing:
 	say "No parece muy diferente de como suele ser.";
-	if Itk is visible, say "El [o]mono[x] mira con interés lo que hago, y luego da unos golpecitos él mismo.".
+	if Itk is visible, say "El [j]mono[x] mira con interés lo que hago, y luego da unos golpecitos él mismo.".
 
 Instead of touching a sucio thing:
 	say "No parece muy... ¡mald... ya me he puesto los dedos negros otra vez.";
 	now the noun is tocado;
-	if Itk is visible, say "El [o]mono[x] mira con interés lo que hago, y luego da unos golpecitos él mismo.".
+	if Itk is visible, say "El [j]mono[x] mira con interés lo que hago, y luego da unos golpecitos él mismo.".
 
 Understand "acaricia [a thing]"  as touching.
 
@@ -625,12 +747,12 @@ Instead of touching yourself:
 [ACCION ABRIR: por poner cosas de Itk]
 Instead of opening when Itk is visible:
 	say "Ahora no puedo abrirlo.";
-	say "El [o]mono[x] se ríe a carcajadas de mi intento. Cada vez me cae mejor este animalejo, en cuanto le ponga las manos encima haré varios animalejos con él: el animalejo cabeza, el animalejo brazo derecho...".
+	say "El [j]mono[x] se ríe a carcajadas de mi intento. Cada vez me cae mejor este animalejo, en cuanto le ponga las manos encima haré varios animalejos con él: el animalejo cabeza, el animalejo brazo derecho...".
 
 [ACCION CERRAR: por poner cosas de Itk]
 Instead of closing when Itk is visible:
 	say "Ahora no puedo cerrarlo.";
-	say "El [o]mono[x] se ríe a carcajadas de mi intento. Cada vez me cae mejor este animalejo, en cuanto le ponga las manos encima haré varios animalejos con él: el animalejo cabeza, el animalejo brazo derecho...".
+	say "El [j]mono[x] se ríe a carcajadas de mi intento. Cada vez me cae mejor este animalejo, en cuanto le ponga las manos encima haré varios animalejos con él: el animalejo cabeza, el animalejo brazo derecho...".
 
 [ACCION CORTAR: la frase original es horrible para el caso]
 Instead of cutting:
@@ -671,7 +793,7 @@ Understand "saluda [someone]" or "saludar [someone]" or "sonrie [someone]" or "s
 
 [ACCIÓN SALUDAR: por poner cosillas de Itk]
 Instead of waving or waving hands or saluding when Itk is visible:
-	say "Saludo al [o]mono[x].";
+	say "Saludo al [j]mono[x].";
 	say "El mono responde con algo como: 'Oo lami lami nuk nuk'.".
 
 Instead of waving or waving hands:
@@ -682,7 +804,7 @@ Screaming is an action applying to nothing.
 Understand "gritar" or "grita" as screaming.
 
 Carry out of screaming:
-	say "¡FUNDIDA MIERDA DE [o]BOTE[x], DE [o]NANOS[x] Y LA PUTA MADRE DE LA REINA DE LOS XENOMORFOS!";
+	say "¡FUNDIDA MIERDA DE [j]BOTE[x], DE [j]NANOS[x] Y LA PUTA MADRE DE LA REINA DE LOS XENOMORFOS!";
 	say line break;
 	say "¡Joder, joder y más joder!".
 
@@ -692,7 +814,7 @@ Understand "habla" as mading.
 Carry out of mading:
 	if Itk is visible
 	begin;
-		say "Intento comunicarme con esta cosa... 'Oop Pouk Xzzxy'... bah! me mira como si fuese idiota.[line break][line break]Como si yo fuese idiota, él [o]mono[x] este es evidentemente idiota de nacimiento.";
+		say "Intento comunicarme con esta cosa... 'Oop Pouk Xzzxy'... bah! me mira como si fuese idiota.[line break][line break]Como si yo fuese idiota, él [j]mono[x] este es evidentemente idiota de nacimiento.";
 	otherwise;
 		say "Mala cosa si ya empiezo a pensar en hablar sola, ya tengo bastante con hablar con charraros de soporte de información enloquecidos.";
 	end if.
@@ -705,7 +827,7 @@ Instead of asking yourself about something, try mading.
 [PARTE DEL CUERPO: Voz]
 La voz is a person in cabina. La voz is an scenery.
 Understand "informacion" or "lm-235" or "lm" as voz.
-The description of the voz is "Estaría bien que el [o]LM-235[x] tuviese un cuerpo que pudiese recibir palizas, palizas contundentes, pero lamentablemente está dentro de mi propia cabeza, y la verdad, ya tuve bastante de masoquismo por un par de vidas, al menos.".
+The description of the voz is "Estaría bien que el [j]LM-235[x] tuviese un cuerpo que pudiese recibir palizas, palizas contundentes, pero lamentablemente está dentro de mi propia cabeza, y la verdad, ya tuve bastante de masoquismo por un par de vidas, al menos.".
 
 [Reglas especiales de tratamiento con la voz]
 
@@ -786,19 +908,33 @@ Instead of asking voz about anything:
 [CONSULTAS CON LA VOZ]
 Table of consultas a la voz
 usada	topic					reply
-0	"nanos" or "nano"			Table of explicacion sobre nanos
-0	"cilindro"					Table of explicacion sobre cilindro
-0	"cilindros" or "naykho"			Table of explicacion sobre cilindro
-0	"negro" or "negro" or "quemado" or "hollin" or "negrura" or "retorcido" or "metales" or "ceramicas" or "plasticos" or "masa" or "desastre" or "metal" or " ceramica" or "plastico"or "lo negro" or "tostadora"	Table of explicacion sobre negro
+0	"nanos" or "nano" or "los nanos"			Table of explicacion sobre nanos
+0	"cilindro" or "el cilindro"					Table of explicacion sobre cilindro
+0	"cilindros" or "naykho" or "los cilindros"			Table of explicacion sobre cilindro
+0	"negro" or "quemado" or "hollin" or "negrura" or "retorcido" or "metales" or "ceramicas" or "las ceramicas" or "plasticos" or "masa" or "desastre" or "metal" or " ceramica" or "plastico"or "lo negro" or "tostadora" or "la tostadora"	Table of explicacion sobre negro
 0	"hierba"					Table of explicacion sobre hierba
-0	 "parabrisas" or "cristal" or "ventana" or "cubierta" 										Table of explicacion sobre parabrisas
-0	"silla" or "sillon" or "asiento"		Table of explicacion sobre silla
-0	"indicadores" or "indicador" or "medidores" or "comunicador" 									Table of explicacion sobre indicador
-0	"mono" or "lemur"			Table of explicacion sobre lemur
+0	 "parabrisas" or "cristal" or "ventana" or "cubierta"or "el parabrisas" or "el cristal" or "la ventana" or "la cubierta" 										Table of explicacion sobre parabrisas
+0	"silla" or "sillon" or "asiento" or "la silla" or "el sillon" or "el asiento"		Table of explicacion sobre silla
+0	"indicadores" or "indicador" or "medidores" or "comunicador"or "los indicadores" or "el indicador" or "los medidores" or "el comunicador" 									Table of explicacion sobre indicador
+0	"mono" or "lemur" or "el mono" or "el lemur"			Table of explicacion sobre lemur
+0	"extintor"or "el extintor"	Table of explicacion sobre extintor
+
+Table of explicacion sobre extintor
+frase
+"[italic type]No tengo datos sobre extintores.[roman type]"
+"Qué sorpresa, que no sepas nada."	
+"[italic type]Revisando datos. No, no tenemos datos sobre extintores.[roman type]"
+"No tienes."	
+"[italic type]No, no tengo.[roman type]"
+"No pillas el sarcasmo."	
+"[italic type]Sí que tengo datos sobre el sarcasmo, así como ejemplos históricos en...[roman type]"
+"Déjalo. ¿Alguna idea de dónde puede haber salido?"	
+"[italic type]No está en el banco de datos.[roman type]"
+"Era de esperar."	
 
 Table of explicacion sobre nanos
 frase
-"[italic type]Los comúnmente conocidos como [o]nanos[x], son minúsculos agentes robóticos autosuficientes creados, o a veces criados y educados, con un objetivo concreto. A modo de ejemplo podríamos destacar sus usos...[roman type]"
+"[italic type]Los comúnmente conocidos como [j]nanos[x], son minúsculos agentes robóticos autosuficientes creados, o a veces criados y educados, con un objetivo concreto. A modo de ejemplo podríamos destacar sus usos...[roman type]"
 "Abrevia, haz el favor."
 "[italic type]Supongo que estás interesada en una información menos completa y más relevante, ¿no?[roman type]"
 "¿A tí que te parece ridículo y descontrolado pedazo de circuitos fundidos?"
@@ -810,8 +946,8 @@ frase
 "He estado sobrevolando ese planeta, es un extraño lugar que parece hecho de lodo. Un lodo con extrañas mareas."
 "[italic type]En realidad no es lodo, sino un manto de nanos. Mansuy III era una próspera colonia agrícola. Sus tierras no eran todo lo rica en nutrientes como sus habitantes hubiesen deseado y la Naykho Corp. les envió nanos especializados en la extracción de minerales. Se suponía que los nanos buscarían los minerales en el subsuelo y los subirían a la superficie.[roman type]"
 "No suena mal."
-"[italic type]Pero los [o]nanos[x] encontraron minerales mucho más cerca: los cultivos, las herramientas, las máquinas agrícolas, los agricultores...[roman type]"
-"Entiendo, así que nada de abrir los contenedores de [o]nanos[x]."
+"[italic type]Pero los [j]nanos[x] encontraron minerales mucho más cerca: los cultivos, las herramientas, las máquinas agrícolas, los agricultores...[roman type]"
+"Entiendo, así que nada de abrir los contenedores de [j]nanos[x]."
 "[italic type]Sí, mejor no arriesgarse.[roman type]"
 
 Table of explicacion sobre negro
@@ -823,27 +959,27 @@ frase
 
 Table of explicacion sobre hierba
 frase
-"[italic type]Esta [o]hierba[x] perenne puede alcanzar hasta los dos metros de alto. Las hojas se acumulan de forma circular en torno al tronco o caña principal, como en estrella. La caña es verde, delgada y redonda en la sección transversal. Las hojas son en forma de espadas largas de hasta varios palmos de longitud y pueden tener colores que varían desde el verde hasta el azul grisáceo, pero son muy delgadas. El nodo en la base de cada vaina es rojizo o morado y sin pelo...[roman type]"
+"[italic type]Esta [j]hierba[x] perenne puede alcanzar hasta los dos metros de alto. Las hojas se acumulan de forma circular en torno al tronco o caña principal, como en estrella. La caña es verde, delgada y redonda en la sección transversal. Las hojas son en forma de espadas largas de hasta varios palmos de longitud y pueden tener colores que varían desde el verde hasta el azul grisáceo, pero son muy delgadas. El nodo en la base de cada vaina es rojizo o morado y sin pelo...[roman type]"
 "Pero, ¿se pueden comer?"
 "[italic type]El ganado humano sí, pero los propios humanos no pueden comerla.[roman type]"
 "No podía haber tanta suerte. Jamás pensé en instalarme un estómago de vaca, habrá que pensarlo para la próxima revisión."
 
 Table of explicacion sobre parabrisas
 frase
-"[italic type]Estos parabrisas de los módulos [o]XMRT[x] pueden soportar unas temperturas y presiones increíbles...[roman type]"
+"[italic type]Estos parabrisas de los módulos [j]XMRT[x] pueden soportar unas temperturas y presiones increíbles...[roman type]"
 "Déjalo, no quiero escuchar mentiras."
 "[italic type]No son... bueno, supongo que en este caso...[roman type]"
 
 Table of explicacion sobre silla
 frase
-"[italic type]Estos prodigiosos asientos de los [o]XMRT[x], son un módulo de salvamento ellos mismos. Con un sistema de anclaje casi inamovible, un paracaídas irrompible de disparo automático y resultando cómodas a la par que seguras sus abrazaderas, se puede decir que su ocupante puede estar seguro ante cualquier percance.[roman type]"
+"[italic type]Estos prodigiosos asientos de los [j]XMRT[x], son un módulo de salvamento ellos mismos. Con un sistema de anclaje casi inamovible, un paracaídas irrompible de disparo automático y resultando cómodas a la par que seguras sus abrazaderas, se puede decir que su ocupante puede estar seguro ante cualquier percance.[roman type]"
 "¿Tu empresa fabricante y la de estos sillones es la misma?"
 "[italic type]Sí, ¿por qué?[roman type]"
 "Por nada, déjalo."
 
 Table of explicacion sobre indicador
 frase
-"[italic type]Sirven para controlar el [o]XMRT[x], aunque ahora puedo ver que están destruídos siguen la estandarización VAM-1A.[roman type]"
+"[italic type]Sirven para controlar el [j]XMRT[x], aunque ahora puedo ver que están destruídos siguen la estandarización VAM-1A.[roman type]"
 "Voy A Morir YA"
 "[italic type]¿Cómo?[roman type]"
 "El estándar..."
@@ -902,6 +1038,7 @@ frase
 
 A thing can be limpio or sucio. A thing is usually sucio.
 A thing can be tocado. A thing is usually not tocado.
+A parte del cuerpo is usually limpio.
 
 [
 
@@ -910,7 +1047,7 @@ A thing can be tocado. A thing is usually not tocado.
 Instead of  rubbing the extintor when the nanos is not in cabina:
 	say "Sacudo un poco el extintor y  lo froto otro poco. Al menos ya no está tan negro, de hecho al estar hecho de un metal plateado casi parece un espejo.";
 	say line break;
-	say "¡Destripante! Reflejado en el extintor se puede ver el compartimiento que está tras el asiento.";
+	say "¡Destripante! Reflejado en el extintor se puede ver el [j]compartimiento[x] que está tras el asiento.";
 	now the noun is limpio;
 	move nanos to the cabina;
 	if Itk is not visible, Itk appears in three turns from now.
@@ -918,27 +1055,27 @@ Instead of  rubbing the extintor when the nanos is not in cabina:
 [He tenido que poner esta regla delante de las otras, 
 esto es un bug no arreglado de I7, ya que esta regla 
 es más restrictiva que las otras]
-Instead of rubbing a sucio parte del cuerpo:
+First instead of rubbing a parte del cuerpo:
 	say "Ya me ducharé cuando sea posible.".
 
-Instead of rubbing yourself:
+First instead of rubbing yourself:
 	say "Ya me ducharé cuando sea posible.".
 
 Instead of rubbing a sucio thing  for the first time:
 	say "Dan ganas de quitar todo este negro [del noun], pero paso... mi estilo de limpieza habitualmente conlleva un desintegrador de punta gruesa; que para algo soy jefa de una escuadrilla de demolición y limpieza de zonas infectadas.[line break][line break]Bueno, tal vez alguna".
 
 Instead of rubbing a sucio thing   for the second time:
-	say "¡Joder! Tal vez sí que haya que limpiar [el noun]. [Lo noun] sacudo un poco y [lo noun] froto otro poco desde donde estoy y al menos ya no está[n noun] tan negro[s noun].";
+	say "¡Joder! Tal vez sí que haya que limpiar [el noun]. [Lo noun] sacudo un poco y [lo noun] froto otro poco desde donde estoy y al menos ya no está[n noun] tan negr[o noun].";
 	now the noun is limpio;
- 	if Itk is visible, say "[line break]El [o]mono[x] observa lo que hago y el mismo limpia un poco otra cosa... hasta que ve que se pone la [o]mano[x] negra. Parece muy enfadado.".
+ 	if Itk is visible, say "[line break]El [j]mono[x] observa lo que hago y el mismo limpia un poco otra cosa... hasta que ve que se pone la [j]mano[x] negra. Parece muy enfadado.".
 
 Instead of rubbing a sucio thing:
-	say "Sacudo un poco [al noun] y [lo noun] froto otro poco. Al menos ya no está[n noun] tan negro[s noun].";
+	say "Sacudo un poco [al noun] y [lo noun] froto otro poco. Al menos ya no está[n noun] tan negr[o noun].";
 	now the noun is limpio;
-	 if Itk is visible, say "[line break]El [o]mono[x] observa lo que hago y el mismo limpia un poco otra cosa... hasta que ve que se pone la [o]mano[x] negra. Parece muy enfadado.".
+	 if Itk is visible, say "[line break]El [j]mono[x] observa lo que hago y el mismo limpia un poco otra cosa... hasta que ve que se pone la [j]mano[x] negra. Parece muy enfadado.".
 
 Instead of rubbing a limpio thing:
-	say "Supongo que podría sacarle[s] brillo y dejar[lo noun] reluciente[s noun], pero... ¿para qué?".
+	say "Supongo que podría sacarle[s] brillo y dejar[lo noun] reluciente[s], pero... ¿para qué?".
 
 [
 
@@ -947,11 +1084,11 @@ PARTES DEL CUERPO
 ]
 
 [PARTE: Brazos]
-The brazos is a parte del cuerpo in cabina. The description of brazos is "Supongo que no son exactamente los brazos de una 'mujer normal', qué remedio, los necesito fuertes para empujar y cargar, lo que también viene bien para golpear, y eso significa que hay que meter más masa de seudomúsculo, no queda otra.".
+Los brazos is a parte del cuerpo in cabina. The description of brazos is "Supongo que no son exactamente los brazos de una 'mujer normal', qué remedio, los necesito fuertes para empujar y cargar, lo que también viene bien para golpear, y eso significa que hay que meter más masa de seudomúsculo, no queda otra.".
 The brazos are plural-named.
 
 [PARTE: Pies]
-The pies is a parte del cuerpo in cabina. The description of pies is "[if seccion is in cabina]Casi no se ven. Tengo que lograr sacarlos de ahí...[otherwise]Me dan ganas de mirarme los pies, pero no es el momento.[end if]".
+Los pies is a parte del cuerpo in cabina. The description of pies is "[if seccion is in cabina]Casi no se ven. Tengo que lograr sacarlos de ahí...[otherwise]Me dan ganas de mirarme los pies, pero no es el momento.[end if]".
 The pies are plural-named.
 
 [PARTE: Tetas]
@@ -959,11 +1096,11 @@ Las tetas is a parte del cuerpo in cabina. The description of tetas is "Justo de
 Understand "pechos" or "senos" as tetas.
 
 [PARTE: Pezones]
-The pezones is a parte del cuerpo in cabina. The description of pezones is "Espero que estén a bien recaudo bajo los restos de mi sobrepiel astronáutica. No me gustaría perder un par de piezas con semejante sensibilidad.".
+Los pezones is a parte del cuerpo in cabina. The description of pezones is "Espero que estén a bien recaudo bajo los restos de mi sobrepiel astronáutica. No me gustaría perder un par de piezas con semejante sensibilidad.".
 The pezones are plural-named.
 
 [PARTE: Sobrepiel]
-The sobrepiel astronautica is a parte del cuerpo in cabina. The description of sobrepiel is "Si fuese completamente humana ahora llevaría un traje de vacío muy ajustado o no cabría aquí...[line break][line break]¡No seas fundida! Si fuese completamente humana ahora estaría más que muerta...".
+La sobrepiel astronautica is a parte del cuerpo in cabina. The description of sobrepiel is "Si fuese completamente humana ahora llevaría un traje de vacío muy ajustado o no cabría aquí...[line break][line break]¡No seas fundida! Si fuese completamente humana ahora estaría más que muerta...".
 
 [PARTE: Piernas]
 Las piernas is a parte del cuerpo in cabina. The description of piernas is "[if veces examinado of piernas is less than 3]Me gusta impresionar a los tíos. No es que sea especialmente zorr... bueno, supongo que algo así, pero lo importante es que ligar con alguien medio decente - o sea, que al menos parezca humano- resulta un poco difícil para una cyborg como yo; así que me gusta ir bien equipada.[otherwise]Son unas piernas destripantes...[end if][if seccion is in cabina][line break][line break]Es lamentable verlas atrapadas así.[end if][if veces examinado of piernas is greater than 0][line break][line break]En la parte superior de la pierna derecha está abierto el módulo de recarga de nanos[end if]".
@@ -977,11 +1114,11 @@ This is the primera vision de las piernas rule:
 Table of primera vision de piernas
 frase
 "Son geniales, me costaron una pasta pero... un momento."
-"Hay un [o]módulo[x] abierto. ¿Qué mierda es est...[line break][line break][italic type]Es un módulo auxiliar de recarga de nanos.[roman type]"
+"Hay un [j]módulo[x] abierto. ¿Qué mierda es est...[line break][line break][italic type]Es un módulo auxiliar de recarga de nanos.[roman type]"
 "¿Qué?[line break][line break][italic type]Los componentes cyborg actuales son de gran calidad y resistencia, en principio no es necesario hacer nada por ellos hasta la revisión anual o en caso de grave accidente...[roman type][line break][line break]Abrevia, eso ya lo sé.[line break][line break][italic type]...pero es posible recargar nanos, para activación, mantenimiento y otras funciones en caso de que se hayan agotado. El módulo abierto sirve para inyectar dichos nanos.[roman type]"
 "Entiendo... ¿pueden haberse 'agotado'?[line break][line break][italic type]Si han tenido que realizar demasiadas reparaciones... teniendo en cuenta el estado del bote es posible que lleven muchas horas, o tal vez días reconstruyéndote. Eso explicaría que se hayan agotado, así como que tengas mucho mejor aspecto que el XMRT.[roman type]"
 "¡Yo siempre tendré mejor aspecto que cualquier XMRT![line break][line break][italic type]No tengo datos para evaluar eso.[line break][line break]Si los nanos se han agotado, tal vez también se explique el agotamiento muscular y que yo esté hablando sin control. El trabajo estará a medio terminar.[roman type]"
-"¿De dónde saco más nanos?[line break][line break][italic type]Pues es realmente difícil que haya en este entorno...[roman type][line break][line break]¡Joder![line break][line break][italic type]...normalmente vienen encapsulados en un simple cilindro de la empresa Naykho Corp. sin más distintivo que un código de barras y el logo de peligro nanológico o bien el logo de la empresa.[roman type]"
+"¿De dónde saco más nanos?[line break][line break][italic type]Pues es realmente difícil que haya en este entorno...[roman type][line break][line break]¡Joder![line break][line break][italic type]...normalmente vienen encapsulados en un simple [j]cilindro[x] de la empresa Naykho Corp. sin más distintivo que un código de barras y el logo de peligro nanológico o bien el logo de la empresa.[roman type]"
 "...maldita sea... estamos bien fundidos."
 
 Table of CompPierna
@@ -998,7 +1135,7 @@ Los dedos is a parte del cuerpo in cabina. The description of dedos is "Son duro
 Understand "dedo" as dedos.
 
 [PARTES DEL CUERPO: Cuerpo]
-The cuerpoT is a parte del cuerpo in cabina. 
+El cuerpoT is a parte del cuerpo in cabina. 
 Understand "cuerpo" as cuerpoT.
 Instead of examining cuerpoT:
 	try examining yourself.
@@ -1014,7 +1151,10 @@ IMAGINARIOS
 ]
 
 [DECORADO ACTIVO: Bolillero]
-The bolillero is a decorado activo in cabina. The description of bolillero is "[if veces examinado of bolillero is greater than 0]Ramírez no está por aquí, por suerte. Si estuviese, estaría lloriqueando sin parar.[otherwise]Carlos 'Headcrushed' Ramirez, el bolillero, es el tío más torpe de toda la cuadrilla. A buen seguro ahora sería una molestia, por no decir un incordio. Claro que los bolilleros, encargados básicamente a derribar con sus 'bolas' -los puños de su traje androide de trabajo- los habitáculos e instalaciones - y recibiendo siempre impactos de los escombros descontrolados- no son las personas más inteligentes de la República. [end if]".
+El bolillero is a decorado activo in cabina. The description of bolillero is "[if veces examinado of bolillero is greater than 0]Ramírez no está por aquí, por suerte. Si estuviese, estaría lloriqueando sin parar.[otherwise]Carlos 'Headcrushed' Ramirez, el bolillero, es el tío más torpe de toda la cuadrilla. A buen seguro ahora sería una molestia, por no decir un incordio. Claro que los bolilleros, encargados básicamente a derribar con sus 'bolas' -los puños de su traje androide de trabajo- los habitáculos e instalaciones - y recibiendo siempre impactos de los escombros descontrolados- no son las personas más inteligentes de la República. [end if]".
+
+Instead of rubbing bolillero:
+	say "No hay nadie de la cuadrilla de trabajo por aquí. De todas formas no habrían sobrevivido a la reentrada.".
 
 
 Chapter 3 - Los objetos
@@ -1033,7 +1173,7 @@ ese tan desagradable ser y nada musculoso]
   humano normal
 ]
 Una seccion del fuselaje is a scenery. 
-The description of seccion is "Justo debajo del [o]parabrisas[x] el bote se ha debido golpear con algo cortante y muy resistente. El resultado es como una 'funda' que aprisiona la parte baja de  mis [o]piernas[x]."
+The description of seccion is "Justo debajo del [j]parabrisas[x] el bote se ha debido golpear con algo cortante y muy resistente. El resultado es como una 'funda' que aprisiona la parte baja de  mis [j]piernas[x]."
 The printed name of seccion is "sección del fuselaje".
 Understand "cosa" or "funda" as seccion.
 
@@ -1043,7 +1183,7 @@ Instead of attacking the fuselaje for first time:
 
 Instead of attacking the fuselaje:
 	say "Lo intento de nuevo... pero es inútil, o al menos lo será mientras no pueda recuperar mi fuerza normal.";
-	if Itk is visible, say "[line break]El [o]mono[x] golpea [el noun] con saña, pero tiene el mismo efecto que yo, ninguno.".
+	if Itk is visible, say "[line break]El [j]mono[x] golpea [el noun] con saña, pero tiene el mismo efecto que yo, ninguno.".
 
 
 [SEGUNDO OBJETO: CILINDRO DE NANOS
@@ -1056,32 +1196,32 @@ Instead of attacking the fuselaje:
   Claro que están fuera del alcance de Layna
   y no tienen muy buena pinta tampoco. 
 ]
-A nanos is a reflexed thing. The description of nanos is "Se trata de un absurdamente simple cilindro sin abertura aparentes supuestamente lleno de nanos. Es plateado con apenas adornos o distintivos.".
+Unos nanos is a reflexed thing. The description of nanos is "Se trata de un absurdamente simple cilindro sin abertura aparentes supuestamente lleno de nanos. Es plateado con apenas adornos o distintivos.".
 Understand "cilindro" or "cilindro de nanos" or "nano" as nanos.
 
 [Un pequeño truco sucio]
 The printed name of nanos is "cilindro de nanos". The keyword of nanos is "nanos".
 
-Rule for printing the name of the nanos while listing contents: say "cilindro de [o]nanos[x][if nanos is reflexed] (dentro del compartimiento  tras el asiento, es decir inaccesible)[end if]". 
+Rule for printing the name of the nanos while listing contents: say "cilindro de [j]nanos[x][if nanos is reflexed] (dentro del compartimiento  tras el asiento, es decir inaccesible)[end if]". 
 
 [TERCER OBJETO: MODULO DE INYECCIÓN DE RECARGA DE NANOS
 
    Un pequeño dispositivo en el muslo derecho de Layna
   útil para introducir nuevos nanos funcionales.
 ]
-A modulo de recarga is a decorado activo.
+Un modulo de recarga is a decorado activo.
 The printed name of modulo is "módulo de recarga".
-The description of modulo is "No es más que una pequeña abertura en mi [o]muslo[x] derecho. Se supone que debería introducir un contenedor de [o]nanos[x] ahí... si consigo tener uno. De momento es solo un agujero que afea mi pierna.".
+The description of modulo is "No es más que una pequeña abertura en mi [j]muslo[x] derecho. Se supone que debería introducir un contenedor de [j]nanos[x] ahí... si consigo tener uno. De momento es solo un agujero que afea mi pierna.".
 
 [CUARTO OBJETO: EXTINTOR
  
   Permite ver el compartimiento de atrás si 
   está limpio, no sirve para nada más.
 ]
-The extintor is a decorado activo in cabina. The description of extintor is "Ni siquiera recordabas disponer de uno de estos en el [o]bote[x], debe ser alguna de las cosas que estaban en un [o]compartimiento[x] que hay justo tras el asiento el ocupante. ¿Qué más habrá ahí?[if sucio] Está negro, cubierto de [o]hollín[x], como todo lo demás, aunque está claro que originalmente era brillante y plateado.[end if][if extintor is sucio and extintor is tocado] Especialmente porque los dedazos, que he dejado claramente marcados en el hollín al tocarlo, dejan ver la superficie reflectante. Casi puedo verme la [o]cara[x] reflejada.[end if][if limpio] Ahora está limpio y su plateada superficie me permite ver un reflejo de casi toda la [o]cabina[x], incluido el compartimiento de carga que está tras de mí.[end if]".
+El extintor is a decorado activo in cabina. The description of extintor is "Ni siquiera recordabas disponer de uno de estos en el [j]bote[x], debe ser alguna de las cosas que estaban en un [j]compartimiento[x] que hay justo tras el asiento el ocupante. ¿Qué más habrá ahí?[if sucio] Está negro, cubierto de [j]hollín[x], como todo lo demás, aunque está claro que originalmente era brillante y plateado.[end if][if extintor is sucio and extintor is tocado] Especialmente porque los dedazos, que he dejado claramente marcados en el hollín al tocarlo, dejan ver la superficie reflectante. Casi puedo verme la [j]cara[x] reflejada.[end if][if limpio] Ahora está limpio y su plateada superficie me permite ver un reflejo de casi toda la [j]cabina[x], incluido el [j]compartimiento[x] de carga que está tras de mí.[end if]".
 
 [DECORADO ACTIVO: Superficie]
-The superficie is a decorado activo in cabina. The description of superficie is "El [o]extintor[x] está hecho de un material parecido a la plata.[if the extintor is sucio and the extintor is tocado] Las pocas huellas sobre el mismo permiten ver reflejado parcialmente el contenido de todo el bote salvavidas. Al menos ahora puedo ver que mi [o]cara[x] está bien.[end if][if extintor is limpio] Sobre la plateada superficie del extintor se puede ver casi toda la cabina, incluido el compartimiento de carga que está tras de mí.[end if]".
+The superficie is a decorado activo in cabina. The description of superficie is "El [j]extintor[x] está hecho de un material parecido a la plata.[if the extintor is sucio and the extintor is tocado] Las pocas huellas sobre el mismo permiten ver reflejado parcialmente el contenido de todo el bote salvavidas. Al menos ahora puedo ver que mi [j]cara[x] está bien.[end if][if extintor is limpio] Sobre la plateada superficie del extintor se puede ver casi toda la cabina, incluido el [j]compartimiento[x] de carga que está tras de mí.[end if]".
 
 
 Chapter 4 - Los PNJs
@@ -1098,7 +1238,7 @@ no hablaría de la quintaesencia de la molestia?]
    desagradable situación. Claro que nadie habla
    'itkiano', ni Itk, evidentemente...
 ]
-A Itk is a man. The description of Itk is "Se trata de alguna clase de... [o]mono[x], uno que nunca has visto, boca y nariz negra y demasiado pequeñas, orejas inmensas, ojos marrones gigantescos y todo lo demás... bueno... cubierto de largos [o]pelos[x] de un color amarillento tendiendo a... feo.". 
+Itk is a man. The description of Itk is "Se trata de alguna clase de... [j]mono[x], uno que nunca has visto, boca y nariz negra y demasiado pequeñas, orejas inmensas, ojos marrones gigantescos y todo lo demás... bueno... cubierto de largos [j]pelos[x] de un color amarillento tendiendo a... feo.". 
 Itk can be aparecido. Itk is not aparecido.
 
 Understand "mono" or "lemur" or "engendro" or "pequeño" or "pequeñajo" or "amarillento" or "amarillo" or "delgado" or "delgaducho" as Itk.
@@ -1109,8 +1249,8 @@ The printed name of Itk is a "lemur delgaducho y amarillento". The keyword of It
 When play begins, Itk appears in 30 turns from now.
 
 [DECORADO ACTIVO: Pelos]
-The pelos is a decorado activo and a part of Itk. The pelos are plural-named.
-The description of the pelos is "Largos y enmarrañados los pelos de este [o]mono[x] más que cubrirlo sirven para aumentar la sensación de que se trata de una criatura flacucha y lamentable.".
+Los pelos is a decorado activo and a part of Itk. The pelos are plural-named.
+The description of the pelos is "Largos y enmarrañados los pelos de este [j]mono[x] más que cubrirlo sirven para aumentar la sensación de que se trata de una criatura flacucha y lamentable.".
 
 [Regla para aparecer]
 At the time when Itk appears:
@@ -1124,7 +1264,7 @@ At the time when Itk appears:
 Table of Itk aparece
 frase
 "Un extraño ser entra por el agujero del parabrisas."
-"Es alguna clase de [o]mono[x] flacucho y peludo que se sienta sobre los destrozados controles y me mira con curiosidad."
+"Es alguna clase de [j]mono[x] flacucho y peludo que se sienta sobre los destrozados controles y me mira con curiosidad."
 "[italic type]Sin lugar a dudas se trata de alguna clase de lemur, un insectívoro gigante. Pero no es de una especie que reconozca.[roman type]"
 "Debí comprar el modelo caro."
 "[italic type]¿Modelo caro? ¿De qué?[roman type]"
@@ -1135,12 +1275,13 @@ At the time when Itk reaparece:
 	if Itk is not visible
 	begin;
 		move Itk to cabina;
-		say "El [o]mono[x] se asoma con cautela entre la hierba. Se tranquiliza rápidamente, entra y se vuelve a sentar sobre los [o]controles[x] como si nada hubiese pasado...";
+		say "El [j]mono[x] se asoma con cautela entre la hierba. Se tranquiliza rápidamente, entra y se vuelve a sentar sobre los [j]controles[x] como si nada hubiese pasado...";
 	end if.
 
 [Itk no se deja tocar]
-Instead of taking or attacking Itk:
+Instead of taking or attacking or rubbing Itk:
 	say "Intento coger al mono desgarbado, pero parece asustarse, salta por el agujero del parabrisas y desaparece entre la hierba...";
+	play Sound of Lemur in midground;
 	remove Itk from play;
 	Itk reaparece in four turns from now.
 
@@ -1155,7 +1296,7 @@ el contenido de 'the current action']
 After pointing the nanos when Itk is visible:
 	if the nanos is reflexed
 	begin;
-		say "El mono coge el cilindro del [o]compartimiento[x] de atrás, lo revisa, lo muerde y lo deja caer con cara de frustración.[line break]Casi me acierta en la pierna con el [o]cilindro[x] al dejarlo caer al suelo. ¡Fundido mono!. Espero que no se haya roto.";
+		say "El mono coge el cilindro del [j]compartimiento[x] de atrás, lo revisa, lo muerde y lo deja caer con cara de frustración.[line break]Casi me acierta en la pierna con el [j]cilindro[x] al dejarlo caer al suelo. ¡Fundido mono!. Espero que no se haya roto.";
 		now the nanos is not reflexed;
 	end if.
 
@@ -1185,13 +1326,14 @@ After taking inventory when Itk is visible:
 	say "El mono me imita y parece revisar también si lleva algo consigo.".
 
 Instead of asking Itk about anything:
+	play Sound of Lemur in midground;
 	say "El mono me oye y al final dice: 'Oo lami nuk nuk Itk.' Que debe ser su forma de decir 'no he entendido una fundida cosa de lo que has dicho'.".
 
 Instead of telling Itk about something, try asking Itk about it.
 Instead of answering Itk that something, try asking Itk about it.
 Instead of asking Itk for something, try asking Itk about it.
 Instead of asking Itk to try doing something:
-	say "El [o]mono[x] me oye y al final dice: 'Oo lami nuk nuk Itk.' Que debe ser su forma de decir 'no he entendido una fundida cosa de lo que has dicho'.".
+	say "El [j]mono[x] me oye y al final dice: 'Oo lami nuk nuk Itk.' Que debe ser su forma de decir 'no he entendido una fundida cosa de lo que has dicho'.".
 
 After waiting when Itk is visible:
 	say "El mono pone cara de aburrido.".
